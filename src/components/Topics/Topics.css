@@ -1,4 +1,54 @@
 .topics {
     display: flex;
     flex-direction: column;
+    max-width: 35%;
+    margin: auto;
+}
+
+@media all and (max-width: 2100px) {
+    .topics {
+        max-width: 40%;
+    }
+}
+
+@media all and (max-width: 1700px) {
+    .topics {
+        max-width: 45%;
+    }
+}
+
+@media all and (max-width: 1400px) {
+    .topics {
+        max-width: 50%;
+    }
+}
+
+@media all and (max-width: 1200px) {
+    .topics {
+        max-width: 55%;
+    }
+}
+
+@media all and (max-width: 1000px) {
+    .topics {
+        max-width: 62%;
+    }
+}
+
+@media all and (max-width: 750px) {
+    .topics {
+        max-width: 70%;
+    }
+}
+
+@media all and (max-width: 600px) {
+    .topics {
+        max-width: 80%;
+    }
+}
+
+@media all and (max-width: 500px) {
+    .topics {
+        max-width: 85%;
+    }
 }
