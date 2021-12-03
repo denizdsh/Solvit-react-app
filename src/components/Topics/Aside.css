@@ -1,0 +1,57 @@
+aside {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 2px solid #313846;
+    border-radius: 20px;
+    color: gray;
+    overflow: hidden;
+}
+
+.sort-options::before {
+    content: "";
+    height: 2px;
+    background: #313846;
+    position: absolute;
+}
+
+.sort-options {
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+aside p {
+    margin: 5px 0 3px 0;
+}
+
+.sort-by {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.sort-by-btn:hover, .sort-order-btn:hover {
+    cursor: pointer;
+}
+
+.sort-order {
+    margin-top: 10px;
+}
+
+#date {
+    margin-right: 5px;
+}
+
+.aside-sort .fas {
+    font-size: 2vmin;
+    color: gray;
+}
+
+.active-param, .active-param .fas {
+    color: #D7DADC;
+}

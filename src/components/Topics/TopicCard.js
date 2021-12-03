@@ -49,17 +49,17 @@ export default function TopicCard({ topic }) {
             <article className="topic-functionality">
                 <ul className="topic-functionality-list">
                     <li className="topic-functionality-list-item topic-functionality-list-item-likes">
-                        <i class="far fa-heart"></i>
-                        <i class="fas fa-heart"></i>
+                        <i className="far fa-heart"></i>
+                        <i className="fas fa-heart"></i>
                         <span className="likes-count">{topic.likes.length} Likes</span>
                     </li>
                     <li className="topic-functionality-list-item topic-functionality-list-item-comments">
-                        <i class="fas fa-comments"></i>
+                        <i className="fas fa-comments"></i>
                         {topic.comments.length} Comments
                     </li>
                     <li className="topic-functionality-list-item topic-functionality-list-item-follow">
-                        <i class="far fa-bookmark"></i>
-                        <i class="fas fa-bookmark"></i>
+                        <i className="far fa-bookmark"></i>
+                        <i className="fas fa-bookmark"></i>
                         Follow
                     </li>
                 </ul>

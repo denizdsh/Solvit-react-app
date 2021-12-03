@@ -1,5 +1,6 @@
 import './Topics.css';
 import TopicCard from './TopicCard';
+import Aside from './Aside';
 export default function Topics({ topics }) {
     const topicsArr = [
         {
@@ -51,8 +52,11 @@ export default function Topics({ topics }) {
     ]
 
     return (
-        <section className="topics">
-            {topicsArr.map(topic => <TopicCard topic={topic} />)}
+        <section className="content">
+            <Aside />
+            <section className="topics">
+                {topicsArr.map(topic => <TopicCard topic={topic} />)}
+            </section>
         </section>
     )
 }

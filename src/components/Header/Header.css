@@ -51,6 +51,7 @@
 
 .dropdown-content a, .inner-dropdown-content a {
     padding: 15px;
+    border-radius: 10px;
 }
 
 .dropdown-content a:hover, .inner-dropdown-content a:hover {

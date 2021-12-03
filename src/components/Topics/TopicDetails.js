@@ -68,13 +68,13 @@ export default function TopicDetails({ topic }) {
             <article className="topic-functionality details">
                 <ul className="topic-functionality-list details">
                     <li className="topic-functionality-list-item topic-functionality-list-item-likes details">
-                        <i class="far fa-heart details"></i>
-                        <i class="fas fa-heart details"></i>
+                        <i className="far fa-heart details"></i>
+                        <i className="fas fa-heart details"></i>
                         <span className="likes-count details">{topic.likes.length} Likes</span>
                     </li>
                     <li className="topic-functionality-list-item topic-functionality-list-item-follow details">
-                        <i class="far fa-bookmark details"></i>
-                        <i class="fas fa-bookmark details"></i>
+                        <i className="far fa-bookmark details"></i>
+                        <i className="fas fa-bookmark details"></i>
                         Follow
                     </li>
                 </ul>

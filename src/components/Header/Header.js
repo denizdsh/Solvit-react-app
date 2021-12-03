@@ -65,7 +65,7 @@ export default function Header() {
                 </li>
                 <li className="nav-list-item dropdown" >
                     <button className="dropdown-btn ">
-                        Categories <i class="fa fa-caret-down"></i>
+                        Categories <i className="fa fa-caret-down"></i>
                     </button>
                     <article className="dropdown-content">
                         <Link to="/c/javascript" className="dropdown-content-link" >JavaScript</Link>
@@ -77,7 +77,7 @@ export default function Header() {
                         <Link to="/c/devops" className="dropdown-content-link" >DevOps</Link>
 
                         <Link to="/c/front-end" className="dropdown-content-link inner-dropdown-btn">
-                            Front-end <i class="fa fa-caret-down"></i>
+                            Front-end <i className="fa fa-caret-down"></i>
                         </Link>
                         <article className="inner-dropdown-content">
                             <Link to="/c/front-end/react" className="dropdown-content-link" >React</Link>
@@ -87,7 +87,7 @@ export default function Header() {
                         </article>
 
                         <Link to="/c/back-end" className="dropdown-content-link inner-dropdown-btn">
-                            Back-end <i class="fa fa-caret-down"></i>
+                            Back-end <i className="fa fa-caret-down"></i>
                         </Link>
                         <article className="inner-dropdown-content">
                             <Link to="/c/back-end/node.js" className="dropdown-content-link">Node.js</Link>
