@@ -10,7 +10,7 @@
     margin: 20px 0;
 }
 
-.topic.active-hover {
+.topic.active-hover:hover {
     outline: 1px solid #313846;
 }
 
@@ -20,10 +20,12 @@
     justify-content: space-between;
     align-items: center;
 }
+
 .topic-info a {
     text-decoration: none;
     color: inherit;
 }
+
 .topic-info-creation-wrap {
     display: flex;
     flex-direction: row;
@@ -36,6 +38,10 @@
     color: lightgray;
 }
 
+.topic-info-category:hover {
+    text-decoration: underline;
+}
+
 .topic-info-creation {
     font-size: 1.5vmin;
     color: gray;
@@ -45,8 +51,17 @@
     margin-right: 7px;
 }
 
+.topic-info-creation-posted-by-username:hover {
+    text-decoration: underline;
+}
+
+.topic-info-creation-date {
+    font-size: 1.4vmin;
+}
+
 .topic-info-follow-category-btn {
-    font-size: 1.5vmin;
+    font-size: 1.2vmin !important;
+    text-transform: none !important;
 }
 
 .topic-info-follow-category-btn.unfollow-category-btn {
@@ -60,13 +75,32 @@
     margin-bottom: 10px;
 }
 
+.topic-content.hover:hover {
+    cursor: pointer;
+}
+
 .topic-content-img {
     align-self: center;
+}
+
+.topic-content-description {
+    padding: 5px 12px;
+    font-size: 2vmin;
+    color: gray;
+}
+
+.topic-content-description.scrollbox {
+    max-height: 30vh;
+}
+
+.topic-content-description-text {
+    margin: 0;
 }
 
 .topic-content-img-image {
     max-width: 100%;
     width: auto;
+    border-radius: 5px;
 }
 
 .scrollbox {
@@ -106,6 +140,18 @@
     color: red;
 }
 
+.topic-functionality-list-item-likes:hover>.far.fa-heart {
+    color: red;
+}
+
 .fas.fa-bookmark {
     color: rgb(255, 208, 0);
+}
+
+.topic-functionality-list-item-follow:hover>.far.fa-bookmark {
+    color: rgb(255, 208, 0);
+}
+
+.topic-functionality-list-item-comments:hover>.fas.fa-comments {
+    color: #D7DADC;
 }

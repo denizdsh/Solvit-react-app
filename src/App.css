@@ -8,7 +8,7 @@ body {
   color: #D7DADC;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  font-size: 2.5vmin;
+  font-size: 2vmin;
 }
 
 main {
@@ -27,7 +27,8 @@ main {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #D7DADC;
+  background: #3c4253;
+  border-radius: 15px;
 }
 
 /* Handle on hover */

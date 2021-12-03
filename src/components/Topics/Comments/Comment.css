@@ -1,0 +1,30 @@
+.comment {
+    padding: 0 5px;
+    margin-bottom: 30px;
+}
+
+.comment-info {
+    font-size: 1.5vmin;
+    color: gray;
+    display: flex;
+    align-items: center;
+}
+
+.comment-info-avatar {
+    margin-right: 10px;
+}
+
+.comment-info-owner {
+    margin-right: 10px;
+}
+
+.comment-info-date {
+    font-size: 1.4vmin;
+}
+
+.comment-content {
+    line-height: 1.4;
+}
+.comment-content-text{
+    margin-top: 15px;
+}

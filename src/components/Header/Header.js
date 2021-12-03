@@ -33,10 +33,11 @@ export default function Header() {
             to: '/my-topics/#',
             children: (
                 <Avatar
-                    sx={{ bgcolor: blue[500], width: 46, height: 46, boxShadow: '0px 0px 7px -3px #86d6f9' }}
-                    alt="Username"
-                    src="user-picture"
-                />
+                        sx={{ bgcolor: blue[500], width: 46, height: 46, boxShadow: '0px 0px 7px -3px #86d6f9' }}
+                        src={'img'}
+                        alt={'username'}>
+                        {'Username'[0]}
+                    </Avatar>
             )
         }
     ]

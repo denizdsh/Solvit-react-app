@@ -1,6 +1,8 @@
 import './App.css';
+import { Routes, Route } from 'react-router';
 import Header from './components/Header/Header';
 import Topics from './components/Topics/Topics';
+import TopicDetails from './components/Topics/TopicDetails';
 
 function App() {
   return (
@@ -9,7 +11,11 @@ function App() {
         <Header />
       </header>
       <main>
-      <Topics />
+        <Routes>
+          <Route path="/" element={<Topics />} />
+          <Route path="/:id" element={<TopicDetails />} />
+        </Routes>
+
       </main>
     </div>
   );
