@@ -13,16 +13,6 @@ export default function Header() {
         setActive(e.currentTarget);
     }
 
-    const commonNav = [
-        {
-            to: '/all',
-            children: 'All'
-        },
-        {
-            to: '#',
-            children: 'Categories (dropdown)'
-        }
-    ]
 
     const userNav = [
         {
@@ -33,11 +23,11 @@ export default function Header() {
             to: '/my-topics/#',
             children: (
                 <Avatar
-                        sx={{ bgcolor: blue[500], width: 46, height: 46, boxShadow: '0px 0px 7px -3px #86d6f9' }}
-                        src={'img'}
-                        alt={'username'}>
-                        {'Username'[0]}
-                    </Avatar>
+                    sx={{ bgcolor: blue[500], width: 46, height: 46, boxShadow: '0px 0px 7px -3px #86d6f9' }}
+                    src={'img'}
+                    alt={'username'}>
+                    {'Username'[0]}
+                </Avatar>
             )
         }
     ]
@@ -70,7 +60,43 @@ export default function Header() {
             </article>
 
             <ul className="nav-list">
-                {commonNav.map(navListItemMap)}
+                <li className="nav-list-item" >
+                    <Link to="/all" onClick={activeHandler}>All</Link>
+                </li>
+                <li className="nav-list-item dropdown" >
+                    <button className="dropdown-btn ">
+                        Categories <i class="fa fa-caret-down"></i>
+                    </button>
+                    <article className="dropdown-content">
+                        <Link to="/c/javascript" className="dropdown-content-link" >JavaScript</Link>
+                        <Link to="/c/java" className="dropdown-content-link" >Java</Link>
+                        <Link to="/c/csharp" className="dropdown-content-link" >C#</Link>
+                        <Link to="/c/python" className="dropdown-content-link" >Python</Link>
+                        <Link to="/c/php" className="dropdown-content-link" >PHP</Link>
+                        <Link to="/c/qa" className="dropdown-content-link" >QA</Link>
+                        <Link to="/c/devops" className="dropdown-content-link" >DevOps</Link>
+
+                        <Link to="/c/front-end" className="dropdown-content-link inner-dropdown-btn">
+                            Front-end <i class="fa fa-caret-down"></i>
+                        </Link>
+                        <article className="inner-dropdown-content">
+                            <Link to="/c/front-end/react" className="dropdown-content-link" >React</Link>
+                            <Link to="/c/front-end/jQuery" className="dropdown-content-link" >jQuery</Link>
+                            <Link to="/c/front-end/angular" className="dropdown-content-link" >Angular</Link>
+                            <Link to="/c/front-end/vue.js" className="dropdown-content-link" >Vue.js</Link>
+                        </article>
+
+                        <Link to="/c/back-end" className="dropdown-content-link inner-dropdown-btn">
+                            Back-end <i class="fa fa-caret-down"></i>
+                        </Link>
+                        <article className="inner-dropdown-content">
+                            <Link to="/c/back-end/node.js" className="dropdown-content-link">Node.js</Link>
+                            <Link to="/c/back-end/spring" className="dropdown-content-link">Spring</Link>
+                            <Link to="/c/back-end/asp.net" className="dropdown-content-link">ASP.NET</Link>
+                            <Link to="/c/back-end/django" className="dropdown-content-link">Django</Link>
+                        </article>
+                    </article>
+                </li>
 
                 {userNav.map(navListItemMap)}
 

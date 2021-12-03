@@ -5,7 +5,6 @@
 .comments::before {
     content: "";
     height: 3px;
-    width: 76vw;
     position: absolute;
     margin-top: 0px;
     background: #313846;
@@ -24,8 +23,7 @@
 }
 
 .comment-form-text {
-    max-width: 76vw;
-    min-width: 76vw;
+
     min-height: 15vh;
     background: #282C34;
     color: #D7DADC;
@@ -51,4 +49,26 @@
 
 .comment-form-btn:hover {
     cursor: pointer;
+}
+
+@media all and (min-width: 1921px) {
+    .comment-form-text {
+        max-width: 56vw;
+        min-width: 56vw;
+    }
+
+    .comments::before {
+        width: 56vw;
+    }
+}
+
+@media all and (max-width: 1920px) {
+    .comment-form-text {
+        max-width: 76vw;
+        min-width: 76vw;
+    }
+
+    .comments::before {
+        width: 76vw;
+    }
 }

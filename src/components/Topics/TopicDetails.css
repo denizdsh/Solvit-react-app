@@ -20,3 +20,27 @@
     padding: 0;
     margin-bottom: 2.5vh;
 }
+
+.topic-content-img-image.details {
+    min-width: 30vw;
+}
+
+@media all and (min-width: 1921px) {
+    .topic.details {
+        max-width: 60vw;
+    }
+
+    .topic-content-img-image.details {
+        min-width: 25vw;
+    }
+}
+
+@media all and (max-width: 1920px) {
+    .topic.details {
+        max-width: 80vw;
+    }
+
+    .topic-content-img-image.details {
+        min-width: 30vw;
+    }
+}
