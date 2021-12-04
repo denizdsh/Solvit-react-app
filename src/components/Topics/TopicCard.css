@@ -10,6 +10,12 @@
     margin: 20px 0;
 }
 
+@media all and (max-width: 700){
+    .topic{
+        margin: 10px 0;
+    }
+}
+
 .topic.active-hover:hover {
     outline: 1px solid #313846;
 }
@@ -33,7 +39,7 @@
 }
 
 .topic-info-category {
-    font-size: 2vmin;
+    font-size: 1rem;
     margin-right: 10px;
     color: lightgray;
 }
@@ -43,7 +49,7 @@
 }
 
 .topic-info-creation {
-    font-size: 1.5vmin;
+    font-size: 0.75rem;
     color: gray;
 }
 
@@ -56,11 +62,11 @@
 }
 
 .topic-info-creation-date {
-    font-size: 1.4vmin;
+    font-size: 0.7rem;
 }
 
 .topic-info-follow-category-btn {
-    font-size: 1.2vmin !important;
+    font-size: 0.6rem !important;
     text-transform: none !important;
 }
 
@@ -85,7 +91,7 @@
 
 .topic-content-description {
     padding: 5px 12px;
-    font-size: 2vmin;
+    font-size: 1rem;
     color: gray;
 }
 
@@ -108,7 +114,7 @@
 }
 
 .topic-title {
-    font-size: 3.2vmin;
+    font-size: 1.4rem;
     margin: 5px 0 10px 0;
 }
 
@@ -120,7 +126,7 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    font-size: 2vmin;
+    font-size: 1rem;
     color: gray;
 }
 
@@ -132,7 +138,7 @@
 }
 
 .far, .fas {
-    font-size: 3vmin;
+    font-size: 1.5rem;
     margin-right: 6px;
 }
 

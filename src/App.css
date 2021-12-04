@@ -2,13 +2,23 @@
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  background: #282c34;
+html {
+  font-size: 2vmin;
   color: #D7DADC;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  font-size: 2vmin;
+}
+
+body {
+  margin: 0;
+  background: #282c34;
+
+}
+
+@media all and (max-width: 600px) {
+  html {
+    font-size: 3vmin;
+  }
 }
 
 main {

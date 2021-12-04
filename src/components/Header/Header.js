@@ -73,8 +73,8 @@ export default function Header() {
                         <Link to="/c/csharp" className="dropdown-content-link" >C#</Link>
                         <Link to="/c/python" className="dropdown-content-link" >Python</Link>
                         <Link to="/c/php" className="dropdown-content-link" >PHP</Link>
-                        <Link to="/c/qa" className="dropdown-content-link" >QA</Link>
                         <Link to="/c/devops" className="dropdown-content-link" >DevOps</Link>
+                        <Link to="/c/qa" className="dropdown-content-link" >QA</Link>
 
                         <Link to="/c/front-end" className="dropdown-content-link inner-dropdown-btn">
                             Front-end <i className="fa fa-caret-down"></i>
@@ -95,6 +95,8 @@ export default function Header() {
                             <Link to="/c/back-end/asp.net" className="dropdown-content-link">ASP.NET</Link>
                             <Link to="/c/back-end/django" className="dropdown-content-link">Django</Link>
                         </article>
+
+                        <Link to="/c/other" className="dropdown-content-link" >Other</Link>
                     </article>
                 </li>
 

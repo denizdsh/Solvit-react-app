@@ -1,9 +1,15 @@
+import { useEffect } from 'react';
+
 import './TopicDetails.css';
 import CommentSection from './Comments/CommentSection';
 import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
 
 export default function TopicDetails({ topic }) {
+    useEffect(() => {
+        window.scrollTo(0, 0);   
+    })
+
     topic = {
         category: 'javascript',
         owner: { id: 'id', username: 'Stanley' },

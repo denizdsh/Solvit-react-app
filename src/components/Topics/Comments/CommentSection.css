@@ -12,7 +12,7 @@
 }
 
 .comments-title {
-    font-size: 1.5vmin;
+    font-size: 0.75rem;
     color: gray;
 }
 
@@ -27,7 +27,7 @@
     min-height: 15vh;
     background: #282C34;
     color: #D7DADC;
-    font-size: 1.8vmin;
+    font-size: 0.9rem;
     border: 1px solid #313846;
     border-radius: 10px;
     padding: 5px 10px;
@@ -42,7 +42,7 @@
     color: #D7DADC;
     border: 2px solid #313846;
     border-radius: 15px;
-    font-size: 2vmin;
+    font-size: 1rem;
     padding: 0.5vmin 1.25vmin;
     margin-top: 7px;
 }
@@ -70,5 +70,14 @@
 
     .comments::before {
         width: 76vw;
+    }
+}@media all and (max-width: 600px) {
+    .comment-form-text {
+        max-width: 87vw;
+        min-width: 87vw;
+    }
+
+    .comments::before {
+        width: 87vw;
     }
 }

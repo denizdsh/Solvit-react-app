@@ -6,6 +6,7 @@
     background: #262b36;
     padding: 20px 10px;
     max-height: 10%;
+    font-size: 1rem;
 }
 
 .nav-list {
@@ -36,7 +37,7 @@
     z-index: 1;
     display: none;
     position: absolute;
-    background: #282C34;
+    background: #262B36;
     min-width: 200px;
     border-radius: 10px;
 }
@@ -55,7 +56,7 @@
 }
 
 .dropdown-content a:hover, .inner-dropdown-content a:hover {
-    background: #262B36;
+    background: rgb(12, 125, 177)
 }
 
 .dropdown:hover>.dropdown-content, .inner-dropdown-btn:hover+.inner-dropdown-content, .inner-dropdown-content:hover {

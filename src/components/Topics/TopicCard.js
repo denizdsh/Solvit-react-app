@@ -11,7 +11,7 @@ export default function TopicCard({ topic }) {
                     <article className="topic-info-category">
                         <span className="category">
                             <Link to="#">
-                                category/{topic.category}
+                                c/{topic.category}
                             </Link>
                         </span>
                     </article>

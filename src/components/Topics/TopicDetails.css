@@ -3,6 +3,7 @@
     margin: 30px auto;
     padding: 2vh 2vw;
     outline: 1px solid #313846;
+    border-radius: 20px;
 }
 
 .topic-info.details {
@@ -38,6 +39,17 @@
 @media all and (max-width: 1920px) {
     .topic.details {
         max-width: 80vw;
+    }
+
+    .topic-content-img-image.details {
+        min-width: 30vw;
+    }
+}
+
+@media all and (max-width: 600px) {
+    .topic.details {
+        max-width: 95vw;
+        padding: 1vh 4vw;
     }
 
     .topic-content-img-image.details {
