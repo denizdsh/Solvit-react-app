@@ -1,8 +1,8 @@
 import './Header.css'
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Avatar } from '@mui/material';
-import { blue } from '@mui/material/colors';
+import Avatar from '@mui/material/Avatar';
+import blue from '@mui/material/colors/blue';
 
 export default function Header() {
     const [active, setActive] = useState({ classList: { remove: function () { }, add: function () { } } });

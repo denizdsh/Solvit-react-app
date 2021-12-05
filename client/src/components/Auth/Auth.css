@@ -1,0 +1,130 @@
+.auth-section {
+    height: 80vh;
+    width: 40vw;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #262A37;
+    border: 2px solid #313846;
+    border-radius: 30px;
+}
+
+@media all and (max-width: 1450px) {
+    .auth-section {
+        width: 60vw;
+    }
+}
+
+@media all and (max-width: 900px) {
+    .auth-section {
+        width: 70vw;
+    }
+}
+
+@media all and (max-width: 750px) {
+    .auth-section {
+        width: 80vw;
+    }
+}
+
+@media all and (max-width: 600px) {
+    .auth-section {
+        width: 90vw;
+    }
+}
+
+.auth-title-holder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.auth-title {
+    font-size: 2.4rem;
+}
+
+.line-under-title {
+    height: 2px;
+    width: 80%;
+    background: #313846;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+}
+
+.auth-form div {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.auth-form-label {
+    font-size: 1.1rem;
+    padding-left: 5px;
+}
+
+.auth-form-input {
+    font-size: 1.2rem;
+    color: inherit;
+    background: #282C34;
+    border: 1px solid #313846;
+    border-radius: 8px;
+    outline: none;
+    padding: 15px;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.auth-form-input:focus {
+    outline: 2px solid #313846;
+}
+
+.auth-form-password-label-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.fa-eye, .fa-eye-slash {
+    font-size: 1.4rem;
+}
+
+.auth-form-submit {
+    outline: none;
+    border: 2px solid #313846;
+    font-size: inherit;
+    color: inherit;
+    background: #282C34;
+    border-radius: 30px;
+    padding: 8px 25px;
+}
+
+.auth-form-submit:hover {
+    outline: 1px solid #313846;
+    cursor: pointer;
+}
+
+.link-to-other-auth {
+    color: #86D6F9;
+    text-decoration: none;
+    padding-left: 10px;
+}
+
+
+
+.auth-section .fa-react {
+    font-size: 15rem;
+    color: #2f3d5d;
+    position: absolute;
+    top: 400px;
+    left: 250px;
+}

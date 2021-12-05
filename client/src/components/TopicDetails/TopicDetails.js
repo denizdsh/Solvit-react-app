@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import './TopicDetails.css';
-import CommentSection from './Comments/CommentSection';
+import CommentSection from '../TopicDetails/Comments/CommentSection';
 import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
 

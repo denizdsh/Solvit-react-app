@@ -1,7 +1,7 @@
 import './Comment.css';
 import { Link } from "react-router-dom"
-import { Avatar } from '@mui/material';
-import { blue } from '@mui/material/colors';
+import Avatar from '@mui/material/Avatar';
+import blue from '@mui/material/colors/blue';
 
 export default function Comment({ comment }) {
     return (
