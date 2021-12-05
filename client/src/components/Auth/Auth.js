@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import './Auth.css'
 import { Link } from 'react-router-dom';
-// <i class="fab fa-react"></i>
 
 export default function Auth({ type, onSubmit }) {
     const [passwordType, setPasswordType] = useState('password');
@@ -16,8 +15,13 @@ export default function Auth({ type, onSubmit }) {
     const crossedEyeIcon = <i className="far fa-eye-slash"></i>;
 
     const isLogin = type === 'Login';
+
+    const iconClassList = 'auth-bg-icon ' + (isLogin ? '' : 'auth-page-register');
     return (
         <section className="auth-section">
+            <i className={`fab fa-js-square auth-top-left-icon ${iconClassList}`} />
+            <span className={`csharp-icon auth-top-right-icon ${iconClassList}`}>C#</span>
+
             <div className="auth-title-holder">
                 <h1 className="auth-title">{type}</h1>
                 <div className="line-under-title"></div>
@@ -58,6 +62,9 @@ export default function Auth({ type, onSubmit }) {
                     </Link>
                 </div>
             </form>
+
+            <i className={`fab fa-python auth-bottom-left-icon ${iconClassList}`} />
+            <i className={`fab fa-java auth-bottom-right-icon ${iconClassList}`} />
         </section>
     )
 }

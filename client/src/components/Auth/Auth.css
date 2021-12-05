@@ -33,6 +33,10 @@
     .auth-section {
         width: 90vw;
     }
+
+    .auth-bg-icon {
+        display: none;
+    }
 }
 
 .auth-title-holder {
@@ -119,12 +123,46 @@
     padding-left: 10px;
 }
 
+.auth-bg-icon {
+    font-size: 14rem;
+    color: #323d57;
+    position: relative;
+    z-index: -1;
+}
 
+.auth-top-left-icon {
+    right: 38vw;
+    top: 41vh;
+}
 
-.auth-section .fa-react {
-    font-size: 15rem;
-    color: #2f3d5d;
-    position: absolute;
-    top: 400px;
-    left: 250px;
+.auth-page-register.auth-top-left-icon {
+    top: 47vh;
+}
+
+.auth-top-right-icon {
+    left: 38vw;
+    top: 11vh;
+    font-size: 13rem;
+}
+
+.auth-page-register.auth-top-right-icon {
+    top: 17vh;
+}
+
+.auth-bottom-left-icon {
+    right: 38vw;
+    bottom: 14vh;
+}
+
+.auth-page-register.auth-bottom-left-icon {
+    bottom: 20vh;
+}
+
+.auth-bottom-right-icon {
+    left: 38vw;
+    bottom: 44vh;
+}
+
+.auth-page-register.auth-bottom-right-icon {
+    bottom: 50vh;
 }
