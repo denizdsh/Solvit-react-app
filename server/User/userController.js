@@ -1,11 +1,12 @@
 const router = require('express').Router();
 
-const { isGuest, isUser } = require('../middlewares/guards')
+const { isGuest } = require('../middlewares/guards')
 const { register, login } = require('./userService');
 
 router.post('/register', isGuest(), async (req, res) => {
     const email = req.body.email.trim().toLocaleLowerCase();
     const password = req.body.password.trim();
+    const imageUrl = req.body.imageUrl.trim();
 
     try {
         if (!email) {
@@ -15,7 +16,7 @@ router.post('/register', isGuest(), async (req, res) => {
             throw new Error('Password must be at least 6 characters long');
         }
 
-        const user = await register(email, password);
+        const user = await register(email, password, imageUrl);
 
         res.json(user);
     } catch (err) {

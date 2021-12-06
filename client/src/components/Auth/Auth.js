@@ -28,12 +28,12 @@ export default function Auth({ type, onSubmit }) {
             </div>
             <form method="POST" className="auth-form" onSubmit={onSubmit}>
                 <div>
-                    <label className="auth-form-label" htmlFor="email">Email:</label>
+                    <label className="auth-form-label" htmlFor="email">Email</label>
                     <input className="auth-form-input" type="email" id="email" name="email" placeholder="john@doe.com" />
                 </div>
                 <div>
                     <article className="auth-form-password-label-wrap">
-                        <label className="auth-form-label" htmlFor="password">Password:</label>
+                        <label className="auth-form-label" htmlFor="password">Password</label>
                         <article className="auth-form-see-password" onClick={passwordTypeHandler}>
                             {passwordType === 'password'
                                 ? crossedEyeIcon
@@ -45,7 +45,7 @@ export default function Auth({ type, onSubmit }) {
                 {isLogin ||
                     <div>
                         <article className="auth-form-password-label-wrap">
-                            <label className="auth-form-label" htmlFor="repassword">Repeat password:</label>
+                            <label className="auth-form-label" htmlFor="repassword">Repeat password</label>
                             <article className="auth-form-see-password" onClick={passwordTypeHandler}>
                                 {passwordType === 'password'
                                     ? crossedEyeIcon
@@ -53,6 +53,12 @@ export default function Auth({ type, onSubmit }) {
                             </article>
                         </article>
                         <input className="auth-form-input" type={passwordType} id="repassword" name="repassword" placeholder={'same as the one above'} />
+                    </div>
+                }
+                {isLogin ||
+                    <div>
+                        <label className="auth-form-label" htmlFor="imageUrl">Avatar icon url</label>
+                        <input className="auth-form-input" type='url' id="imageUrl" name="imageUrl" placeholder={'https://image.com'} />
                     </div>
                 }
                 <div>

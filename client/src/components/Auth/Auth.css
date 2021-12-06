@@ -100,6 +100,10 @@
 
 .fa-eye, .fa-eye-slash {
     font-size: 1.4rem;
+    color: inherit;
+}
+.fa-eye-slash{
+    color: gray;
 }
 
 .auth-form-submit {

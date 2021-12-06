@@ -1,10 +1,14 @@
 import './Header.css'
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import blue from '@mui/material/colors/blue';
 
+import { AuthContext } from '../../contexts/AuthContext';
+
+
 export default function Header() {
+    const { user } = useContext(AuthContext);
     const [active, setActive] = useState({ classList: { remove: function () { }, add: function () { } } });
 
     const activeHandler = (e) => {
@@ -13,20 +17,19 @@ export default function Header() {
         setActive(e.currentTarget);
     }
 
-
     const userNav = [
         {
-            to: '#',
+            to: '/saved',
             children: 'Saved topics'
         },
         {
-            to: '/my-topics/#',
+            to: `/u/${user._id}`,
             children: (
                 <Avatar
                     sx={{ bgcolor: blue[500], width: 46, height: 46, boxShadow: '0px 0px 7px -3px #86d6f9' }}
-                    src={'img'}
-                    alt={'username'}>
-                    {'Username'[0]}
+                    src={user.imageUrl}
+                    alt={user.username}>
+                    {user.username[0]}
                 </Avatar>
             )
         }
@@ -72,6 +75,7 @@ export default function Header() {
                         <Link to="/c/java" className="dropdown-content-link" >Java</Link>
                         <Link to="/c/csharp" className="dropdown-content-link" >C#</Link>
                         <Link to="/c/python" className="dropdown-content-link" >Python</Link>
+                        <Link to="/c/c++" className="dropdown-content-link" >C++</Link>
                         <Link to="/c/php" className="dropdown-content-link" >PHP</Link>
                         <Link to="/c/devops" className="dropdown-content-link" >DevOps</Link>
                         <Link to="/c/qa" className="dropdown-content-link" >QA</Link>
@@ -81,7 +85,7 @@ export default function Header() {
                         </Link>
                         <article className="inner-dropdown-content">
                             <Link to="/c/front-end/react" className="dropdown-content-link" >React</Link>
-                            <Link to="/c/front-end/jQuery" className="dropdown-content-link" >jQuery</Link>
+                            <Link to="/c/front-end/jquery" className="dropdown-content-link" >jQuery</Link>
                             <Link to="/c/front-end/angular" className="dropdown-content-link" >Angular</Link>
                             <Link to="/c/front-end/vue.js" className="dropdown-content-link" >Vue.js</Link>
                         </article>
@@ -100,9 +104,9 @@ export default function Header() {
                     </article>
                 </li>
 
-                {userNav.map(navListItemMap)}
-
-                {guestNav.map(navListItemMap)}
+                {user.accessToken
+                    ? userNav.map(navListItemMap)
+                    : guestNav.map(navListItemMap)}
             </ul>
         </nav>
     );

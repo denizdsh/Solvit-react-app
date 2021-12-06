@@ -13,7 +13,7 @@ function generateJwt(user) {
     return token;
 }
 
-async function register(email, password) {
+async function register(email, password, imageUrl) {
     const existing = await User.findOne({ email });
 
     if (existing) {
@@ -27,6 +27,7 @@ async function register(email, password) {
     const user = new User({
         email,
         hashedPassword,
+        imageUrl
     })
 
     await user.save();
@@ -34,6 +35,7 @@ async function register(email, password) {
     return {
         _id: user._id,
         email: user.email,
+        imageUrl: user.imageUrl,
         accessToken: generateJwt(user)
     }
 }
@@ -57,6 +59,7 @@ async function login(email, password) {
     return {
         _id: user._id,
         email: user.email,
+        imageUrl: user.imageUrl,
         accessToken: generateJwt(user)
     }
 }
