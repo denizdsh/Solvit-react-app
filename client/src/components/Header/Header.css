@@ -102,3 +102,22 @@
     background: inherit;
     border: none;
 }
+
+.user-settings-carret {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+}
+
+.user-settings-dropdown {
+    min-width: 100px;
+    display: none;
+    position: absolute;
+    top: 85px;
+    right: 0px;
+}
+
+.user-settings:hover>.user-settings-dropdown {
+    display: block;
+
+}

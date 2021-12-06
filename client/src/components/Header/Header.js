@@ -17,6 +17,11 @@ export default function Header() {
         setActive(e.currentTarget);
     }
 
+    const userSettings = (
+        <article className="user-settings-dropdown dropdown-content">
+            <Link to="/logout" className="dropdown-content-link">Logout</Link>
+        </article>
+    )
     const userNav = [
         {
             to: '/saved',
@@ -25,12 +30,16 @@ export default function Header() {
         {
             to: `/u/${user._id}`,
             children: (
-                <Avatar
-                    sx={{ bgcolor: blue[500], width: 46, height: 46, boxShadow: '0px 0px 7px -3px #86d6f9' }}
-                    src={user.imageUrl}
-                    alt={user.username}>
-                    {user.username[0]}
-                </Avatar>
+                <div className="user-settings">
+                    <Avatar
+                        sx={{ bgcolor: blue[500], width: 46, height: 46, boxShadow: '0px 0px 7px -3px #86d6f9' }}
+                        src={user.imageUrl}
+                        alt={user.username}>
+                        {user.username[0]}
+                    </Avatar>
+                    <i className="fa fa-caret-down user-settings-carret"></i>
+                    {userSettings}
+                </div>
             )
         }
     ]

@@ -9,6 +9,7 @@ import Topics from './components/Topics/Topics';
 import TopicDetails from './components/TopicDetails/TopicDetails';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
+import Logout from './components/Auth/Logout';
 
 
 const initialUserData = {
@@ -42,6 +43,7 @@ function App() {
             <Route path="/:id" element={<TopicDetails />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/logout" element={<Logout />} />
           </Routes>
 
         </main>
