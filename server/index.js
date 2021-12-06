@@ -8,6 +8,7 @@ const servicePort = process.env.PORT || 5000;
 const databasePort = process.env.MONGODB_URI || 'mongodb://localhost:27017/solvit'
 
 const userController = require('./User/userController');
+const topicController = require('./Topic/topicController');
 
 start();
 
@@ -32,8 +33,8 @@ async function start() {
     app.use(auth())
     app.use(express.json());
 
-
     app.use('/', userController);
+    app.use('/topics', topicController);
 
     app.get('/', (req, res) => {
         res.send('REST service is running.')

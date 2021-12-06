@@ -2,7 +2,7 @@ module.exports = {
     isGuest() {
         return (req, res, next) => {
             if (req.user) {
-                req.status(400).json({ message: 'You are already signed in.' });
+                res.status(400).json({ message: 'You are already signed in.' });
             }
             else {
                 next();
@@ -12,7 +12,7 @@ module.exports = {
     isUser() {
         return (req, res, next) => {
             if (!req.user) {
-                req.status(401).json({ message: 'Please sign in.' });
+                res.status(401).json({ message: 'Please sign in.' });
             }
             else {
                 next();

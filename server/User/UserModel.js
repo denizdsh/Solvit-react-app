@@ -1,8 +1,12 @@
 const { Schema, model } = require('mongoose');
 
+const { categories } = require('../config');
+
 const schema = new Schema({
     email: { type: String, required: true, unique: true },
-    hashedPassword: { type: String, required: true }
+    hashedPassword: { type: String, required: true },
+    followingCategories: [{ type: String, enum: categories }],
+    savedTopics: [{ type: Schema.Types.ObjectId, ref: 'Topic' }]
 });
 
 module.exports = model('User', schema);

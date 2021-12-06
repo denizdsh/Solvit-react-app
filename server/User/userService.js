@@ -26,7 +26,7 @@ async function register(email, password) {
 
     const user = new User({
         email,
-        hashedPassword
+        hashedPassword,
     })
 
     await user.save();
