@@ -27,10 +27,10 @@ export default function Header() {
     const guestNav = (
         <>
             <li className="nav-list-item" >
-                <Link to="/login" className="login-btn" onClick={activeHandler}>Log In</Link>
+                <Link to="/login" className="auth-btn login-btn" onClick={activeHandler}>Log In</Link>
             </li>
             <li className="nav-list-item" >
-                <Link to="/register" className="register-btn" onClick={activeHandler}>Sign Up</Link>
+                <Link to="/register" className="auth-btn register-btn" onClick={activeHandler}>Sign Up</Link>
             </li>
         </>
     )

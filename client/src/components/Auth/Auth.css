@@ -33,6 +33,10 @@
     .auth-section {
         width: 90vw;
     }
+
+    .auth-bg-icon {
+        display: none;
+    }
 }
 
 .auth-title-holder {
@@ -137,17 +141,17 @@
 }
 
 .auth-top-right-icon {
-    top: 9vh;
+    top: 8vh;
     right: 3.5vw;
     font-size: 13rem;
 }
 
 .auth-bottom-left-icon {
-    bottom: 6vh;
+    bottom: 4vh;
     left: 5vw;
 }
 
 .auth-bottom-right-icon {
-    bottom: 6vh;
+    bottom: 4vh;
     right: 5vw;
 }
