@@ -19,7 +19,9 @@
     border-radius: 20px;
     overflow: hidden;
 }
-
+.user-menu-links a:hover{
+    background: none;
+}
 .user-menu-info, .user-menu-links {
     width: 100%;
     display: flex;
