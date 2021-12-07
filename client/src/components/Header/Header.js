@@ -1,11 +1,9 @@
 import './Header.css'
-import { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
-import Avatar from '@mui/material/Avatar';
-import blue from '@mui/material/colors/blue';
-
+import { useState, useContext, useRef } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
+import { Link } from 'react-router-dom';
 
+import UserMenu from './UserMenu';
 
 export default function Header() {
     const { user } = useContext(AuthContext);
@@ -17,52 +15,26 @@ export default function Header() {
         setActive(e.currentTarget);
     }
 
-    const userSettings = (
-        <article className="user-settings-dropdown dropdown-content">
-            <Link to="/logout" className="dropdown-content-link">Logout</Link>
-        </article>
-    )
-    const userNav = [
-        {
-            to: '/saved',
-            children: 'Saved topics'
-        },
-        {
-            to: `/u/${user._id}`,
-            children: (
-                <div className="user-settings">
-                    <Avatar
-                        sx={{ bgcolor: blue[500], width: 46, height: 46, boxShadow: '0px 0px 7px -3px #86d6f9' }}
-                        src={user.imageUrl}
-                        alt={user.username}>
-                        {user.username[0]}
-                    </Avatar>
-                    <i className="fa fa-caret-down user-settings-carret"></i>
-                    {userSettings}
-                </div>
-            )
-        }
-    ]
-
-    const guestNav = [
-        {
-            to: '/login',
-            children: 'Log In',
-            className: 'login-btn'
-        },
-        {
-            to: '/register',
-            children: 'Sign Up',
-            className: 'register-btn'
-        },
-    ]
-    const navListItemMap = ({ to, children, ...props }) => {
-        return (
+    const userNav = (
+        <>
             <li className="nav-list-item" >
-                <Link to={to} onClick={activeHandler} {...props} >{children}</Link>
+                <Link to="/saved" onClick={activeHandler}>Saved topics</Link>
             </li>
-        )
-    }
+
+            <UserMenu />
+        </>
+    )
+    const guestNav = (
+        <>
+            <li className="nav-list-item" >
+                <Link to="/login" className="login-btn" onClick={activeHandler}>Log In</Link>
+            </li>
+            <li className="nav-list-item" >
+                <Link to="/register" className="register-btn" onClick={activeHandler}>Sign Up</Link>
+            </li>
+        </>
+    )
+
     return (
         <nav className="nav">
             <article className="nav-logo">
@@ -114,8 +86,8 @@ export default function Header() {
                 </li>
 
                 {user.accessToken
-                    ? userNav.map(navListItemMap)
-                    : guestNav.map(navListItemMap)}
+                    ? userNav
+                    : guestNav}
             </ul>
         </nav>
     );
