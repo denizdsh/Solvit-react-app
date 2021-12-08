@@ -1,13 +1,13 @@
 import './UserMenu.css';
-import { useEffect, useState, useRef, useContext } from 'react';
-import { AuthContext } from '../../contexts/AuthContext';
+import { useEffect, useState, useRef } from 'react';
+import { useAuth } from '../../hooks/useAuth';
 import { Link } from 'react-router-dom';
 
 import Avatar from '@mui/material/Avatar';
 import blue from '@mui/material/colors/blue';
 
 export default function UserMenu() {
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth();
 
     const ref = useRef();
 

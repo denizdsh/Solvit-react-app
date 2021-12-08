@@ -1,12 +1,13 @@
 import './Header.css'
-import { useState, useContext, useRef } from 'react';
-import { AuthContext } from '../../contexts/AuthContext';
+import { useState, useRef } from 'react';
+import { useAuth } from '../../hooks/useAuth';
 import { Link } from 'react-router-dom';
+
 
 import UserMenu from './UserMenu';
 
 export default function Header() {
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth();
     const [active, setActive] = useState({ classList: { remove: function () { }, add: function () { } } });
 
     const activeHandler = (e) => {

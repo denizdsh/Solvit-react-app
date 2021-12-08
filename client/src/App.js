@@ -1,8 +1,7 @@
 import './App.css';
 import { Routes, Route } from 'react-router';
 
-import { AuthContext } from './contexts/AuthContext';
-import useLocalStorage from './hooks/useLocalStorage';
+import { AuthProvider } from './contexts/AuthContext';
 
 import Header from './components/Header/Header';
 import Topics from './components/Topics/Topics';
@@ -11,28 +10,9 @@ import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Logout from './components/Auth/Logout';
 
-
-const initialUserData = {
-  _id: '',
-  email: '',
-  imageUrl: '',
-  accessToken: '',
-  username: ''
-}
-
 function App() {
-  const [user, setUser] = useLocalStorage('user', initialUserData)
-
-  const login = (userData) => {
-    setUser({ ...userData, username: userData.email.split('@')[0] });
-  }
-
-  const logout = () => {
-    setUser(initialUserData);
-  }
-
   return (
-    <AuthContext.Provider value={{ user, login, logout }} >
+    <AuthProvider>
       <div className="App">
         <header>
           <Header />
@@ -48,7 +28,7 @@ function App() {
 
         </main>
       </div>
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 }
 

@@ -1,11 +1,11 @@
-import { useEffect, useContext } from "react"
+import { useEffect } from "react"
 import { useNavigate } from "react-router";
-import { AuthContext } from "../../contexts/AuthContext"
+import { useAuth } from "../../hooks/useAuth";
 
 import Spinner from "../Spinner/Spinner"
 
 export default function Logout() {
-    const { logout } = useContext(AuthContext);
+    const { logout } = useAuth();
     const navigate = useNavigate();
     useEffect(() => {
         logout();
