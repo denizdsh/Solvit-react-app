@@ -2,8 +2,9 @@ import { useState } from 'react';
 
 import './Auth.css'
 import { Link } from 'react-router-dom';
+import { isGuest } from '../../hoc/isAuth';
 
-export default function Auth({ type, onSubmit }) {
+function Auth({ type, onSubmit }) {
     const [passwordType, setPasswordType] = useState('password');
 
     const passwordTypeHandler = () => {
@@ -74,3 +75,5 @@ export default function Auth({ type, onSubmit }) {
         </section>
     )
 }
+
+export default isGuest(Auth);

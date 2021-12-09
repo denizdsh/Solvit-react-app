@@ -1,3 +1,5 @@
+import { useSearchParams } from 'react-router-dom';
+
 import './Topics.css';
 import TopicCard from './TopicCard';
 import Aside from './Aside';

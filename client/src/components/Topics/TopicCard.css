@@ -10,7 +10,7 @@
     margin: 20px 0;
 }
 
-@media all and (max-width: 700){
+@media all and (max-width: 700px){
     .topic{
         margin: 10px 0;
     }

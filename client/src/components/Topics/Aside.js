@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import './Aside.css'
 
 export default function Aside() {
@@ -31,7 +31,7 @@ export default function Aside() {
             onParamsChange(sort, param);
         }
     }
-    
+
     return (
         <aside className="aside-sort">
             <p>Sort by</p>

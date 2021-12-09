@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router";
 import { useAuth } from "../../hooks/useAuth";
-
 import * as auth from '../../services/auth';
 
 import Auth from "./Auth"
+
 export default function Login() {
     const { login } = useAuth();
 
