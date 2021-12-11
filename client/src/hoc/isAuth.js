@@ -5,8 +5,8 @@ export const isUser = (Component) => {
     const WrapperComponent = (props) => {
         const { isAuthenticated } = useAuth();
 
-        return !isAuthenticated ?
-            <Navigate to="/all" />
+        return !isAuthenticated
+            ? <Navigate to="/all" />
             : <Component {...props} />
     }
     return WrapperComponent
@@ -16,8 +16,8 @@ export const isGuest = (Component) => {
     const WrapperComponent = (props) => {
         const { isAuthenticated } = useAuth();
 
-        return isAuthenticated ?
-            <Navigate to="/" />
+        return isAuthenticated
+            ? <Navigate to="/" />
             : <Component {...props} />
     }
     return WrapperComponent

@@ -9,6 +9,7 @@ import TopicDetails from './components/TopicDetails/TopicDetails';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Logout from './components/Auth/Logout';
+import CreateTopic from './components/CreateTopic/CreateTopic';
 
 function App() {
   return (
@@ -19,13 +20,14 @@ function App() {
         </header>
         <main>
           <Routes>
-            <Route path="/" element={<Topics />} />
+            <Route path="/" element={<Topics />} >
+              <Route path="create" element={<CreateTopic />} />
+            </Route>
             <Route path="/:id" element={<TopicDetails />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/logout" element={<Logout />} />
           </Routes>
-
         </main>
       </div>
     </AuthProvider>

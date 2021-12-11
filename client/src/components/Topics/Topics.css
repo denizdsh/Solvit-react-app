@@ -3,13 +3,14 @@
     flex-direction: column;
     max-width: 35%;
     margin: auto;
+    margin-top: 20px;
 }
 
 aside {
     float: right;
     position: relative;
     right: 25vw;
-    top: 30px;
+    top: 0px;
     width: 10vw;
     padding: 10px 20px;
 }

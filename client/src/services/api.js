@@ -6,7 +6,7 @@ async function request(url, options) {
             throw new Error(err.message);
         }
         try {
-            return response.json();
+            return await response.json();
         } catch (err) {
             return response;
         }
@@ -23,7 +23,8 @@ function getOptions(method = 'get', body) {
         headers: {}
     };
 
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = JSON.parse(localStorage.user)?.accessToken;
+    console.log(accessToken)
     if (accessToken) options.headers['X-Authorization'] = accessToken;
 
     if (body) {

@@ -3,6 +3,10 @@ import { useSearchParams } from 'react-router-dom';
 import './Topics.css';
 import TopicCard from './TopicCard';
 import Aside from './Aside';
+import CreateTopicLink from './CreateTopicLink';
+import CreateTopic from '../CreateTopic/CreateTopic';
+import { Routes, Route } from 'react-router';
+
 export default function Topics({ topics }) {
     const topicsArr = [
         {
@@ -54,11 +58,17 @@ export default function Topics({ topics }) {
     ]
 
     return (
-        <section className="content">
-            <Aside />
-            <section className="topics">
-                {topicsArr.map(topic => <TopicCard topic={topic} />)}
+        <>
+            <Routes>
+                <Route path="/create" element={<CreateTopic />} />
+            </Routes>
+            <section className="content">
+                <Aside />
+                <section className="topics">
+                    <CreateTopicLink />
+                    {topicsArr.map(topic => <TopicCard topic={topic} />)}
+                </section>
             </section>
-        </section>
+        </>
     )
 }
