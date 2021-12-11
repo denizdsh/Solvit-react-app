@@ -4,12 +4,13 @@ import { Routes, Route } from 'react-router';
 import { AuthProvider } from './contexts/AuthContext';
 
 import Header from './components/Header/Header';
-import Topics from './components/Topics/Topics';
 import TopicDetails from './components/TopicDetails/TopicDetails';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Logout from './components/Auth/Logout';
 import CreateTopic from './components/CreateTopic/CreateTopic';
+import FollowedTopics from './components/FollowedTopics';
+import AllTopics from './components/AllTopics';
 
 function App() {
   return (
@@ -20,7 +21,10 @@ function App() {
         </header>
         <main>
           <Routes>
-            <Route path="/" element={<Topics />} >
+            <Route path="/*" element={<FollowedTopics />} >
+              <Route path="create" element={<CreateTopic />} />
+            </Route>
+            <Route path="/all" element={<AllTopics />}>
               <Route path="create" element={<CreateTopic />} />
             </Route>
             <Route path="/:id" element={<TopicDetails />} />

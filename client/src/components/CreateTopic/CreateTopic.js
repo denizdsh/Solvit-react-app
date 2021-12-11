@@ -16,7 +16,7 @@ function CreateTopic() {
 
         const form = new FormData(e.currentTarget);
         const [title, description, imageUrl, category] = Object.values(Object.fromEntries(form)).map(x => x.trim());
-        const urlRegexp = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/ig;
+        const urlRegexp = /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/ig;
         let err = '';
 
         if (!imageUrl.match(urlRegexp)) {
@@ -65,7 +65,7 @@ function CreateTopic() {
                     <article>
                         <label className="topic-form-label" htmlFor="topic-imageUrl">Image url</label>
                         <input type="url" name="imageUrl" id="topic-imageUrl" className="topic-form-input" placeholder='https:// ...' />
-                        <a className="link-to-imgur" href="https://imgur.com/upload" target="_blank">You can upload your image here...</a>
+                        <a className="link-to-imgur" href="https://imgur.com/upload" target="_blank" rel="noreferrer">You can upload your image here...</a>
                     </article>
 
                     <section>

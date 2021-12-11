@@ -17,7 +17,7 @@ export default function TopicCard({ topic }) {
                     </article>
                     <article className="topic-info-creation">
                         <span className="topic-info-creation-posted-by">
-                            Posted by <Link className="topic-info-creation-posted-by-username" to="#">u/{topic.owner.username}</Link>
+                            Posted by <Link className="topic-info-creation-posted-by-username" to="#">u/{topic.author.split('@')[0]}</Link>
                         </span>
                         <span className="topic-info-creation-date">{topic.date}</span>
                     </article>

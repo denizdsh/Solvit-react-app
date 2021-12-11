@@ -24,6 +24,14 @@ async function getTopicById(id) {
     return topic;
 }
 
+async function getTopicsByUserId(userId) {
+    const topics = await Topic.find({ _ownerId: userId });
+
+    if (topic.length === 0) throw new Error('This user has not posted any topics.');
+
+    return topics;
+}
+
 async function createTopic(body) {
     const topic = new Topic(body);
     return await topic.save();
@@ -52,6 +60,7 @@ module.exports = {
     getTopicsByCategory,
     getTopicsByCategories,
     getTopicById,
+    getTopicsByUserId,
     createTopic,
     editTopic,
     deleteTopic

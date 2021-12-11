@@ -7,11 +7,22 @@ router.get('/', async (req, res) => {
     res.json(topics);
 })
 
+router.get('/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        const topic = await service.getTopicById(id);
+        res.json(topic);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+})
+
 router.get('/c/following', isUser(), async (req, res) => {
     const categories = req.user.categories;
 
     if (!categories) {
         res.status(400).json({ message: 'You haven\'t followed any catogies yet.' })
+        return null;
     }
 
     const topics = await service.getTopicsByCategories(categories);
@@ -25,14 +36,11 @@ router.get(`/c/:category`, async (req, res) => {
     res.json(topics);
 });
 
-router.get('/:id', async (req, res) => {
-    const id = req.params.id;
-    try {
-        const topic = await service.getTopicById(id);
-        res.json(topic);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
+router.get('u/:userId', async (req, res) => {
+    const userId = req.params.userId;
+    const topics = await service.getTopicsByUserId(userId);
+
+    res.json(topics);
 })
 
 router.post('/', isUser(), async (req, res) => {
