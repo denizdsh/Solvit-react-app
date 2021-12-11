@@ -23,9 +23,9 @@ export async function getTopicsByCategory(category) {
     }
 }
 
-export async function getTopicByUserId(userId) {
+export async function getTopicsByAuthor(author) {
     try {
-        return await api.get(`${url}/u/${userId}`);
+        return await api.get(`${url}/u/${author}`);
     } catch (err) {
         throw err;
     }

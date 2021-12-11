@@ -7,17 +7,24 @@ const { SECRET } = require('../config');
 function generateJwt(user) {
     const token = jwt.sign({
         _id: user._id,
-        email: user.email
+        email: user.email,
+        username: user.username,
     }, SECRET)
 
     return token;
 }
 
-async function register(email, password, imageUrl) {
-    const existing = await User.findOne({ email });
+async function register(email, username, password, imageUrl) {
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
+        const err = new Error(`Account with email (${email}) already exists in database.`);
+        err.status = 409;
+        throw err;
+    }
 
-    if (existing) {
-        const err = new Error('Account with this email already exists in database.');
+    const existingUsername = await User.findOne({ username });
+    if (existingUsername) {
+        const err = new Error(`Account with username (${username}) already exists in database.`);
         err.status = 409;
         throw err;
     }
@@ -26,6 +33,7 @@ async function register(email, password, imageUrl) {
 
     const user = new User({
         email,
+        username,
         hashedPassword,
         imageUrl
     })
@@ -35,6 +43,7 @@ async function register(email, password, imageUrl) {
     return {
         _id: user._id,
         email: user.email,
+        username: user.username,
         imageUrl: user.imageUrl,
         accessToken: generateJwt(user)
     }

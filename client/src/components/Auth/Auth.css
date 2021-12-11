@@ -122,6 +122,10 @@
     cursor: pointer;
 }
 
+.auth-form-imageUrl-label:hover {
+    cursor: pointer;
+}
+
 .link-to-other-auth {
     color: #86D6F9;
     text-decoration: none;

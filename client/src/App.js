@@ -11,6 +11,8 @@ import Logout from './components/Auth/Logout';
 import CreateTopic from './components/CreateTopic/CreateTopic';
 import FollowedTopics from './components/FollowedTopics';
 import AllTopics from './components/AllTopics';
+import CategoryTopics from './components/CategoryTopics';
+import UserTopics from './components/UserTopics/UserTopics';
 
 function App() {
   return (
@@ -27,6 +29,10 @@ function App() {
             <Route path="/all" element={<AllTopics />}>
               <Route path="create" element={<CreateTopic />} />
             </Route>
+            <Route path="/c/:category" element={<CategoryTopics />}>
+              <Route path="create" element={<CreateTopic />} />
+            </Route>
+            <Route path="u/:user" element={<UserTopics />} />
             <Route path="/:id" element={<TopicDetails />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

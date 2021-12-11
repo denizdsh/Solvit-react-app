@@ -57,7 +57,7 @@ export default function UserMenu() {
                         </article>
                         <article className="user-menu-links">
                             <Link to={`/u/${user._id}`} className="dropdown-content-link">My Topics</Link>
-                            <Link to='TODO' className="dropdown-content-link">Edit Profile</Link>
+                            <Link to='TODO' className="dropdown-content-link">Edit Avatar</Link>
                             <Link to="/logout" className="dropdown-content-link">Logout</Link>
                         </article>
                     </article>

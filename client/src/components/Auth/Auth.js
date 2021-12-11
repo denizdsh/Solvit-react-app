@@ -6,6 +6,7 @@ import { isGuest } from '../../hoc/isAuth';
 
 function Auth({ type, onSubmit }) {
     const [passwordType, setPasswordType] = useState('password');
+    const [showImageInput, setShowImageInput] = useState(false);
 
     const passwordTypeHandler = () => {
         const isHidden = passwordType === 'password';
@@ -14,6 +15,8 @@ function Auth({ type, onSubmit }) {
 
     const eyeIcon = <i className="fas fa-eye"></i>;
     const crossedEyeIcon = <i className="far fa-eye-slash"></i>;
+
+    let caret = showImageInput ? <i className="fa fa-caret-down"></i> : <i className="fa fa-caret-right"></i>
 
     const isLogin = type === 'Login';
 
@@ -32,6 +35,12 @@ function Auth({ type, onSubmit }) {
                     <label className="auth-form-label" htmlFor="email">Email</label>
                     <input className="auth-form-input" type="email" id="email" name="email" placeholder="john@doe.com" />
                 </div>
+                {isLogin ||
+                    <div>
+                        <label className="auth-form-label" htmlFor="username">Username</label>
+                        <input className="auth-form-input" type="username" id="username" name="username" placeholder="John Doe" />
+                    </div>
+                }
                 <div>
                     <article className="auth-form-password-label-wrap">
                         <label className="auth-form-label" htmlFor="password">Password</label>
@@ -41,7 +50,7 @@ function Auth({ type, onSubmit }) {
                                 : eyeIcon}
                         </article>
                     </article>
-                    <input className="auth-form-input" type={passwordType} id="password" name="password" placeholder={isLogin ? '' : 'at least 6 characters'} />
+                    <input className="auth-form-input" type={passwordType} id="password" name="password" placeholder={isLogin ? '' : 'At least 6 characters'} />
                 </div>
                 {isLogin ||
                     <div>
@@ -53,13 +62,18 @@ function Auth({ type, onSubmit }) {
                                     : eyeIcon}
                             </article>
                         </article>
-                        <input className="auth-form-input" type={passwordType} id="repassword" name="repassword" placeholder={'same as the one above'} />
+                        <input className="auth-form-input" type={passwordType} id="repassword" name="repassword" placeholder={'Same as password'} />
                     </div>
                 }
                 {isLogin ||
                     <div>
-                        <label className="auth-form-label" htmlFor="imageUrl">Avatar icon url</label>
-                        <input className="auth-form-input" type='url' id="imageUrl" name="imageUrl" placeholder={'https://image.com'} />
+                        <label className="auth-form-label auth-form-imageUrl-label" htmlFor="imageUrl" onClick={() => setShowImageInput(oldState => !oldState)}>Avatar icon {caret}</label>
+                        {showImageInput &&
+                            <>
+                                <input className="auth-form-input" type='url' id="imageUrl" name="imageUrl" placeholder='URL - not requried' />
+                                <a className="link-to-imgur" href="https://imgur.com/upload" target="_blank" rel="noreferrer">You can upload your image here...</a>
+                            </>
+                        }
                     </div>
                 }
                 <div>

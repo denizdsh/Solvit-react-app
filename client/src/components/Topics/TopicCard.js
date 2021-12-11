@@ -1,25 +1,34 @@
 import './TopicCard.css';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
+
+function getDate(dateData) {
+    let [date, time] = dateData.split('T');
+    time = time.split('.')[0];
+
+    return `${date} ${time}`;
+}
+
 export default function TopicCard({ topic }) {
     const navigate = useNavigate();
-
+    const date = getDate(topic.updatedAt);
+    
     return (
         <section className="topic active-hover" >
             <article className="topic-info">
                 <article className="topic-info-creation-wrap">
                     <article className="topic-info-category">
                         <span className="category">
-                            <Link to="#">
+                            <Link to={`/c/${topic.category}`}>
                                 c/{topic.category}
                             </Link>
                         </span>
                     </article>
                     <article className="topic-info-creation">
                         <span className="topic-info-creation-posted-by">
-                            Posted by <Link className="topic-info-creation-posted-by-username" to="#">u/{topic.author.split('@')[0]}</Link>
+                            Posted by <Link className="topic-info-creation-posted-by-username" to={`/u/${topic.author}`}>u/{topic.author}</Link>
                         </span>
-                        <span className="topic-info-creation-date">{topic.date}</span>
+                        <span className="topic-info-creation-date">{date}</span>
                     </article>
                 </article>
                 <article className="topic-info-follow-category">

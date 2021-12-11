@@ -36,17 +36,20 @@ router.get(`/c/:category`, async (req, res) => {
     res.json(topics);
 });
 
-router.get('u/:userId', async (req, res) => {
-    const userId = req.params.userId;
-    const topics = await service.getTopicsByUserId(userId);
-
-    res.json(topics);
+router.get('/u/:user', async (req, res) => {
+    const user = req.params.user;
+    try {
+        const topics = await service.getTopicsByAuthor(user);
+        res.json(topics);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
 })
 
 router.post('/', isUser(), async (req, res) => {
     const topic = {
         _ownerId: req.user._id,
-        author: req.user.email,
+        author: req.user.username,
         category: req.body.category || 'other',
         title: req.body.title,
         description: req.body.description,

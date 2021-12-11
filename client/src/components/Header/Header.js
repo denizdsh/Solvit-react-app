@@ -66,20 +66,20 @@ export default function Header() {
                             Front-end <i className="fa fa-caret-down"></i>
                         </Link>
                         <article className="inner-dropdown-content">
-                            <Link to="/c/front-end/react" className="dropdown-content-link" >React</Link>
-                            <Link to="/c/front-end/jquery" className="dropdown-content-link" >jQuery</Link>
-                            <Link to="/c/front-end/angular" className="dropdown-content-link" >Angular</Link>
-                            <Link to="/c/front-end/vue.js" className="dropdown-content-link" >Vue.js</Link>
+                            <Link to="/c/react" className="dropdown-content-link" >React</Link>
+                            <Link to="/c/jquery" className="dropdown-content-link" >jQuery</Link>
+                            <Link to="/c/angular" className="dropdown-content-link" >Angular</Link>
+                            <Link to="/c/vue.js" className="dropdown-content-link" >Vue.js</Link>
                         </article>
 
                         <Link to="/c/back-end" className="dropdown-content-link inner-dropdown-btn">
                             Back-end <i className="fa fa-caret-down"></i>
                         </Link>
                         <article className="inner-dropdown-content">
-                            <Link to="/c/back-end/node.js" className="dropdown-content-link">Node.js</Link>
-                            <Link to="/c/back-end/spring" className="dropdown-content-link">Spring</Link>
-                            <Link to="/c/back-end/asp.net" className="dropdown-content-link">ASP.NET</Link>
-                            <Link to="/c/back-end/django" className="dropdown-content-link">Django</Link>
+                            <Link to="/c/node.js" className="dropdown-content-link">Node.js</Link>
+                            <Link to="/c/spring" className="dropdown-content-link">Spring</Link>
+                            <Link to="/c/asp.net" className="dropdown-content-link">ASP.NET</Link>
+                            <Link to="/c/django" className="dropdown-content-link">Django</Link>
                         </article>
 
                         <Link to="/c/other" className="dropdown-content-link" >Other</Link>

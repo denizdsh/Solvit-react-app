@@ -142,7 +142,7 @@
     margin-right: 6px;
 }
 
-.fas.fa-heart {
+.topic-functionality .fas.fa-heart {
     color: red;
 }
 
@@ -150,7 +150,7 @@
     color: red;
 }
 
-.fas.fa-bookmark {
+.topic-functionality .fas.fa-bookmark {
     color: rgb(255, 208, 0);
 }
 

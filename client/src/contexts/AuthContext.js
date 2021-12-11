@@ -6,16 +6,16 @@ export const AuthContext = createContext();
 const initialUserData = {
     _id: '',
     email: '',
+    username: '',
     imageUrl: '',
-    accessToken: '',
-    username: ''
+    accessToken: ''
 };
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useLocalStorage('user', initialUserData)
 
     const login = (userData) => {
-        setUser({ ...userData, username: userData.email.split('@')[0] });
+        setUser({ ...userData });
     }
 
     const logout = () => {
