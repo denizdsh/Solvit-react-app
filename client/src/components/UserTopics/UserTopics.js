@@ -17,7 +17,7 @@ export default function UserTopics() {
                 console.error(err);
             }
         })();
-    }, [])
+    }, [user])
 
 
     return (

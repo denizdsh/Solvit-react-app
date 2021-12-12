@@ -29,7 +29,7 @@ export default function TopicDetails() {
                 navigate(-1, { replace: true });
             }
         })();
-    }, [id])
+    }, [id, navigate])
     const date = topic?.updatedAt ? getDate(topic.updatedAt) : '';
     return (
         topic._id

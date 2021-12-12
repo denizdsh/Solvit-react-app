@@ -7,12 +7,13 @@ import CreateTopicLink from './CreateTopicLink';
 import CreateTopic from '../CreateTopic/CreateTopic';
 import { Routes, Route } from 'react-router';
 
-export default function Topics({ topics, CustomHeading, showCreateTopicLink = true, showAside = true, message='No topics yet. Be the first one to post one!' }) {
+export default function Topics({ topics, CustomHeading, showCreateTopicLink = true, showAside = true, message = 'No topics yet. Be the first one to post one!' }) {
     return (
         <>
-            <Routes>
-                <Route path="create" element={<CreateTopic />} />
-            </Routes>
+            {showCreateTopicLink &&
+                <Routes>
+                    <Route path="create" element={<CreateTopic />} />
+                </Routes>}
             <section className="content">
                 {(showAside && topics.length > 0) && <Aside />}
                 <section className="topics">

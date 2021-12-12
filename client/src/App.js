@@ -26,10 +26,10 @@ function App() {
             <Route path="/*" element={<FollowedTopics />} >
               <Route path="create" element={<CreateTopic />} />
             </Route>
-            <Route path="/all" element={<AllTopics />}>
+            <Route path="/all/*" element={<AllTopics />}>
               <Route path="create" element={<CreateTopic />} />
             </Route>
-            <Route path="/c/:category" element={<CategoryTopics />}>
+            <Route path="/c/:category/*" element={<CategoryTopics />}>
               <Route path="create" element={<CreateTopic />} />
             </Route>
             <Route path="u/:user" element={<UserTopics />} />
