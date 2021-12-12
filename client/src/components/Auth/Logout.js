@@ -9,7 +9,7 @@ export default function Logout() {
     const navigate = useNavigate();
     useEffect(() => {
         logout();
-        navigate('/all')
+        navigate('/all', { replace: true })
     })
     return (
         <Spinner />

@@ -13,11 +13,7 @@ async function getTopicsByCategories(categories) {
 }
 
 async function getTopicById(id) {
-    const topic = await Topic.findById(id).populate('_ownerId')
-        .populate('author')
-        .populate('likes')
-        //.populate('comments')
-        .lean();
+    const topic = await Topic.findById(id).lean();
 
     if (!topic) throw new Error('No such topic in database.');
 

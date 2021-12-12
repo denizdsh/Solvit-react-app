@@ -19,8 +19,8 @@ export default function Login() {
             const userData = await auth.login(email, password);
             login(userData);
 
-            navigate('/');
-        } catch (err) {}
+            navigate('/', { replace: true });
+        } catch (err) { }
     }
 
     return (

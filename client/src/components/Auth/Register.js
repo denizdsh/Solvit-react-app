@@ -26,7 +26,7 @@ export default function Register() {
             const userData = await auth.register(email, password, imageUrl);
             login(userData);
 
-            navigate('/');
+            navigate('/', { replace: true });
         } catch (err) { }
     }
 

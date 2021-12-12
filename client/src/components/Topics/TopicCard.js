@@ -38,7 +38,7 @@ export default function TopicCard({ topic }) {
                     <Button color="secondary" size="small" className="topic-info-follow-category-btn unfollow-category-btn">Following</Button>
                 </article>
             </article>
-            <article className="topic-content hover" onClick={() => navigate('/id')}>
+            <article className="topic-content hover" onClick={() => navigate(`/${topic._id}`)}>
                 <article className="topic-content-title">
                     <h2 className="topic-title">
                         {topic.title}

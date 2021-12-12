@@ -1,6 +1,5 @@
 import './CreateTopicLink.css';
 import { useAuth } from '../../hooks/useAuth';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import blue from '@mui/material/colors/blue';

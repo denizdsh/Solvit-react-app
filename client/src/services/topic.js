@@ -38,3 +38,11 @@ export async function getFollowedTopics() {
         throw err;
     }
 }
+
+export async function getTopicById(id) {
+    try {
+        return await api.get(`${url}/${id}`);
+    } catch (err) {
+        throw err;
+    }
+}
