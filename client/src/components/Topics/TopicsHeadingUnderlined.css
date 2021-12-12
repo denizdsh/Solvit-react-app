@@ -1,0 +1,24 @@
+.topics-heading {
+    margin-bottom: 15px;
+    color: gray;
+}
+
+.topics-heading-title {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 1.6rem;
+    margin-bottom: 5px;
+}
+
+.topics-heading-line {
+    position: relative;
+}
+
+.topics-heading-line::before {
+    content: "";
+    background: rgb(107, 107, 107);
+    height: 2px;
+    width: 96%;
+    position: absolute;
+    margin: 0 2%;
+}
