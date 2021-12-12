@@ -3,14 +3,19 @@ import { useAuth } from '../../hooks/useAuth';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
-import { blue } from '@mui/material/colors';
+import blue from '@mui/material/colors/blue';
+import grey from '@mui/material/colors/grey';
 
 export default function CreateTopicLink() {
     const { user, isAuthenticated } = useAuth();
     const navigate = useNavigate();
 
-    const redirectToCreateHandler = (e) => {
+    const redirectToCreateHandler = () => {
         navigate('create');
+    }
+    
+    const redirectToLogin = () => {
+        navigate('/login');
     }
     return (
         isAuthenticated
@@ -28,7 +33,15 @@ export default function CreateTopicLink() {
             )
             :
             (
-                <Link to="/login">Please log in in order to post a topic.</Link >
+                <section className="create-topic-link">
+                    <Avatar
+                        sx={{ bgcolor: grey[500], width: '3rem', height: '3rem', boxShadow: '0px 0px 7px -3px #86d6f9' }}
+                        src=''
+                        alt=''>
+                    </Avatar>
+                    <input type="text" className="create-topic-link-input" placeholder="Please log in in order to post a topic." onClick={redirectToLogin} onInput={redirectToLogin} />
+                </section>
+
             )
     )
 }

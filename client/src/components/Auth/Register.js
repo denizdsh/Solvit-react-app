@@ -22,10 +22,12 @@ export default function Register() {
             return;
         }
 
-        const userData = await auth.register(email, password, imageUrl);
-        login(userData);
+        try {
+            const userData = await auth.register(email, password, imageUrl);
+            login(userData);
 
-        navigate('/');
+            navigate('/');
+        } catch (err) { }
     }
 
     return (

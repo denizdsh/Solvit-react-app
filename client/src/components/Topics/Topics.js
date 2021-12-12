@@ -7,7 +7,7 @@ import CreateTopicLink from './CreateTopicLink';
 import CreateTopic from '../CreateTopic/CreateTopic';
 import { Routes, Route } from 'react-router';
 
-export default function Topics({ topics, CustomHeading, showCreateTopicLink = true, showAside = true, }) {
+export default function Topics({ topics, CustomHeading, showCreateTopicLink = true, showAside = true, message='No topics yet. Be the first one to post one!' }) {
     return (
         <>
             <Routes>
@@ -16,11 +16,11 @@ export default function Topics({ topics, CustomHeading, showCreateTopicLink = tr
             <section className="content">
                 {(showAside && topics.length > 0) && <Aside />}
                 <section className="topics">
+                    {CustomHeading ? CustomHeading : <></>}
                     {showCreateTopicLink && <CreateTopicLink />}
-                    {CustomHeading ? <CustomHeading /> : <></>}
                     {topics.length > 0
                         ? topics.map(topic => <TopicCard topic={topic} key={topic._id} />)
-                        : <p className='no-posts-message'>No topics yet. Be the first one to post one!</p>}
+                        : <p className='no-posts-message'>{message}</p>}
                 </section>
             </section>
         </>

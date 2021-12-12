@@ -68,12 +68,18 @@ async function login(email, password) {
     return {
         _id: user._id,
         email: user.email,
+        username: user.username,
         imageUrl: user.imageUrl,
         accessToken: generateJwt(user)
     }
 }
 
+async function getImageByUsername(username) {
+    const user = await User.findOne({ username });
+    return user ? user.imageUrl : '';
+}
 module.exports = {
     register,
-    login
+    login,
+    getImageByUsername
 };

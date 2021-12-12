@@ -15,10 +15,12 @@ export default function Login() {
         const form = new FormData(e.currentTarget);
         const { email, password } = Object.fromEntries(form);
 
-        const userData = await auth.login(email, password);
-        login(userData);
+        try {
+            const userData = await auth.login(email, password);
+            login(userData);
 
-        navigate('/');
+            navigate('/');
+        } catch (err) {}
     }
 
     return (

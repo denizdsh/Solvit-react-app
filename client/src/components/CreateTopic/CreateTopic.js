@@ -19,21 +19,22 @@ function CreateTopic() {
         const urlRegexp = /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/ig;
         let err = '';
 
-        if (!imageUrl.match(urlRegexp)) {
-            err += '\nImage must be a valid URL';
-        }
-        if (!categories.includes(category)) {
-            err += '\nCategory must be a valid category';
-        }
-        if (!title || !description || !imageUrl || !category) {
+        if (!title || !description || !category) {
             err = 'All fields required';
         }
         if (title.length > 200) {
-            err += 'Title must be less than 200 characters';
+            err += '\nTitle must be less than 200 characters';
         }
         if (description.length > 1500) {
             err += '\nDescription must be less than 1500 characters';
         }
+        if (!categories.includes(category)) {
+            err += '\nCategory must be a valid category';
+        }
+        if (imageUrl && !imageUrl.match(urlRegexp)) {
+            err += '\nImage must be a valid URL';
+        }
+
         if (!err) {
             try {
                 const res = await createTopic({ title, description, imageUrl, category: category.toLocaleLowerCase() });

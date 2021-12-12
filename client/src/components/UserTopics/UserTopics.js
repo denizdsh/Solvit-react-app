@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getTopicsByAuthor } from '../../services/topic';
 import Topics from '../Topics/Topics';
+import UserTopicsHeading from './UserTopicsHeading';
 
 export default function UserTopics() {
     const [topics, setTopics] = useState([]);
@@ -14,16 +15,12 @@ export default function UserTopics() {
                 setTopics(topicsData);
             } catch (err) {
                 console.error(err);
-                alert(err);
             }
         })();
     }, [])
 
 
-    const UserHeading = () => (
-        <span>user</span>
-    )
     return (
-        <Topics topics={topics} CustomHeading={UserHeading} showCreateTopicLink={false} />
+        <Topics topics={topics} CustomHeading={<UserTopicsHeading user={user} />} showCreateTopicLink={false} message={`${user} hasn't posted yet.`} />
     )
 }

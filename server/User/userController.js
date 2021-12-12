@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const { isGuest } = require('../middlewares/guards')
-const { register, login } = require('./userService');
+const { register, login, getImageByUsername } = require('./userService');
 
 router.post('/register', isGuest(), async (req, res) => {
     const email = req.body.email.trim().toLocaleLowerCase();
@@ -34,6 +34,12 @@ router.post('/login', isGuest(), async (req, res) => {
     } catch (err) {
         res.status(err.status || 400).json({ message: err.message });
     }
+})
+
+router.get('/u/:username/image', async (req, res) => {
+    const username = req.params.username;
+    const image = await getImageByUsername(username);
+    res.json(image);
 })
 
 module.exports = router;

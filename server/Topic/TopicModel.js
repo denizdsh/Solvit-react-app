@@ -8,7 +8,7 @@ const schema = new Schema({
     category: { type: String, enum: categories, required: true },
     title: { type: String, required: true, maxlength: 200 },
     description: { type: String, required: true, maxlength: 1500 },
-    imageUrl: { type: String, required: true, match: /^https?:\/\// },
+    imageUrl: { type: String, match: /^https?:\/\// },
     likes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
 }, { timestamps: true }

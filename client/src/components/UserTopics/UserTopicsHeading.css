@@ -1,0 +1,18 @@
+.user-topics-heading {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: #262A37;
+    border-radius: 15px;
+    padding: 10px 20px;
+    border: 2px solid #313846;
+}
+
+.user-topics-heading:hover {
+    outline: 1px solid #313846;
+}
+
+.user-topics-heading-title{
+    margin-left: 40px;
+    font-size: 1.6rem;
+}
