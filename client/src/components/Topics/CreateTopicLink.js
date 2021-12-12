@@ -25,8 +25,8 @@ export default function CreateTopicLink() {
                     <Avatar
                         sx={{ bgcolor: blue[500], width: '3rem', height: '3rem', boxShadow: '0px 0px 7px -3px #86d6f9' }}
                         src={user.imageUrl}
-                        alt={user.username}>
-                        {user.username[0]}
+                        alt={user.username.toLocaleUpperCase()}>
+                        {user.username[0].toLocaleUpperCase()}
                     </Avatar>
                     <input type="text" className="create-topic-link-input" placeholder="What's on your mind?" onClick={redirectToCreateHandler} onInput={redirectToCreateHandler} />
                 </section>
@@ -39,7 +39,7 @@ export default function CreateTopicLink() {
                         src=''
                         alt=''>
                     </Avatar>
-                    <input type="text" className="create-topic-link-input" placeholder="Please log in in order to post a topic." onClick={redirectToLogin} onInput={redirectToLogin} />
+                    <input type="text" className="create-topic-link-input" placeholder="Log in to create a post" onClick={redirectToLogin} onInput={redirectToLogin} />
                 </section>
 
             )

@@ -19,8 +19,8 @@ export default function UserTopicsHeading({ user }) {
             <Avatar
                 sx={{ bgcolor: blue[500], width: '4rem', height: '4rem', boxShadow: '0px 0px 7px -3px #86d6f9' }}
                 src={image}
-                alt={user}>
-                {user[0]}
+                alt={user.toLocaleUpperCase()}>
+                {user[0].toLocaleUpperCase()}
             </Avatar>
             <p className="user-topics-heading-title">{user}'s posts</p>
         </section>

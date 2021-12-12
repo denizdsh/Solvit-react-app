@@ -37,8 +37,8 @@ export default function UserMenu() {
                 <Avatar
                     sx={{ bgcolor: blue[500], width: '3rem', height: '3rem', boxShadow: '0px 0px 7px -3px #86d6f9' }}
                     src={user.imageUrl}
-                    alt={user.username}>
-                    {user.username[0]}
+                    alt={user.username.toLocaleUpperCase()}>
+                    {user.username[0].toLocaleUpperCase()}
                 </Avatar>
             </article>
 
@@ -49,8 +49,8 @@ export default function UserMenu() {
                             <Avatar
                                 sx={{ bgcolor: blue[500], width: '9rem', height: '9rem', boxShadow: '0px 0px 7px -3px #86d6f9' }}
                                 src={user.imageUrl}
-                                alt={user.username}>
-                                {user.username[0]}
+                                alt={user.username.toLocaleUpperCase()}>
+                                {user.username[0].toLocaleUpperCase()}
                             </Avatar>
                             <p className="user-menu-info-username">{user.username}</p>
                             <p className="user-menu-info-email">{`(${user.email})`}</p>

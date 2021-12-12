@@ -11,8 +11,8 @@ export default function Comment({ comment }) {
                     <Avatar
                         sx={{ bgcolor: blue[500], width: 33, height: 33, boxShadow: '0px 0px 7px -3px #86d6f9' }}
                         src={comment.owner.imageUrl}
-                        alt={comment.owner.username}>
-                        {comment.owner.username[0]}
+                        alt={comment.owner.username.toLocaleUpperCase()}>
+                        {comment.owner.username[0].toLocaleUpperCase()}
                     </Avatar>
                 </span>
                 <span className="comment-info-owner">
