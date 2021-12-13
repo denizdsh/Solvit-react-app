@@ -69,7 +69,8 @@ router.post('/user-action/follow/:category', async (req, res) => {
             throw new Error(`Category ${category} is not valid.`);
         }
 
-        await service.followCategory(userId, category);
+        const response = await service.followCategory(userId, category);
+        res.json(response);
     } catch (err) {
         res.status(err.status || 400).json({ message: err.message });
     }
@@ -90,7 +91,8 @@ router.post('/user-action/unfollow/:category', async (req, res) => {
             throw new Error(`Category ${category} is not valid.`);
         }
 
-        await service.unfollowCategory(userId, category);
+        const response = await service.unfollowCategory(userId, category);
+        res.json(response);
     } catch (err) {
         res.status(err.status || 400).json({ message: err.message });
     }

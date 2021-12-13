@@ -10,15 +10,16 @@ import Aside from './Aside';
 import CreateTopicLink from './CreateTopicLink';
 import CreateTopic from '../CreateTopic/CreateTopic';
 
-export default function Topics({ topics, CustomHeading, showCreateTopicLink = true, showAside = true, message = 'No topics yet. Be the first one to post one!', fc }) {
+export default function Topics({ topics, CustomHeading, showCreateTopicLink = true, showAside = true, message = 'No topics yet. Be the first one to post one!', fc = undefined }) {
     const [followingCategories, setFollowingCategories] = useState([]);
     const { isAuthenticated } = useAuth();
 
     useEffect(() => {
-        if (isAuthenticated && !fc) {
+        if (isAuthenticated) {
             (async () => {
                 try {
                     const categoriesData = await getFollowingCategories();
+                    console.log(categoriesData);
                     setFollowingCategories(categoriesData);
                 } catch (err) {
                     console.error(err);
@@ -42,7 +43,7 @@ export default function Topics({ topics, CustomHeading, showCreateTopicLink = tr
 
         fc = { categories: followingCategories, addFollowingCategory, removeFollowingCategory };
     }
-    console.log(fc)
+    console.log(fc.categories);
     return (
         <>
             {showCreateTopicLink &&
