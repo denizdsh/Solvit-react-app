@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getUserImageByUsername } from '../../services/misc';
+import { getUserImageByUsername } from '../../services/user';
 
 import './UserTopicsHeading.css';
 import Avatar from '@mui/material/Avatar';

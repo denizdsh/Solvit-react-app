@@ -73,13 +73,63 @@ async function login(email, password) {
         accessToken: generateJwt(user)
     }
 }
+async function getCardTopicUserData(userId) {
+    const user = await User.findById(userId);
+    return user ? { username: user.username, savedTopics: user.savedTopcis || [] } : {};
+}
 
 async function getImageByUsername(username) {
     const user = await User.findOne({ username });
     return user ? user.imageUrl : '';
 }
+
+async function getFollowingCategories(userId) {
+    const user = await User.findById(userId);
+    return user ? user.followingCategories || [] : [];
+}
+
+async function followCategory(userId, category) {
+    const user = await User.findById(userId);
+    if (!user) {
+        const err = new Error('You have to be logged in to perform this action.')
+        err.status = 400;
+        throw err;
+    }
+
+    if (user.followingCategories.includes(category)) {
+        const err = new Error(`You have already followed category ${category}.`)
+        err.status = 400;
+        throw err;
+    }
+
+    user.followingCategories.push(category);
+    await user.save();
+}
+
+async function unfollowCategory(userId, category) {
+    const user = await User.findById(userId);
+    if (!user) {
+        const err = new Error('You have to be logged in to perform this action.')
+        err.status = 400;
+        throw err;
+    }
+
+    if (!user.followingCategories.includes(category)) {
+        const err = new Error(`You haven't followed category ${category} yet.`)
+        err.status = 400;
+        throw err;
+    }
+
+    user.followingCategories.splice(user.followingCategories.indexOf(category), 1);
+    await user.save();
+}
+
 module.exports = {
     register,
     login,
-    getImageByUsername
+    getCardTopicUserData,
+    getImageByUsername,
+    getFollowingCategories,
+    followCategory,
+    unfollowCategory
 };

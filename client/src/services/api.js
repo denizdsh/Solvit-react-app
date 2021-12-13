@@ -12,7 +12,7 @@ async function request(url, options) {
         }
     } catch (err) {
         // TODO: show custom error pop-up
-        alert(err.message);
+        console.error(err.message);
         throw err;
     }
 }

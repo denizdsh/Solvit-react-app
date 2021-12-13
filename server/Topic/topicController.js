@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const service = require('./topicService');
+const { getFollowingCategories } = require('../User/userService');
 const { isUser, isOwner } = require('../middlewares/guards');
 
 router.get('/', async (req, res) => {
@@ -18,8 +19,9 @@ router.get('/:id', async (req, res) => {
 })
 
 router.get('/c/following', isUser(), async (req, res) => {
-    const categories = req.user.categories;
-
+    const userId = req.user._id;
+    const categories = await getFollowingCategories(userId)
+    
     if (!categories) {
         res.status(400).json({ message: 'You haven\'t followed any catogies yet.' })
         return null;

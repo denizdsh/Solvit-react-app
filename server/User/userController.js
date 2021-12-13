@@ -1,7 +1,8 @@
 const router = require('express').Router();
 
 const { isGuest } = require('../middlewares/guards')
-const { register, login, getImageByUsername } = require('./userService');
+const service = require('./userService');
+const { categories } = require('../config');
 
 router.post('/register', isGuest(), async (req, res) => {
     const email = req.body.email.trim().toLocaleLowerCase();
@@ -16,7 +17,7 @@ router.post('/register', isGuest(), async (req, res) => {
             throw new Error('Password must be at least 6 characters long');
         }
 
-        const user = await register(email, password, imageUrl);
+        const user = await service.register(email, password, imageUrl);
 
         res.json(user);
     } catch (err) {
@@ -29,17 +30,69 @@ router.post('/login', isGuest(), async (req, res) => {
     const password = req.body.password.trim();
 
     try {
-        const user = await login(email, password);
+        const user = await service.login(email, password);
         res.json(user);
     } catch (err) {
         res.status(err.status || 400).json({ message: err.message });
     }
 })
+router.get('/u/me/topic-user-data', async (req, res) => {
+    const userId = req.user?._id;
+    const userData = await service.getCardTopicUserData(userId);
+    res.json(userData);
+})
+
+router.get('/u/me/following-categories', async (req, res) => {
+    const userId = req.user?._id;
+    const followingCategories = await service.getFollowingCategories(userId);
+    res.json(followingCategories);
+})
 
 router.get('/u/:username/image', async (req, res) => {
     const username = req.params.username;
-    const image = await getImageByUsername(username);
+    const image = await service.getImageByUsername(username);
     res.json(image);
 })
 
+router.post('/user-action/follow/:category', async (req, res) => {
+    const userId = req.user._id;
+    const category = req.params.category;
+
+    try {
+        if (!userId) {
+            const err = new Error('You have to be logged in to perform this action.');
+            err.status = 401;
+            throw err;
+        }
+
+        if (!categories.includes(category)) {
+            throw new Error(`Category ${category} is not valid.`);
+        }
+
+        await service.followCategory(userId, category);
+    } catch (err) {
+        res.status(err.status || 400).json({ message: err.message });
+    }
+})
+
+router.post('/user-action/unfollow/:category', async (req, res) => {
+    const userId = req.user._id;
+    const category = req.params.category;
+
+    try {
+        if (!userId) {
+            const err = new Error('You have to be logged in to perform this action.');
+            err.status = 401;
+            throw err;
+        }
+
+        if (!categories.includes(category)) {
+            throw new Error(`Category ${category} is not valid.`);
+        }
+
+        await service.unfollowCategory(userId, category);
+    } catch (err) {
+        res.status(err.status || 400).json({ message: err.message });
+    }
+})
 module.exports = router;

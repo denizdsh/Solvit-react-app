@@ -1,5 +1,8 @@
-import './TopicCard.css';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
+import './TopicCard.css';
+import { getCardTopicUserData } from '../../services/user';
 import Button from '@mui/material/Button';
 
 function getDate(dateData) {
@@ -9,10 +12,71 @@ function getDate(dateData) {
     return `${date} ${time}`;
 }
 
-export default function TopicCard({ topic }) {
+export default function TopicCard({ topic, isAuthenticated, fc }) {
+    const [hasFollowed, setHasFollowed] = useState(false);
+    const [hasLiked, setHasLiked] = useState(false);
+    const [hasSaved, setHasSaved] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            setHasFollowed(false);
+            return;
+        }
+        let hf = fc.categories.includes(topic.category);
+
+        setHasFollowed(hf);
+
+    }, [fc])
+
+    useEffect(() => {
+        (async () => {
+            if (!isAuthenticated) {
+                return;
+            }
+
+            let userData = await getCardTopicUserData();
+
+            let hl = topic.likes.includes(userData.username);
+            let hs = userData.savedTopics.includes(topic._id);
+
+            setHasLiked(hl);
+            setHasSaved(hs);
+        })()
+    }, [])
+
+    const followCategoryHandler = async () => {
+        if (isAuthenticated) {
+            await fc.addFollowingCategory(topic.category);
+        } else {
+            navigate('/login');
+        }
+    }
+    const unfollowCategoryHandler = async () => {
+        if (isAuthenticated) {
+            await fc.removeFollowingCategory(topic.category);
+        } else {
+            navigate('/login');
+        }
+    }
+
+    const likeHandler = () => {
+        if (isAuthenticated) {
+            //TODO
+        } else {
+            navigate('/login');
+        }
+    }
+
+    const saveTopicHandler = () => {
+        if (isAuthenticated) {
+            //TODO
+        } else {
+            navigate('/login');
+        }
+    }
     const date = getDate(topic.updatedAt);
-    
+
     return (
         <section className="topic active-hover" >
             <article className="topic-info">
@@ -32,11 +96,12 @@ export default function TopicCard({ topic }) {
                     </article>
                 </article>
                 <article className="topic-info-follow-category">
-                    <Button variant="contained" color="success" size="small" className="topic-info-follow-category-btn">
-                        Follow
-                    </Button>
-                    <Button color="secondary" size="small" className="topic-info-follow-category-btn unfollow-category-btn">Following</Button>
-                </article>
+                    {!hasFollowed
+                        ? <Button variant="contained" color="success" size="small" className="topic-info-follow-category-btn" onClick={followCategoryHandler}>
+                            Follow
+                        </Button>
+                        : <Button color="secondary" size="small" className="topic-info-follow-category-btn unfollow-category-btn" onClick={unfollowCategoryHandler}>Following</Button>
+                    }</article>
             </article>
             <article className="topic-content hover" onClick={() => navigate(`/${topic._id}`)}>
                 <article className="topic-content-title">
@@ -69,7 +134,7 @@ export default function TopicCard({ topic }) {
                     <li className="topic-functionality-list-item topic-functionality-list-item-follow">
                         <i className="far fa-bookmark"></i>
                         <i className="fas fa-bookmark"></i>
-                        Follow
+                        Save
                     </li>
                 </ul>
             </article>
