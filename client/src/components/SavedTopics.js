@@ -31,7 +31,7 @@ function SavedTopics() {
                 console.error(err);
             }
         })()
-    }, [])
+    }, [savedTopics])
 
     const addSavedTopic = async (topicId) => {
         setSavedTopics([...savedTopics, topicId]);

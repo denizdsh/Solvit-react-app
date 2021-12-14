@@ -71,8 +71,7 @@ export default function TopicCard({ topic, isAuthenticated, user, fc, st }) {
     const likeTopicHandler = async () => {
         if (isAuthenticated) {
             console.log('like');
-
-            const res = await likeTopic(topic._id);
+            await likeTopic(topic._id);
             setHasLiked(topic.likes.includes(user._id))
         } else {
             navigate('/login');
@@ -149,20 +148,17 @@ export default function TopicCard({ topic, isAuthenticated, user, fc, st }) {
             </article>
             <article className="topic-functionality">
                 <ul className="topic-functionality-list">
-                    <section className="like-comment-section">
-                        <li className="topic-functionality-list-item topic-functionality-list-item-likes" onClick={hasLiked ? dislikeTopicHandler : likeTopicHandler}>
-                            {hasLiked
-                                ? <i className="fas fa-heart"></i>
-                                : <i className="far fa-heart"></i>
-                            }
-                            <span className="likes-count">{topic.likes.length} Likes</span>
-                        </li>
-                        <li className="topic-functionality-list-item topic-functionality-list-item-comments">
-                            <i className="fas fa-comments"></i>
-                            {topic.comments.length} Comments
-                        </li>
-                    </section>
-
+                    <li className="topic-functionality-list-item topic-functionality-list-item-likes" onClick={hasLiked ? dislikeTopicHandler : likeTopicHandler}>
+                        {hasLiked
+                            ? <i className="fas fa-heart"></i>
+                            : <i className="far fa-heart"></i>
+                        }
+                        <span className="likes-count">{topic.likes.length} Likes</span>
+                    </li>
+                    <li className="topic-functionality-list-item topic-functionality-list-item-comments">
+                        <i className="fas fa-comments"></i>
+                        {topic.comments.length} Comments
+                    </li>
                     <li className="topic-functionality-list-item topic-functionality-list-item-follow" onClick={hasSaved ? unsaveTopicHandler : saveTopicHandler}>
                         {hasSaved
                             ? <i className="fas fa-bookmark"></i>

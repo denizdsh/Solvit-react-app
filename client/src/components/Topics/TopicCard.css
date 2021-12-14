@@ -10,8 +10,8 @@
     margin: 20px 0;
 }
 
-@media all and (max-width: 700px){
-    .topic{
+@media all and (max-width: 700px) {
+    .topic {
         margin: 10px 0;
     }
 }
@@ -132,9 +132,24 @@
 
 .topic-functionality-list-item {
     cursor: pointer;
+    width: 33%;
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.topic-functionality-list-item-likes {
+    justify-content: flex-start;
+    padding-left: 20px;
+}
+
+.topic-functionality-list-item-comments {
+    justify-content: center;
+}
+
+.topic-functionality-list-item-follow {
+    justify-content: flex-end;
+    padding-right: 20px;
 }
 
 .far, .fas {
@@ -160,12 +175,4 @@
 
 .topic-functionality-list-item-comments:hover>.fas.fa-comments {
     color: #D7DADC;
-}
-
-.like-comment-section{
-    display: flex;
-}
-
-.topic-functionality-list-item-likes{
-    margin-right: 35px;
 }
