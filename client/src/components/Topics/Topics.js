@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
+
 import { Routes, Route } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
+
 import { useAuth } from '../../hooks/useAuth';
+import { useTopicFunctionality } from '../../hooks/useTopicFunctionality';
 import { getFollowingCategories, followCategory, unfollowCategory, getSavedTopicsIds, saveTopic, unsaveTopic } from '../../services/user';
 
 import './Topics.css';
@@ -11,69 +14,17 @@ import CreateTopicLink from './CreateTopicLink';
 import CreateTopic from '../CreateTopic/CreateTopic';
 
 export default function Topics({ topics, CustomHeading, showCreateTopicLink = true, showAside = true, message = 'No topics yet. Be the first one to post one!', fc, st }) {
-    const [followingCategories, setFollowingCategories] = useState([]);
-    const [savedTopics, setSavedTopics] = useState([]);
     const { isAuthenticated, user } = useAuth();
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            (async () => {
-                try {
-                    const categoriesData = await getFollowingCategories();
-                    setFollowingCategories(categoriesData);
-                } catch (err) {
-                    console.error(err);
-                }
-            })()
-        }
-    }, [])
-
-    useEffect(() => {
-        if (isAuthenticated) {
-            (async () => {
-                try {
-                    const savedTopicsData = await getSavedTopicsIds();
-                    console.log('state', savedTopics);
-                    console.log('ids', savedTopicsData)
-
-                    setSavedTopics(savedTopicsData);
-                } catch (err) {
-                    console.error(err);
-                }
-            })()
-        }
-    }, [])
+    const fcState = useTopicFunctionality(getFollowingCategories, followCategory, unfollowCategory, isAuthenticated);
+    const stState = useTopicFunctionality(getSavedTopicsIds, saveTopic, unsaveTopic, isAuthenticated);
 
     if (!fc) {
-        const addFollowingCategory = async (category) => {
-            setFollowingCategories([...followingCategories, category]);
-
-            await followCategory(category);
-        }
-
-        const removeFollowingCategory = async (category) => {
-            setFollowingCategories(followingCategories.filter(c => c !== category));
-
-            await unfollowCategory(category);
-        }
-
-        fc = { categories: followingCategories, addFollowingCategory, removeFollowingCategory };
+        fc = { categories: fcState.state, addFollowingCategory: fcState.addFunction, removeFollowingCategory: fcState.removeFunction };
     }
 
     if (!st) {
-        const addSavedTopic = async (topicId) => {
-            setSavedTopics([...savedTopics, topicId]);
-
-            await saveTopic(topicId);
-        }
-
-        const removeSavedTopic = async (topicId) => {
-            setSavedTopics(savedTopics.filter(t => t !== topicId));
-
-            await unsaveTopic(topicId);
-        }
-
-        st = { savedTopics, addSavedTopic, removeSavedTopic };
+        st = { savedTopics: stState.state, addSavedTopic: stState.addFunction, removeSavedTopic: stState.removeFunction };
     }
 
     return (
