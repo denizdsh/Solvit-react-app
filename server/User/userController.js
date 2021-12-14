@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { isGuest } = require('../middlewares/guards')
+const { isGuest, isUser } = require('../middlewares/guards')
 const service = require('./userService');
 const { categories } = require('../config');
 
@@ -36,13 +36,13 @@ router.post('/login', isGuest(), async (req, res) => {
         res.status(err.status || 400).json({ message: err.message });
     }
 })
-router.get('/u/me/topic-user-data', async (req, res) => {
+router.get('/u/me/saved-topics', isUser(), async (req, res) => {
     const userId = req.user?._id;
-    const userData = await service.getCardTopicUserData(userId);
-    res.json(userData);
+    const savedTopics = await service.getSavedTopics(userId);
+    res.json(savedTopics);
 })
 
-router.get('/u/me/following-categories', async (req, res) => {
+router.get('/u/me/following-categories', isUser(), async (req, res) => {
     const userId = req.user?._id;
     const followingCategories = await service.getFollowingCategories(userId);
     res.json(followingCategories);
@@ -54,7 +54,7 @@ router.get('/u/:username/image', async (req, res) => {
     res.json(image);
 })
 
-router.post('/user-action/follow/:category', async (req, res) => {
+router.post('/user-action/follow/:category', isUser(), async (req, res) => {
     const userId = req.user._id;
     const category = req.params.category;
 
@@ -76,7 +76,7 @@ router.post('/user-action/follow/:category', async (req, res) => {
     }
 })
 
-router.post('/user-action/unfollow/:category', async (req, res) => {
+router.post('/user-action/unfollow/:category', isUser(), async (req, res) => {
     const userId = req.user._id;
     const category = req.params.category;
 
@@ -97,4 +97,41 @@ router.post('/user-action/unfollow/:category', async (req, res) => {
         res.status(err.status || 400).json({ message: err.message });
     }
 })
+
+router.post('/user-action/save/:topicId', isUser(), async (req, res) => {
+    const userId = req.user._id;
+    const topicId = req.params.topicId;
+
+    try {
+        if (!userId) {
+            const err = new Error('You have to be logged in to perform this action.');
+            err.status = 401;
+            throw err;
+        }
+
+        const response = await service.saveTopic(userId, topicId);
+        res.json(response);
+    } catch (err) {
+        res.status(err.status || 400).json({ message: err.message });
+    }
+})
+
+router.post('/user-action/unsave/:topicId', isUser(), async (req, res) => {
+    const userId = req.user._id;
+    const topicId = req.params.topicId;
+
+    try {
+        if (!userId) {
+            const err = new Error('You have to be logged in to perform this action.');
+            err.status = 401;
+            throw err;
+        }
+
+        const response = await service.unsaveTopic(userId, topicId);
+        res.json(response);
+    } catch (err) {
+        res.status(err.status || 400).json({ message: err.message });
+    }
+})
+
 module.exports = router;

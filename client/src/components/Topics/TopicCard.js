@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import './TopicCard.css';
-import { getCardTopicUserData } from '../../services/user';
+import { likeTopic, dislikeTopic } from '../../services/topic';
 import Button from '@mui/material/Button';
 
 function getDate(dateData) {
@@ -12,7 +12,7 @@ function getDate(dateData) {
     return `${date} ${time}`;
 }
 
-export default function TopicCard({ topic, isAuthenticated, fc }) {
+export default function TopicCard({ topic, isAuthenticated, user, fc, st }) {
     const [hasFollowed, setHasFollowed] = useState(false);
     const [hasLiked, setHasLiked] = useState(false);
     const [hasSaved, setHasSaved] = useState(false);
@@ -27,7 +27,7 @@ export default function TopicCard({ topic, isAuthenticated, fc }) {
 
         setHasFollowed(hf);
 
-    }, [fc])
+    }, [fc, user])
 
     useEffect(() => {
         (async () => {
@@ -35,15 +35,23 @@ export default function TopicCard({ topic, isAuthenticated, fc }) {
                 return;
             }
 
-            let userData = await getCardTopicUserData();
-
-            let hl = topic.likes.includes(userData.username);
-            let hs = userData.savedTopics.includes(topic._id);
+            let hl = topic.likes.includes(user._id);
 
             setHasLiked(hl);
+        })()
+    }, [user])
+
+    useEffect(() => {
+        (async () => {
+            if (!isAuthenticated) {
+                return;
+            }
+
+            let hs = st.savedTopics.includes(topic._id);
+
             setHasSaved(hs);
         })()
-    }, [])
+    }, [st, user])
 
     const followCategoryHandler = async () => {
         if (isAuthenticated) {
@@ -60,21 +68,39 @@ export default function TopicCard({ topic, isAuthenticated, fc }) {
         }
     }
 
-    const likeHandler = () => {
+    const likeTopicHandler = async () => {
         if (isAuthenticated) {
-            //TODO
+            console.log('like');
+
+            const res = await likeTopic(topic._id);
+            setHasLiked(topic.likes.includes(user._id))
+        } else {
+            navigate('/login');
+        }
+    }
+    const dislikeTopicHandler = async () => {
+        if (isAuthenticated) {
+            console.log('dislike')
+        } else {
+            navigate('/login');
+        }
+    }
+    const saveTopicHandler = async () => {
+        if (isAuthenticated) {
+            await st.addSavedTopic(topic._id);
         } else {
             navigate('/login');
         }
     }
 
-    const saveTopicHandler = () => {
+    const unsaveTopicHandler = async () => {
         if (isAuthenticated) {
-            //TODO
+            await st.removeSavedTopic(topic._id);
         } else {
             navigate('/login');
         }
     }
+
     const date = getDate(topic.updatedAt);
 
     return (
@@ -109,7 +135,8 @@ export default function TopicCard({ topic, isAuthenticated, fc }) {
                         {topic.title}
                     </h2>
                 </article>
-                {topic?.imageUrl ?
+                {topic.imageUrl
+                    ?
                     <article className="topic-content-img scrollbox">
                         <img src={topic.imageUrl} alt="" className="topic-content-img-image" />
                     </article>
@@ -122,19 +149,25 @@ export default function TopicCard({ topic, isAuthenticated, fc }) {
             </article>
             <article className="topic-functionality">
                 <ul className="topic-functionality-list">
-                    <li className="topic-functionality-list-item topic-functionality-list-item-likes">
-                        <i className="far fa-heart"></i>
-                        <i className="fas fa-heart"></i>
-                        <span className="likes-count">{topic.likes.length} Likes</span>
-                    </li>
-                    <li className="topic-functionality-list-item topic-functionality-list-item-comments">
-                        <i className="fas fa-comments"></i>
-                        {topic.comments.length} Comments
-                    </li>
-                    <li className="topic-functionality-list-item topic-functionality-list-item-follow">
-                        <i className="far fa-bookmark"></i>
-                        <i className="fas fa-bookmark"></i>
-                        Save
+                    <section className="like-comment-section">
+                        <li className="topic-functionality-list-item topic-functionality-list-item-likes" onClick={hasLiked ? dislikeTopicHandler : likeTopicHandler}>
+                            {hasLiked
+                                ? <i className="fas fa-heart"></i>
+                                : <i className="far fa-heart"></i>
+                            }
+                            <span className="likes-count">{topic.likes.length} Likes</span>
+                        </li>
+                        <li className="topic-functionality-list-item topic-functionality-list-item-comments">
+                            <i className="fas fa-comments"></i>
+                            {topic.comments.length} Comments
+                        </li>
+                    </section>
+
+                    <li className="topic-functionality-list-item topic-functionality-list-item-follow" onClick={hasSaved ? unsaveTopicHandler : saveTopicHandler}>
+                        {hasSaved
+                            ? <i className="fas fa-bookmark"></i>
+                            : <i className="far fa-bookmark"></i>
+                        }
                     </li>
                 </ul>
             </article>

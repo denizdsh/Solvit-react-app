@@ -7,8 +7,9 @@ const userActionUrl = `${port}/user-action`;
 export const getFollowingCategories = async () => {
     return await api.get(`${userUrl}/me/following-categories`);
 }
-export const getCardTopicUserData = async () => {
-    return await api.get(`${userUrl}/me/topic-user-data`);
+
+export const getSavedTopicsIds = async () => {
+    return await api.get(`${userUrl}/me/saved-topics`);
 }
 
 export const getUserImageByUsername = async (username) => {
@@ -21,4 +22,12 @@ export const followCategory = async (category) => {
 
 export const unfollowCategory = async (category) => {
     return await api.post(`${userActionUrl}/unfollow/${category}`);
+}
+
+export const saveTopic = async (topicId) => {
+    return await api.post(`${userActionUrl}/save/${topicId}`)
+}
+
+export const unsaveTopic = async (topicId) => {
+    return await api.post(`${userActionUrl}/unsave/${topicId}`);
 }

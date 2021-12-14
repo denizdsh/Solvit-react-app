@@ -7,7 +7,6 @@ export async function createTopic(body) {
     try {
         return await api.post(url, body)
     } catch (err) {
-        console.error(err);
         throw err;
     }
 }
@@ -30,6 +29,13 @@ export async function getTopicsByAuthor(author) {
         throw err;
     }
 }
+export async function getTopicById(id) {
+    try {
+        return await api.get(`${url}/${id}`);
+    } catch (err) {
+        throw err;
+    }
+}
 
 export async function getFollowedTopics() {
     try {
@@ -39,9 +45,25 @@ export async function getFollowedTopics() {
     }
 }
 
-export async function getTopicById(id) {
+export async function getSavedTopics() {
     try {
-        return await api.get(`${url}/${id}`);
+        return await api.get(`${url}/c/saved`);
+    } catch (err) {
+        throw err;
+    }
+}
+
+export async function likeTopic(id) {
+    try {
+        return await api.post(`${url}/${id}/like`)
+    } catch (err) {
+        throw err;
+    }
+}
+
+export async function dislikeTopic(id) {
+    try {
+        return await api.post(`${url}/${id}/dislike`)
     } catch (err) {
         throw err;
     }

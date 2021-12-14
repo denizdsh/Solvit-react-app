@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const service = require('./topicService');
-const { getFollowingCategories } = require('../User/userService');
+const { getFollowingCategories, getSavedTopics } = require('../User/userService');
 const { isUser, isOwner } = require('../middlewares/guards');
 
 router.get('/', async (req, res) => {
@@ -14,21 +14,33 @@ router.get('/:id', async (req, res) => {
         const topic = await service.getTopicById(id);
         res.json(topic);
     } catch (err) {
-        res.status(400).json({ message: err.message });
+        res.status(err.status || 400).json({ message: err.message });
     }
 })
 
 router.get('/c/following', isUser(), async (req, res) => {
     const userId = req.user._id;
     const categories = await getFollowingCategories(userId)
-    
+
     if (!categories) {
-        res.status(400).json({ message: 'You haven\'t followed any catogies yet.' })
+        res.status(err.status || 400).json({ message: 'You haven\'t followed any catogies yet.' })
         return null;
     }
 
     const topics = await service.getTopicsByCategories(categories);
     res.json(topics);
+})
+
+router.get('/c/saved', isUser(), async (req, res) => {
+    const userId = req.user._id;
+    const savedTopicsIds = await getSavedTopics(userId);
+
+    try {
+        const savedTopics = await service.getTopicsByIds(savedTopicsIds);
+        res.json(savedTopics);
+    } catch (err) {
+        res.status(err.status || 400).json({ message: err.message });
+    }
 })
 
 router.get(`/c/:category`, async (req, res) => {
@@ -44,7 +56,7 @@ router.get('/u/:user', async (req, res) => {
         const topics = await service.getTopicsByAuthor(user);
         res.json(topics);
     } catch (err) {
-        res.status(400).json({ message: err.message });
+        res.status(err.status || 400).json({ message: err.message });
     }
 })
 
@@ -62,9 +74,9 @@ router.post('/', isUser(), async (req, res) => {
         res.json(await service.createTopic(topic));
     } catch (err) {
         if (err.name === 'ValidationError') {
-            res.status(400).json({ message: 'All fields required. Title can be up to 200 characters long and description can be up to 1500 characters long. Image url must be valid.' });
+            res.status(err.status || 400).json({ message: 'All fields required. Title can be up to 200 characters long and description can be up to 1500 characters long. Image url must be valid.' });
         } else {
-            res.status(400).json({ message: 'Database error.' });
+            res.status(err.status || 400).json({ message: 'Database error.' });
         }
     }
 })
@@ -72,11 +84,35 @@ router.post('/', isUser(), async (req, res) => {
 router.delete('/:id', isOwner(), async (req, res) => {
     const id = req.params.id;
     try {
-        const result = await service.deleteTopic(id);
-        res.json(result);
+        const response = await service.deleteTopic(id);
+        res.json(response);
     } catch (err) {
-        res.status(400).json({ message: err.message });
+        res.status(err.status || 400).json({ message: err.message });
     }
 })
+
+router.post('/:id/like', isUser(), async (req, res) => {
+    const userId = req.user._id;
+    const id = req.params.id;
+
+    try {
+        const response = await service.likeTopic(id, userId);
+        res.json(response);
+    } catch (err) {
+        res.status(err.status || 400).json({ message: err.message });
+    }
+})
+router.post('/:id/dislike', isUser(), async (req, res) => {
+    const userId = req.user._id;
+    const id = req.params.id;
+
+    try {
+        const response = await service.dislikeTopic(id, userId);
+        res.json(response);
+    } catch (err) {
+        res.status(err.status || 400).json({ message: err.message });
+    }
+})
+
 
 module.exports = router;

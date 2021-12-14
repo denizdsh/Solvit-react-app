@@ -1,4 +1,5 @@
 const User = require('./UserModel');
+const Topic = require('../Topic/TopicModel')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -73,9 +74,9 @@ async function login(email, password) {
         accessToken: generateJwt(user)
     }
 }
-async function getCardTopicUserData(userId) {
+async function getSavedTopics(userId) {
     const user = await User.findById(userId);
-    return user ? { username: user.username, savedTopics: user.savedTopcis || [] } : {};
+    return user ? Array.from(user.savedTopics) || [] : [];
 }
 
 async function getImageByUsername(username) {
@@ -92,15 +93,11 @@ async function followCategory(userId, category) {
     const user = await User.findById(userId);
     if (!user) {
         const err = new Error('You have to be logged in to perform this action.')
-        err.status = 400;
+        err.status = 401;
         throw err;
     }
 
-    if (user.followingCategories.includes(category)) {
-        const err = new Error(`You have already followed category ${category}.`)
-        err.status = 400;
-        throw err;
-    }
+    if (user.followingCategories.includes(category)) throw new Error(`You have already followed category ${category}.`);
 
     user.followingCategories.push(category);
     await user.save();
@@ -110,26 +107,58 @@ async function unfollowCategory(userId, category) {
     const user = await User.findById(userId);
     if (!user) {
         const err = new Error('You have to be logged in to perform this action.')
-        err.status = 400;
+        err.status = 401;
         throw err;
     }
 
-    if (!user.followingCategories.includes(category)) {
-        const err = new Error(`You haven't followed category ${category} yet.`)
-        err.status = 400;
-        throw err;
-    }
+    if (!user.followingCategories.includes(category)) throw new Error(`You haven't followed category ${category} yet.`);
 
     user.followingCategories.splice(user.followingCategories.indexOf(category), 1);
+    await user.save();
+}
+
+async function saveTopic(userId, topicId) {
+    const user = await User.findById(userId);
+    if (!user) {
+        const err = new Error('You have to be logged in to perform this action.')
+        err.status = 401;
+        throw err;
+    }
+
+    if (user.savedTopics.includes(topicId)) throw new Error('You have already followed this topic.')
+
+    const topic = await Topic.findById(topicId);
+    if (!topic) throw new Error('No such topic in database.');
+
+    user.savedTopics.push(topicId);
+    await user.save();
+}
+
+async function unsaveTopic(userId, topicId) {
+    const user = await User.findById(userId);
+    if (!user) {
+        const err = new Error('You have to be logged in to perform this action.')
+        err.status = 401;
+        throw err;
+    }
+
+    if (!user.savedTopics.includes(topicId)) throw new Error('You haven\'t followed this topic yet.')
+
+    const topic = await Topic.findById(topicId);
+    if (!topic) throw new Error('No such topic in database.');
+
+    user.savedTopics.splice(user.savedTopics.indexOf(topicId), 1);
     await user.save();
 }
 
 module.exports = {
     register,
     login,
-    getCardTopicUserData,
+    getSavedTopics,
     getImageByUsername,
     getFollowingCategories,
     followCategory,
-    unfollowCategory
+    unfollowCategory,
+    saveTopic,
+    unsaveTopic
 };

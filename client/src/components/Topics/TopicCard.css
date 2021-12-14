@@ -161,3 +161,11 @@
 .topic-functionality-list-item-comments:hover>.fas.fa-comments {
     color: #D7DADC;
 }
+
+.like-comment-section{
+    display: flex;
+}
+
+.topic-functionality-list-item-likes{
+    margin-right: 35px;
+}

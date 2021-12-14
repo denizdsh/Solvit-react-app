@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+
 import { isUser } from '../hoc/isAuth';
 import { getFollowedTopics } from '../services/topic';
 import { getFollowingCategories, followCategory, unfollowCategory } from '../services/user';
+
 import Topics from './Topics/Topics';
 
 function FollowedTopics() {
@@ -12,7 +14,6 @@ function FollowedTopics() {
         (async () => {
             try {
                 const categoriesData = await getFollowingCategories();
-                console.log(categoriesData);
                 setCategories(categoriesData);
             } catch (err) {
                 console.error(err);
@@ -44,8 +45,7 @@ function FollowedTopics() {
     }
     
     const fc = { categories, addFollowingCategory, removeFollowingCategory };
-    console.log(fc.categories);
-    const props = { showCreateTopicLink: topics.length > 0, showAside: topics.length > 0, message: "You haven't followed any categories yet. Would you like to go follow some first?", fc };
+    const props = { showCreateTopicLink: topics.length > 0, message: "You haven't followed any categories yet. Would you like to go follow some first?", fc };
     return (
         <Topics topics={topics} {...props} />
     )
