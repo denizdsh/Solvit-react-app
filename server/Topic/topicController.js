@@ -80,7 +80,20 @@ router.post('/', isUser(), async (req, res) => {
         }
     }
 })
+router.put('/:id/edit', isOwner(), async (req, res) => {
+    const id = req.params.id;
+    const topic = req.body;
 
+    try {
+        res.json(await service.editTopic(topic, id));
+    } catch (err) {
+        if (err.name === 'ValidationError') {
+            res.status(err.status || 400).json({ message: 'All fields required. Title can be up to 200 characters long and description can be up to 1500 characters long. Image url must be valid.' });
+        } else {
+            res.status(err.status || 400).json({ message: err.message });
+        }
+    }
+})
 router.delete('/:id', isOwner(), async (req, res) => {
     const id = req.params.id;
     try {

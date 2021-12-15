@@ -41,12 +41,10 @@ async function createTopic(body) {
     return await topic.save();
 }
 
-async function editTopic(id, body) {
-    const topic = await Topic.findById(id);
+async function editTopic(body, id) {
+    const topic = await Topic.findByIdAndUpdate(id, body);
 
     if (!topic) throw new Error('No such topic in database.');
-
-    Object.assing(topic, body);
 
     return await topic.save();
 }

@@ -75,10 +75,10 @@
     height: fit-content;
     padding: 8px 16px;
     color: inherit;
-    background: #51a4c7;
+    background: #4799bd;
     outline: none;
     border: 2px solid #313846;
-    border-radius: 25px;
+    border-radius: 20px;
 }
 .topic-form-submit:hover{
     cursor: pointer;

@@ -36,16 +36,10 @@ function TopicForm({ title, topicAction, topic }) {
             err += '\nImage must be a valid URL';
         }
 
-        const isCreate = title === 'Create Topic'
         if (!err) {
             try {
-                const body = { title, description, imageUrl, category: category.toLocaleLowerCase() };
-
-                if (!isCreate) body._ownerId = topic._ownerId;
-
-                const params = isCreate ? [body] : [body, topic?._id];
-                const res = await topicAction(...params);
-                navigate(`/t/${res._id}`);
+                const res = await topicAction({ title, description, imageUrl, category: category.toLocaleLowerCase() });
+                navigate(`/${res._id}`);
             } catch (err) {
                 alert(err.message);
             }
@@ -91,7 +85,7 @@ function TopicForm({ title, topicAction, topic }) {
 
                         }
                         {
-                            !defaultCategory &&
+                           !defaultCategory &&
                             <Autocomplete className="topic-form-category-autocomplete"
                                 disablePortal
                                 id="topic-category"

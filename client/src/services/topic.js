@@ -5,14 +5,15 @@ const url = `${port}/topics`;
 
 export async function createTopic(body) {
     try {
+        console.log(body)
         return await api.post(url, body)
     } catch (err) {
         throw err;
     }
 }
-export async function editTopic(id, body) {
+export async function editTopic(body, id) {
     try {
-        return await api.patch(`${url}/${id}`, body)
+        return await api.put(`${url}/${id}/edit`, body)
     } catch (err) {
         throw err;
     }
