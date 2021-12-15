@@ -25,6 +25,9 @@
 .topic-content-img-image.details {
     min-width: 30vw;
 }
+.topic-functionality-list.details li {
+    width: fit-content;
+}
 
 @media all and (min-width: 1921px) {
     .topic.details {
@@ -55,4 +58,25 @@
     .topic-content-img-image.details {
         min-width: 30vw;
     }
+}
+
+.owner-functionality-button {
+    padding: 3px 10px 3px 15px;
+    color: #D7DADC;
+    text-decoration: none;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.owner-functionality-button span {
+    margin-right: 8px;
+}
+
+.button-edit {
+    background: rgb(88, 160, 55);
+}
+
+.button-delete {
+    background: rgb(173, 47, 47);
 }

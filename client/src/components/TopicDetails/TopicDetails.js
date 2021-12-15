@@ -35,7 +35,16 @@ export default function TopicDetails() {
             }
         })();
     }, [id, navigate])
+
+    const { isAuthenticated, user } = useAuth();
+
+    const fc = useTopicFunctionality(getFollowingCategories, followCategory, unfollowCategory, isAuthenticated);
+    const st = useTopicFunctionality(getSavedTopicsIds, saveTopic, unsaveTopic, isAuthenticated);
+    const th = useTopicHandlers(topic, fc, st, isAuthenticated, user)
+
     const date = topic?.updatedAt ? getDate(topic.updatedAt) : '';
+
+    const isOwner = topic._ownerId === user._id;
     return (
         topic._id
             ?
@@ -57,10 +66,11 @@ export default function TopicDetails() {
                         </article>
                     </article>
                     <article className="topic-info-follow-category details">
-                        <Button variant="contained" color="success" size="small" className="topic-info-follow-category-btn details">
-                            Follow
-                        </Button>
-                        <Button color="secondary" size="small" className="topic-info-follow-category-btn unfollow-category-btn details">Following</Button>
+                        {
+                            th.hasFollowed
+                                ? <Button color="secondary" size="small" className="topic-info-follow-category-btn unfollow-category-btn details" onClick={th.unfollowCategoryHandler}>Following</Button>
+                                : <Button variant="contained" color="success" size="small" className="topic-info-follow-category-btn details" onClick={th.followCategoryHandler}>Follow</Button>
+                        }
                     </article>
                 </article>
                 <article className="topic-content details">
@@ -81,18 +91,57 @@ export default function TopicDetails() {
                 </article>
                 <article className="topic-functionality details">
                     <ul className="topic-functionality-list details">
-                        <li className="topic-functionality-list-item topic-functionality-list-item-likes details">
-                            <i className="far fa-heart details"></i>
-                            <i className="fas fa-heart details"></i>
+                        <li className="topic-functionality-list-item topic-functionality-list-item-likes details" onClick={th.hasLiked ? th.dislikeTopicHandler : th.likeTopicHandler}>
+                            {
+                                th.hasLiked
+                                    ? <i className="fas fa-heart details"></i>
+                                    : <i className="far fa-heart details"></i>
+                            }
                             <span className="likes-count details">{topic.likes.length} Likes</span>
                         </li>
-                        <li className="topic-functionality-list-item topic-functionality-list-item-follow details">
-                            <i className="far fa-bookmark details"></i>
-                            <i className="fas fa-bookmark details"></i>
-                            Follow
+                        <li className="topic-functionality-list-item topic-functionality-list-item-follow details" onClick={th.hasSaved ? th.unsaveTopicHandler : th.saveTopicHandler}>
+                            {
+                                !isOwner &&
+                                <span className="save-topic-text">
+                                    {th.hasSaved ? 'Remove' : 'Save'}
+                                </span>
+                            }
+                            {
+                                th.hasSaved
+                                    ? <i className="fas fa-bookmark details"></i>
+                                    : <i className="far fa-bookmark details"></i>
+                            }
+                            {
+                                isOwner &&
+                                <span className="save-topic-text">
+                                    {th.hasSaved ? 'Remove' : 'Save'}
+                                </span>
+                            }
                         </li>
+                        {
+                            isOwner &&
+
+                            <li className="topic-functionality-list-item topic-functionality-list-item-edit details" onClick={() => console.log('edit')}>
+                                <Link to='edit' className='owner-functionality-button button-edit'>
+                                    <span className="edit-btn">Edit</span>
+                                    <i style={{ 'font-size': '0.95rem' }} className="fas fa-pencil-alt"></i>
+                                </Link>
+                            </li>
+                        }
+                        {
+                            isOwner &&
+                            <li className="topic-functionality-list-item topic-functionality-list-item-delete  details" onClick={() => console.log('delete')}>
+                                <Link to='delete' className='owner-functionality-button button-delete'>
+                                    <span className="delete-btn">
+                                        Delete
+                                    </span>
+                                    <i style={{ 'font-size': '0.95rem' }} className="fas fa-trash"></i>
+                                </Link>
+                            </li>
+                        }
                     </ul>
                 </article>
+
                 <CommentSection comments={topic.comments} />
             </section>
             :
