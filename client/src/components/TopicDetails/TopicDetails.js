@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+
+import { useAuth } from '../../hooks/useAuth';
+import { useTopicFunctionality } from '../../hooks/useTopicFunctionality';
+import { useTopicHandlers } from '../../hooks/useTopicHandlers';
 import { getTopicById } from '../../services/topic';
+import { getFollowingCategories, followCategory, unfollowCategory, getSavedTopicsIds, saveTopic, unsaveTopic } from '../../services/user';
 
 import './TopicDetails.css';
 import Button from '@mui/material/Button';
