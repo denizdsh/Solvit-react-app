@@ -1,17 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import { isUser } from '../../hoc/isAuth';
 import modal from '../../hoc/modal';
-import './CreateTopic.css'
+import { categories } from '../../services/config';
+
+import './TopicForm.css'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 
-import { createTopic } from '../../services/topic';
-import { categories } from '../../services/config';
 
-function CreateTopic() {
+function TopicForm({ title, topicAction, topic }) {
     const navigate = useNavigate();
 
-    const createTopicHandler = async (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
 
         const form = new FormData(e.currentTarget);
@@ -37,7 +37,7 @@ function CreateTopic() {
 
         if (!err) {
             try {
-                const res = await createTopic({ title, description, imageUrl, category: category.toLocaleLowerCase() });
+                const res = await topicAction({ title, description, imageUrl, category: category.toLocaleLowerCase() });
                 navigate(`/${res._id}`);
             } catch (err) {
                 alert(err.message);
@@ -50,22 +50,22 @@ function CreateTopic() {
 
     return (
         <>
-            <h1 className="topic-form-title">Create a topic</h1>
-            <section className="create-topic" >
-                <form method="POST" className="topic-form" onSubmit={createTopicHandler}>
+            <h1 className="topic-form-title">{title}</h1>
+            <section className="create-edit-topic" >
+                <form method="POST" className="topic-form" onSubmit={onSubmit}>
                     <article>
                         <label className="topic-form-label" htmlFor="topic-title" >Title</label>
-                        <input type="text" name="title" id="topic-title" className="topic-form-input" placeholder='Title' />
+                        <input type="text" name="title" id="topic-title" defaultValue={topic?.title} className="topic-form-input" placeholder='Title' />
                     </article>
 
                     <article>
                         <label className="topic-form-label" htmlFor="topic-description">Description</label>
-                        <textarea name="description" id="topic-description" className="topic-form-textarea topic-form-input" placeholder='Description'></textarea>
+                        <textarea name="description" id="topic-description" defaultValue={topic?.description} className="topic-form-textarea topic-form-input" placeholder='Description'></textarea>
                     </article>
 
                     <article>
                         <label className="topic-form-label" htmlFor="topic-imageUrl">Image url</label>
-                        <input type="url" name="imageUrl" id="topic-imageUrl" className="topic-form-input" placeholder='https:// ...' />
+                        <input type="url" name="imageUrl" id="topic-imageUrl" defaultValue={topic?.imageUrl} className="topic-form-input" placeholder='https:// ...' />
                         <a className="link-to-imgur" href="https://imgur.com/upload" target="_blank" rel="noreferrer">You can upload your image here...</a>
                     </article>
 
@@ -78,7 +78,7 @@ function CreateTopic() {
                             renderInput={(params) => <TextField {...params} label="Category" name="category" />}
                         />
 
-                        <input type="submit" value="Post" className="topic-form-submit" />
+                        <input type="submit" defaultValue="Post" className="topic-form-submit" />
                     </section>
                 </form>
             </section>
@@ -86,4 +86,4 @@ function CreateTopic() {
     )
 }
 
-export default isUser(modal(CreateTopic));
+export default isUser(modal(TopicForm));

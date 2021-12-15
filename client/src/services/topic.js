@@ -10,6 +10,14 @@ export async function createTopic(body) {
         throw err;
     }
 }
+export async function editTopic(id, body) {
+    try {
+        return await api.patch(`${url}/${id}`, body)
+    } catch (err) {
+        throw err;
+    }
+}
+
 export async function getAllTopics() {
     return await api.get(url);
 }

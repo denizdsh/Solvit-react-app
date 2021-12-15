@@ -44,6 +44,9 @@ export async function post(url, body) {
 export async function put(url, body) {
     return await request(url, getOptions('put', body));
 }
+export async function patch(url, body) {
+    return await request(url, getOptions('patch', body));
+}
 export async function del(url) {
     return await request(url, getOptions('delete'));
 }

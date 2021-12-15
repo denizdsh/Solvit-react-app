@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useEffect, useState, useContext } from 'react';
+import { useParams, useNavigate, Link, Routes, Route } from 'react-router-dom';
 
+import { TopicContext } from '../../contexts/TopicContext'
 import { useAuth } from '../../hooks/useAuth';
 import { useTopicFunctionality } from '../../hooks/useTopicFunctionality';
 import { useTopicHandlers } from '../../hooks/useTopicHandlers';
@@ -8,6 +9,7 @@ import { getTopicById } from '../../services/topic';
 import { getFollowingCategories, followCategory, unfollowCategory, getSavedTopicsIds, saveTopic, unsaveTopic } from '../../services/user';
 
 import './TopicDetails.css';
+import EditTopic from '../EditTopic';
 import Button from '@mui/material/Button';
 import CommentSection from '../TopicDetails/Comments/CommentSection';
 import Spinner from '../Spinner/Spinner';
@@ -24,19 +26,26 @@ export default function TopicDetails() {
     const { id } = useParams();
     const navigate = useNavigate();
 
+    const context = useContext(TopicContext);
+    const { isAuthenticated, user } = useAuth();
+    const isOwner = topic._ownerId === user._id;
+
     useEffect(() => {
-        window.scrollTo(0, 0);
         (async () => {
             try {
                 const topicData = await getTopicById(id);
                 setTopic(topicData);
+
+                if (isOwner) {
+                    context.provideTopic(topicData);
+                }
             } catch (err) {
-                navigate(-1, { replace: true });
+                // navigate(-1, { replace: true });
+                console.error(err)
             }
         })();
     }, [id, navigate])
 
-    const { isAuthenticated, user } = useAuth();
 
     const fc = useTopicFunctionality(getFollowingCategories, followCategory, unfollowCategory, isAuthenticated);
     const st = useTopicFunctionality(getSavedTopicsIds, saveTopic, unsaveTopic, isAuthenticated);
@@ -44,11 +53,17 @@ export default function TopicDetails() {
 
     const date = topic?.updatedAt ? getDate(topic.updatedAt) : '';
 
-    const isOwner = topic._ownerId === user._id;
     return (
         topic._id
             ?
+
             <section className="topic details">
+                {
+                    isOwner &&
+                    <Routes>
+                        <Route path="edit" element={<EditTopic />} />
+                    </Routes>
+                }
                 <article className="topic-info  details">
                     <article className="topic-info-creation-wrap details">
                         <article className="topic-info-category details">
@@ -124,7 +139,7 @@ export default function TopicDetails() {
                             <li className="topic-functionality-list-item topic-functionality-list-item-edit details" onClick={() => console.log('edit')}>
                                 <Link to='edit' className='owner-functionality-button button-edit'>
                                     <span className="edit-btn">Edit</span>
-                                    <i style={{ 'font-size': '0.95rem' }} className="fas fa-pencil-alt"></i>
+                                    <i style={{ 'fontSize': '1.1rem' }} className="fas fa-pencil-alt"></i>
                                 </Link>
                             </li>
                         }
@@ -135,7 +150,7 @@ export default function TopicDetails() {
                                     <span className="delete-btn">
                                         Delete
                                     </span>
-                                    <i style={{ 'font-size': '0.95rem' }} className="fas fa-trash"></i>
+                                    <i style={{ 'fontSize': '1.1rem' }} className="fas fa-trash"></i>
                                 </Link>
                             </li>
                         }

@@ -2,18 +2,18 @@ import './App.css';
 import { Routes, Route } from 'react-router';
 
 import { AuthProvider } from './contexts/AuthContext';
+import { TopicProvider } from './contexts/TopicContext';
 
 import Header from './components/Header/Header';
-import TopicDetails from './components/TopicDetails/TopicDetails';
-import Login from './components/Auth/Login';
-import Register from './components/Auth/Register';
-import Logout from './components/Auth/Logout';
-import CreateTopic from './components/CreateTopic/CreateTopic';
 import FollowedTopics from './components/FollowedTopics';
 import AllTopics from './components/AllTopics';
 import CategoryTopics from './components/CategoryTopics';
 import UserTopics from './components/UserTopics/UserTopics';
 import SavedTopics from './components/SavedTopics';
+import TopicDetails from './components/TopicDetails/TopicDetails';
+import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
+import Logout from './components/Auth/Logout';
 
 function App() {
   return (
@@ -24,18 +24,18 @@ function App() {
         </header>
         <main>
           <Routes>
-            <Route path="/*" element={<FollowedTopics />} >
-              <Route path="create" element={<CreateTopic />} />
-            </Route>
-            <Route path="/all/*" element={<AllTopics />}>
-              <Route path="create" element={<CreateTopic />} />
-            </Route>
-            <Route path="/c/:category/*" element={<CategoryTopics />}>
-              <Route path="create" element={<CreateTopic />} />
-            </Route>
+            <Route path="/*" element={<FollowedTopics />} />
+            <Route path="/all/*" element={<AllTopics />} />
+            <Route path="/c/:category/*" element={<CategoryTopics />} />
             <Route path="/u/:user" element={<UserTopics />} />
             <Route path="/saved" element={<SavedTopics />} />
-            <Route path="/:id" element={<TopicDetails />} />
+            <Route path="/t/*" element={
+              <TopicProvider>
+                <Routes>
+                  <Route path="/:id/*" element={<TopicDetails />} />
+                </Routes>
+              </TopicProvider>
+            } />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/logout" element={<Logout />} />

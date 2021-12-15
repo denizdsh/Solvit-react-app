@@ -44,7 +44,7 @@ export default function TopicCard({ topic, isAuthenticated, user, fc, st }) {
                         </Button>
                     }</article>
             </article>
-            <article className="topic-content hover" onClick={() => navigate(`/${topic._id}`)}>
+            <article className="topic-content hover" onClick={() => navigate(`/t/${topic._id}`)}>
                 <article className="topic-content-title">
                     <h2 className="topic-title">
                         {topic.title}

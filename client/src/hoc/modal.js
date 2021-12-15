@@ -8,15 +8,15 @@ export default function modal(Component) {
         const navigate = useNavigate();
 
         useEffect(() => {
-            console.log(location.pathname);
             const path = ['/create', '/edit', '/delete'].filter(x => location.pathname.includes(x))[0];
             const redirect = location.pathname.split(path)[0] || '/';
 
             const clickOutsideHandler = (e) => {
-                const initialLoadCheck = e.target.tagName !== 'INPUT';
+                const initialInputLoadCheck = e.target.tagName !== 'INPUT' && e.target.tagName !== 'A' && !e.target.classList.contains('edit-btn') && !e.target.classList.contains('fa-pencil-alt');
+                const initialLinkLoadCheck = e.target.tagName !== 'A';
                 const categoryOptionCheck = !e.target.classList.contains('MuiAutocomplete-option');
 
-                if (initialLoadCheck && categoryOptionCheck && ref.current && !ref.current.contains(e.target)) {
+                if (initialInputLoadCheck && initialLinkLoadCheck && categoryOptionCheck && ref.current && !ref.current.contains(e.target)) {
                     navigate(redirect);
                 }
             }

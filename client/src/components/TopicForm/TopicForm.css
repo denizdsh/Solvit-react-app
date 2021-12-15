@@ -1,4 +1,4 @@
-.create-topic {
+.create-edit-topic {
     width: 60vw;
     height: fit-content;
     margin: 8px auto;
@@ -14,7 +14,7 @@
 }
 
 @media all and (max-width: 1400px) {
-    .create-topic {
+    .create-edit-topic {
         width: 80vw;
     }
 }
