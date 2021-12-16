@@ -7,7 +7,7 @@ import UserTopicsHeading from './UserTopicsHeading';
 export default function UserTopics() {
     const [topics, setTopics] = useState([]);
     const { user } = useParams();
-    console.log(user);
+
     useEffect(() => {
         (async () => {
             try {

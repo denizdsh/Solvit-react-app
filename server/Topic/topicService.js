@@ -1,16 +1,26 @@
 const Topic = require('./TopicModel');
+const Comment = require('./CommentModel');
 const User = require('../User/UserModel');
 
 async function getAllTopics() {
-    return await Topic.find({}).lean();
+    const topics = await Topic.find({}).lean();
+    topics.map(t => t.comments = t.comments.length);
+
+    return topics;
 }
 
 async function getTopicsByCategory(category) {
-    return await Topic.find({ category });
+    const topics = await Topic.find({ category }).lean();
+    topics.map(t => t.comments = t.comments.length);
+
+    return topics;
 }
 
 async function getTopicsByCategories(categories) {
-    return await Topic.find({ category: { $in: categories } });
+    const topics = await Topic.find({ category: { $in: categories } }).lean();
+    topics.map(t => t.comments = t.comments.length);
+
+    return topics;
 }
 
 async function getTopicById(id) {
@@ -18,22 +28,58 @@ async function getTopicById(id) {
 
     if (!topic) throw new Error('No such topic in database.');
 
+    topic.comments = topic.comments.length;
+
     return topic;
 }
 
 async function getTopicsByIds(ids) {
-    const topics = await Topic.find({ _id: { $in: ids } });
+    const topics = await Topic.find({ _id: { $in: ids } }).lean();
     if (topics.length === 0) throw new Error('This user has not saved any topics.');
+
+    topics.map(t => t.comments = t.comments.length);
 
     return topics;
 }
 
 async function getTopicsByAuthor(author) {
-    const topics = await Topic.find({ author });
+    const topics = await Topic.find({ author }).lean();
 
     if (!topics || topics.length === 0) throw new Error('This user has not posted any topics.');
 
+    topics.map(t => t.comments = t.comments.length);
+
     return topics;
+}
+
+async function getOwnerId(id) {
+    const topic = await Topic.findById(id);
+
+    if (!topic) throw new Error('No such topic in database.');
+
+    return topic._ownerId;
+}
+
+async function getComments(id) {
+    const topic = await Topic.findById(id).populate('comments');
+
+    if (!topic) throw new Error('No such topic in database.');
+
+    return topic.comments;
+}
+
+async function postComment(id, body) {
+    const topic = await Topic.findById(id);
+
+    if (!topic) throw new Error('No such topic in database.');
+
+    const comment = new Comment(body);
+    await comment.save();
+
+    topic.comments.push(comment);
+    await topic.save();
+
+    return comment;
 }
 
 async function createTopic(body) {
@@ -83,13 +129,7 @@ async function dislikeTopic(id, userId) {
     await topic.save();
 }
 
-async function getOwnerId(topicId){
-    const topic = await Topic.findById(topicId);
 
-    if(!topic) throw new Error('No such topic in database.');
-
-    return topic._ownerId;
-}
 
 module.exports = {
     getAllTopics,
@@ -103,5 +143,7 @@ module.exports = {
     deleteTopic,
     likeTopic,
     dislikeTopic,
-    getOwnerId
+    getOwnerId,
+    getComments,
+    postComment
 }

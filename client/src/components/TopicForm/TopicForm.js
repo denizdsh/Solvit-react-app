@@ -58,7 +58,7 @@ function TopicForm({ title, topicAction, topic }) {
             <section className="create-edit-topic" >
                 <form method="POST" className="topic-form" onSubmit={onSubmit}>
                     <article>
-                        <label className="topic-form-label" htmlFor="topic-title" >Title</label>
+                        <label className="topic-form-label" htmlFor="topic-title">Title</label>
                         <input type="text" name="title" id="topic-title" defaultValue={topic?.title} className="topic-form-input" placeholder='Title' />
                     </article>
 

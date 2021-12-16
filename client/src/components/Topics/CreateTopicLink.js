@@ -3,7 +3,6 @@ import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import blue from '@mui/material/colors/blue';
-import grey from '@mui/material/colors/grey';
 
 export default function CreateTopicLink() {
     const { user, isAuthenticated } = useAuth();
@@ -34,7 +33,7 @@ export default function CreateTopicLink() {
             (
                 <section className="create-topic-link">
                     <Avatar
-                        sx={{ bgcolor: grey[500], width: '3rem', height: '3rem', boxShadow: '0px 0px 7px -3px #86d6f9' }}
+                        sx={{ bgcolor: blue[500], width: '3rem', height: '3rem', boxShadow: '0px 0px 7px -3px #86d6f9' }}
                         src=''
                         alt=''>
                     </Avatar>

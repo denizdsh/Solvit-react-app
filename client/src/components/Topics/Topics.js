@@ -9,7 +9,7 @@ import './Topics.css';
 import TopicCard from './TopicCard';
 import Aside from './Aside';
 import CreateTopicLink from './CreateTopicLink';
-import CreateTopic from '../CreateTopic';
+import CreateTopic from '../TopicActions/CreateTopic';
 
 export default function Topics({ topics, CustomHeading, showCreateTopicLink = true, showAside = true, message = 'No topics yet. Be the first one to post one!', fc, st }) {
     const { isAuthenticated, user } = useAuth();

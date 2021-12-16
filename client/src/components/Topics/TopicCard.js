@@ -71,9 +71,9 @@ export default function TopicCard({ topic, isAuthenticated, user, fc, st }) {
                         }
                         <span className="likes-count">{topic.likes.length} Likes</span>
                     </li>
-                    <li className="topic-functionality-list-item topic-functionality-list-item-comments">
+                    <li className="topic-functionality-list-item topic-functionality-list-item-comments" onClick={() => navigate(`/t/${topic._id}`)}>
                         <i className="fas fa-comments"></i>
-                        {topic.comments.length} Comments
+                        {topic.comments} Comments
                     </li>
                     <li className="topic-functionality-list-item topic-functionality-list-item-follow" onClick={th.hasSaved ? th.unsaveTopicHandler : th.saveTopicHandler}>
                         <span className="save-topic-text">

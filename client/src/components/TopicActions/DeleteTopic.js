@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { useTopicContext } from '../hooks/useTopicContext'
-import { isOwner } from '../hoc/isAuth';
-import { deleteTopic } from '../services/topic'
+import { useTopicContext } from '../../hooks/useTopicContext'
+import { isOwner } from '../../hoc/isAuth';
+import { deleteTopic } from '../../services/topic'
 
 function DeleteTopic() {
     const { topic } = useTopicContext();

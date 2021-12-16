@@ -9,22 +9,21 @@ function getDate(dateData) {
 
     return `${date} ${time}`;
 }
-
 export default function Comment({ comment }) {
-    const date = getDate(comment.createdAt);
+    const date = getDate(comment.updatedAt);
     return (
         <article className="comment">
             <article className="comment-info">
                 <span className="comment-info-avatar">
                     <Avatar
                         sx={{ bgcolor: blue[500], width: 33, height: 33, boxShadow: '0px 0px 7px -3px #86d6f9' }}
-                        src={''}
+                        src={comment.authorImageUrl}
                         alt={comment.author.toLocaleUpperCase()}>
                         {comment.author[0].toLocaleUpperCase()}
                     </Avatar>
                 </span>
                 <span className="comment-info-owner">
-                    Posted by <Link className="comment-info-owner-username" to={`/user/${comment.author}`}>u/{comment.author}</Link>
+                    Posted by <Link className="comment-info-owner-username" to={`/u/${comment.author}`}>u/{comment.author}</Link>
                 </span>
                 <span className="comment-info-date">{date}</span>
             </article>

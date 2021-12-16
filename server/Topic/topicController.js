@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const service = require('./topicService');
-const { getFollowingCategories, getSavedTopics } = require('../User/userService');
+const { getFollowingCategories, getSavedTopics, getImageByUsername } = require('../User/userService');
 const { isUser, isOwner } = require('../middlewares/guards');
 
 router.get('/', async (req, res) => {
@@ -10,9 +10,21 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     const id = req.params.id;
+
     try {
         const topic = await service.getTopicById(id);
         res.json(topic);
+    } catch (err) {
+        res.status(err.status || 400).json({ message: err.message });
+    }
+})
+
+router.get('/:id/comments', async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        const comments = await service.getComments(id);
+        res.json(comments);
     } catch (err) {
         res.status(err.status || 400).json({ message: err.message });
     }
@@ -127,5 +139,21 @@ router.post('/:id/dislike', isUser(), async (req, res) => {
     }
 })
 
+router.post('/:id/comments', isUser(), async (req, res) => {
+    const id = req.params.id;
+    const body = {
+        _ownerId: req.user._id,
+        author: req.user.username,
+        authorImageUrl: await getImageByUsername(req.user.username),
+        content: req.body.content
+    }
+    try {
+        const comment = await service.postComment(id, body);
+        console.log(comment)
+        res.json(comment);
+    } catch (err) {
+        res.status(err.status || 400).json({ message: err.message });
+    }
+})
 
 module.exports = router;

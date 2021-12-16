@@ -72,6 +72,24 @@ export async function getSavedTopics() {
     }
 }
 
+export async function getComments(id) {
+    try {
+        return await api.get(`${url}/${id}/comments`);
+    } catch (err) {
+        throw err;
+    }
+}
+
+export async function postComment(id, body) {
+    console.log(id, body)
+    try {
+        console.log(`${url}/${id}/comments`)
+        return await api.post(`${url}/${id}/comments`, { content: body });
+    } catch (err) {
+        throw err;
+    }
+}
+
 export async function likeTopic(id) {
     try {
         return await api.post(`${url}/${id}/like`)

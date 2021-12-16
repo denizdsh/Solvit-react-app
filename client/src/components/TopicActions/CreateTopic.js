@@ -1,6 +1,6 @@
-import { createTopic } from '../services/topic';
+import { createTopic } from '../../services/topic';
 
-import TopicForm from "./TopicForm/TopicForm"
+import TopicForm from "../TopicForm/TopicForm"
 
 export default function CreateTopic(){
 

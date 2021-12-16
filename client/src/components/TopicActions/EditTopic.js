@@ -1,10 +1,10 @@
 import { useContext } from 'react';
-import { TopicContext } from '../contexts/TopicContext';
+import { TopicContext } from '../../contexts/TopicContext';
 
-import { isOwner } from '../hoc/isAuth';
-import { editTopic } from '../services/topic';
+import { isOwner } from '../../hoc/isAuth';
+import { editTopic } from '../../services/topic';
 
-import TopicForm from "./TopicForm/TopicForm"
+import TopicForm from "../TopicForm/TopicForm"
 
 function EditTopic() {
     const { topic } = useContext(TopicContext);

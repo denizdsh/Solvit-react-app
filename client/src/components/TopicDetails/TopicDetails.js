@@ -9,8 +9,8 @@ import { getTopicById } from '../../services/topic';
 import { getFollowingCategories, followCategory, unfollowCategory, getSavedTopicsIds, saveTopic, unsaveTopic } from '../../services/user';
 
 import './TopicDetails.css';
-import EditTopic from '../EditTopic';
-import DeleteTopic from '../DeleteTopic';
+import EditTopic from '../TopicActions/EditTopic';
+import DeleteTopic from '../TopicActions/DeleteTopic';
 import Button from '@mui/material/Button';
 import CommentSection from '../TopicDetails/Comments/CommentSection';
 import Spinner from '../Spinner/Spinner';
@@ -159,7 +159,7 @@ export default function TopicDetails() {
                     </ul>
                 </article>
 
-                <CommentSection comments={topic.comments} />
+                <CommentSection id={topic._id} isAuthenticated={isAuthenticated} />
             </section>
             :
             <Spinner />
