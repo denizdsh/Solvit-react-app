@@ -77,7 +77,7 @@ export default function TopicCard({ topic, isAuthenticated, user, fc, st }) {
                     </li>
                     <li className="topic-functionality-list-item topic-functionality-list-item-follow" onClick={th.hasSaved ? th.unsaveTopicHandler : th.saveTopicHandler}>
                         <span className="save-topic-text">
-                            {th.hasSaved ? 'Remove' : 'Save'}
+                            {th.hasSaved ? 'Unsave' : 'Save'}
                         </span>
 
                         {th.hasSaved

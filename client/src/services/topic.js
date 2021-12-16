@@ -28,21 +28,21 @@ export async function deleteTopic(id) {
     }
 }
 
-export async function getAllTopics() {
-    return await api.get(url);
+export async function getAllTopics(query = { sortby: 'date', order: 'asc' }) {
+    return await api.get(`${url}?sortBy=${query.sortby}&order=${query.order}`);
 }
 
-export async function getTopicsByCategory(category) {
+export async function getTopicsByCategory(category, query = { sortby: 'date', order: 'asc' }) {
     try {
-        return await api.get(`${url}/c/${category}`);
+        return await api.get(`${url}/c/${category}?sortBy=${query.sortby}&order=${query.order}`);
     } catch (err) {
         return await getAllTopics();
     }
 }
 
-export async function getTopicsByAuthor(author) {
+export async function getTopicsByAuthor(author, query = { sortby: 'date', order: 'asc' }) {
     try {
-        return await api.get(`${url}/u/${author}`);
+        return await api.get(`${url}/u/${author}?sortBy=${query.sortby}&order=${query.order}`);
     } catch (err) {
         throw err;
     }
@@ -56,17 +56,17 @@ export async function getTopicById(id) {
     }
 }
 
-export async function getFollowedTopics() {
+export async function getFollowedTopics(query = { sortby: 'date', order: 'asc' }) {
     try {
-        return await api.get(`${url}/c/following`);
+        return await api.get(`${url}/c/following?sortBy=${query.sortby}&order=${query.order}`);
     } catch (err) {
         throw err;
     }
 }
 
-export async function getSavedTopics() {
+export async function getSavedTopics(query = { sortby: 'date', order: 'asc' }) {
     try {
-        return await api.get(`${url}/c/saved`);
+        return await api.get(`${url}/c/saved?sortBy=${query.sortby}&order=${query.order}`);
     } catch (err) {
         throw err;
     }

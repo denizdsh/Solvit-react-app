@@ -10,6 +10,7 @@ const schema = new Schema({
     description: { type: String, required: true, maxlength: 1500 },
     imageUrl: { type: String, match: /^https?:\/\// },
     likes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    _likesCount: { type: Number },
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
 }, { timestamps: true }
 )

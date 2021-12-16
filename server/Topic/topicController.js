@@ -4,8 +4,66 @@ const { getFollowingCategories, getSavedTopics, getImageByUsername } = require('
 const { isUser, isOwner } = require('../middlewares/guards');
 
 router.get('/', async (req, res) => {
-    const topics = await service.getAllTopics();
+    const sortBy = req.query.sortBy;
+    const order = req.query.order === 'desc' ? 1 : -1;
+
+    const topics = await service.getAllTopics(sortBy, order);
     res.json(topics);
+})
+
+
+router.get('/c/following', isUser(), async (req, res) => {
+    const sortBy = req.query.sortBy;
+    const order = req.query.order === 'desc' ? 1 : -1;
+
+    const userId = req.user._id;
+    const categories = await getFollowingCategories(userId)
+
+    if (!categories) {
+        res.status(err.status || 400).json({ message: 'You haven\'t followed any catogies yet.' })
+        return null;
+    }
+
+    const topics = await service.getTopicsByCategories(categories, sortBy, order);
+    res.json(topics);
+})
+
+router.get('/c/saved', isUser(), async (req, res) => {
+    const sortBy = req.query.sortBy;
+    const order = req.query.order === 'desc' ? 1 : -1;
+
+    const userId = req.user._id;
+    const savedTopicsIds = await getSavedTopics(userId);
+
+    try {
+        const savedTopics = await service.getTopicsByIds(savedTopicsIds, sortBy, order);
+        res.json(savedTopics);
+    } catch (err) {
+        res.status(err.status || 400).json({ message: err.message });
+    }
+})
+
+router.get(`/c/:category`, async (req, res) => {
+    const sortBy = req.query.sortBy;
+    const order = req.query.order === 'desc' ? 1 : -1;
+
+    const category = req.params.category;
+    const topics = await service.getTopicsByCategory(category, sortBy, order);
+
+    res.json(topics);
+});
+
+router.get('/u/:user', async (req, res) => {
+    const sortBy = req.query.sortBy;
+    const order = req.query.order === 'desc' ? 1 : -1;
+
+    const user = req.params.user;
+    try {
+        const topics = await service.getTopicsByAuthor(user, sortBy, order);
+        res.json(topics);
+    } catch (err) {
+        res.status(err.status || 400).json({ message: err.message });
+    }
 })
 
 router.get('/:id', async (req, res) => {
@@ -30,48 +88,6 @@ router.get('/:id/comments', async (req, res) => {
     }
 })
 
-router.get('/c/following', isUser(), async (req, res) => {
-    const userId = req.user._id;
-    const categories = await getFollowingCategories(userId)
-
-    if (!categories) {
-        res.status(err.status || 400).json({ message: 'You haven\'t followed any catogies yet.' })
-        return null;
-    }
-
-    const topics = await service.getTopicsByCategories(categories);
-    res.json(topics);
-})
-
-router.get('/c/saved', isUser(), async (req, res) => {
-    const userId = req.user._id;
-    const savedTopicsIds = await getSavedTopics(userId);
-
-    try {
-        const savedTopics = await service.getTopicsByIds(savedTopicsIds);
-        res.json(savedTopics);
-    } catch (err) {
-        res.status(err.status || 400).json({ message: err.message });
-    }
-})
-
-router.get(`/c/:category`, async (req, res) => {
-    const category = req.params.category;
-    const topics = await service.getTopicsByCategory(category);
-
-    res.json(topics);
-});
-
-router.get('/u/:user', async (req, res) => {
-    const user = req.params.user;
-    try {
-        const topics = await service.getTopicsByAuthor(user);
-        res.json(topics);
-    } catch (err) {
-        res.status(err.status || 400).json({ message: err.message });
-    }
-})
-
 router.post('/', isUser(), async (req, res) => {
     const topic = {
         _ownerId: req.user._id,
@@ -79,7 +95,8 @@ router.post('/', isUser(), async (req, res) => {
         category: req.body.category || 'other',
         title: req.body.title,
         description: req.body.description,
-        imageUrl: req.body.imageUrl
+        imageUrl: req.body.imageUrl,
+        _likesCount: 0
     }
 
     try {

@@ -2,22 +2,70 @@ const Topic = require('./TopicModel');
 const Comment = require('./CommentModel');
 const User = require('../User/UserModel');
 
-async function getAllTopics() {
-    const topics = await Topic.find({}).lean();
+async function getAllTopics(sortBy, order) {
+    let topics = [];
+    if (sortBy === 'popularity') {
+        topics = await Topic.find({}).sort({ _likesCount: order, updatedAt: -1 }).lean();
+    } else {
+        topics = await Topic.find({}).sort({ updatedAt: order }).lean();
+    }
+
     topics.map(t => t.comments = t.comments.length);
 
     return topics;
 }
 
-async function getTopicsByCategory(category) {
-    const topics = await Topic.find({ category }).lean();
+async function getTopicsByCategory(category, sortBy, order) {
+    let topics = [];
+    if (sortBy === 'popularity') {
+        topics = await Topic.find({ category }).sort({ _likesCount: order, updatedAt: -1 }).lean();
+    } else {
+        topics = await Topic.find({ category }).sort({ updatedAt: order }).lean();
+    }
+
     topics.map(t => t.comments = t.comments.length);
 
     return topics;
 }
 
-async function getTopicsByCategories(categories) {
-    const topics = await Topic.find({ category: { $in: categories } }).lean();
+async function getTopicsByCategories(categories, sortBy, order) {
+    let topics = [];
+    if (sortBy === 'popularity') {
+        topics = await Topic.find({ category: { $in: categories } }).sort({ _likesCount: order, updatedAt: -1 }).lean();
+    } else {
+        topics = await Topic.find({ category: { $in: categories } }).sort({ updatedAt: order }).lean();
+    }
+
+    topics.map(t => t.comments = t.comments.length);
+
+    return topics;
+}
+
+async function getTopicsByIds(ids, sortBy, order) {
+    let topics = [];
+    if (sortBy === 'popularity') {
+        topics = await Topic.find({ _id: { $in: ids } }).sort({ _likesCount: order, updatedAt: -1 }).lean();
+    } else {
+        topics = await Topic.find({ _id: { $in: ids } }).sort({ updatedAt: order }).lean();
+    }
+
+    if (topics.length === 0) throw new Error('This user has not saved any topics.');
+
+    topics.map(t => t.comments = t.comments.length);
+
+    return topics;
+}
+
+async function getTopicsByAuthor(author, sortBy, order) {
+    let topics = [];
+    if (sortBy === 'popularity') {
+        topics = await Topic.find({ author }).sort({ _likesCount: order, updatedAt: -1 }).lean();
+    } else {
+        topics = await Topic.find({ author }).sort({ updatedAt: order }).lean();
+    }
+
+    if (!topics || topics.length === 0) throw new Error('This user has not posted any topics.');
+
     topics.map(t => t.comments = t.comments.length);
 
     return topics;
@@ -33,24 +81,6 @@ async function getTopicById(id) {
     return topic;
 }
 
-async function getTopicsByIds(ids) {
-    const topics = await Topic.find({ _id: { $in: ids } }).lean();
-    if (topics.length === 0) throw new Error('This user has not saved any topics.');
-
-    topics.map(t => t.comments = t.comments.length);
-
-    return topics;
-}
-
-async function getTopicsByAuthor(author) {
-    const topics = await Topic.find({ author }).lean();
-
-    if (!topics || topics.length === 0) throw new Error('This user has not posted any topics.');
-
-    topics.map(t => t.comments = t.comments.length);
-
-    return topics;
-}
 
 async function getOwnerId(id) {
     const topic = await Topic.findById(id);
@@ -113,6 +143,7 @@ async function likeTopic(id, userId) {
     if (!user) throw new Error('You have to be logged in to perform this action.');
 
     topic.likes.push(userId);
+    topic._likesCount = topic.likes.lenght;
     await topic.save();
 }
 
@@ -126,6 +157,7 @@ async function dislikeTopic(id, userId) {
     if (!user) throw new Error('You have to be logged in to perform this action.');
 
     topic.likes.splice(topic.likes.indexOf(userId), 1);
+    topic._likesCount = topic.likes.lenght;
     await topic.save();
 }
 

@@ -120,7 +120,7 @@ export default function TopicDetails() {
                             {
                                 !isOwner &&
                                 <span className="save-topic-text">
-                                    {th.hasSaved ? 'Remove' : 'Save'}
+                                    {th.hasSaved ? 'Unsave' : 'Save'}
                                 </span>
                             }
                             {
@@ -131,7 +131,7 @@ export default function TopicDetails() {
                             {
                                 isOwner &&
                                 <span className="save-topic-text">
-                                    {th.hasSaved ? 'Remove' : 'Save'}
+                                    {th.hasSaved ? 'Unsave' : 'Save'}
                                 </span>
                             }
                         </li>
