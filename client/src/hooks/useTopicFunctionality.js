@@ -14,7 +14,7 @@ export const useTopicFunctionality = (getRequest, addRequest, removeRequest, isA
                 }
             })()
         }
-    }, [])
+    }, [isAuthenticated, getRequest])
 
 
     const addFunction = async (value) => {

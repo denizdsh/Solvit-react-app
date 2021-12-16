@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
-
 import { Routes, Route } from 'react-router';
-import { useSearchParams } from 'react-router-dom';
+// import { useSearchParams } from 'react-router-dom';
 
 import { useAuth } from '../../hooks/useAuth';
 import { useTopicFunctionality } from '../../hooks/useTopicFunctionality';

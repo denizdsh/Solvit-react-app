@@ -1,8 +1,8 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link, Routes, Route } from 'react-router-dom';
 
-import { TopicContext } from '../../contexts/TopicContext'
 import { useAuth } from '../../hooks/useAuth';
+import { useTopicContext } from '../../hooks/useTopicContext';
 import { useTopicFunctionality } from '../../hooks/useTopicFunctionality';
 import { useTopicHandlers } from '../../hooks/useTopicHandlers';
 import { getTopicById } from '../../services/topic';
@@ -10,6 +10,7 @@ import { getFollowingCategories, followCategory, unfollowCategory, getSavedTopic
 
 import './TopicDetails.css';
 import EditTopic from '../EditTopic';
+import DeleteTopic from '../DeleteTopic';
 import Button from '@mui/material/Button';
 import CommentSection from '../TopicDetails/Comments/CommentSection';
 import Spinner from '../Spinner/Spinner';
@@ -26,7 +27,7 @@ export default function TopicDetails() {
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const context = useContext(TopicContext);
+    const context = useTopicContext();
     const { isAuthenticated, user } = useAuth();
     const isOwner = topic._ownerId === user._id;
 
@@ -44,7 +45,7 @@ export default function TopicDetails() {
                 console.error(err)
             }
         })();
-    }, [id, navigate])
+    }, [isOwner, id, navigate])
 
 
     const fc = useTopicFunctionality(getFollowingCategories, followCategory, unfollowCategory, isAuthenticated);
@@ -62,6 +63,7 @@ export default function TopicDetails() {
                     isOwner &&
                     <Routes>
                         <Route path="edit" element={<EditTopic />} />
+                        <Route path="delete" element={<DeleteTopic />} />
                     </Routes>
                 }
                 <article className="topic-info  details">

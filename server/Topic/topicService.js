@@ -83,6 +83,14 @@ async function dislikeTopic(id, userId) {
     await topic.save();
 }
 
+async function getOwnerId(topicId){
+    const topic = await Topic.findById(topicId);
+
+    if(!topic) throw new Error('No such topic in database.');
+
+    return topic._ownerId;
+}
+
 module.exports = {
     getAllTopics,
     getTopicsByCategory,
@@ -94,5 +102,6 @@ module.exports = {
     editTopic,
     deleteTopic,
     likeTopic,
-    dislikeTopic
+    dislikeTopic,
+    getOwnerId
 }

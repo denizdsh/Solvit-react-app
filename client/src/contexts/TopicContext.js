@@ -4,7 +4,6 @@ export const TopicContext = createContext();
 
 export function TopicProvider({ children }) {
     const [topic, setTopic] = useState({});
-
     const provideTopic = (topic) => {
         setTopic(topic);
     }

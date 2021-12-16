@@ -11,9 +11,18 @@ export async function createTopic(body) {
         throw err;
     }
 }
+
 export async function editTopic(body, id) {
     try {
-        return await api.put(`${url}/${id}/edit`, body)
+        return await api.put(`${url}/${id}`, body)
+    } catch (err) {
+        throw err;
+    }
+}
+
+export async function deleteTopic(id) {
+    try {
+        return await api.del(`${url}/${id}`)
     } catch (err) {
         throw err;
     }
@@ -38,6 +47,7 @@ export async function getTopicsByAuthor(author) {
         throw err;
     }
 }
+
 export async function getTopicById(id) {
     try {
         return await api.get(`${url}/${id}`);

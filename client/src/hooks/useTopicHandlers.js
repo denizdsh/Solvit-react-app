@@ -17,7 +17,7 @@ export const useTopicHandlers = (topic, fc, st, isAuthenticated = false, user) =
 
         setHasFollowed(hf);
 
-    }, [fc, user])
+    }, [fc, isAuthenticated, topic?.category])
 
     useEffect(() => {
         (async () => {
@@ -29,7 +29,7 @@ export const useTopicHandlers = (topic, fc, st, isAuthenticated = false, user) =
 
             setHasLiked(hl);
         })()
-    }, [topic, user])
+    }, [topic, isAuthenticated, user])
 
     useEffect(() => {
         (async () => {
@@ -41,7 +41,7 @@ export const useTopicHandlers = (topic, fc, st, isAuthenticated = false, user) =
 
             setHasSaved(hs);
         })()
-    }, [st, user])
+    }, [st, isAuthenticated, topic._id])
 
     const followCategoryHandler = async () => {
         if (isAuthenticated) {
