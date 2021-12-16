@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import { isUser } from '../hoc/isAuth';
 import { useTopicFunctionality } from '../hooks/useTopicFunctionality';
@@ -10,17 +11,19 @@ import Topics from './Topics/Topics';
 function FollowedTopics() {
     const [topics, setTopics] = useState([]);
     const fcState = useTopicFunctionality(getFollowingCategories, followCategory, unfollowCategory);
+    const [searchParams] = useSearchParams();
+    const query = {sortby: searchParams.get('sortby'), order: searchParams.get('order')}
 
     useEffect(() => {
         (async () => {
             try {
-                const topicsData = await getFollowedTopics();
+                const topicsData = await getFollowedTopics(query);
                 setTopics(topicsData);
             } catch (err) {
                 console.error(err);
             }
         })();
-    }, [fcState.state])
+    }, [fcState.state, query.sortby, query.order])
 
     const fc = { categories: fcState.state, addFollowingCategory: fcState.addFunction, removeFollowingCategory: fcState.removeFunction };
     

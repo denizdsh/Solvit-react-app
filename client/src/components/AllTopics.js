@@ -8,10 +8,11 @@ import TopicsHeadingUnderlined from './Topics/TopicsHeadingUnderlined';
 
 export default function AllTopics() {
     const [topics, setTopics] = useState([]);
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const query = {sortby: searchParams.get('sortby'), order: searchParams.get('order')}
 
     useEffect(() => {
+        console.log('rerender');
         (async () => {
             const topicsData = await getAllTopics(query);
             setTopics(topicsData);

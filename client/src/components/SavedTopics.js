@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import { isUser } from "../hoc/isAuth";
 import { useTopicFunctionality } from "../hooks/useTopicFunctionality";
@@ -11,17 +12,19 @@ import Topics from "./Topics/Topics";
 function SavedTopics() {
     const [topics, setTopics] = useState([]);
     const stState = useTopicFunctionality(getSavedTopicsIds, saveTopic, unsaveTopic);
+    const [searchParams] = useSearchParams();
+    const query = {sortby: searchParams.get('sortby'), order: searchParams.get('order')}
 
     useEffect(() => {
         (async () => {
             try {
-                const topicsData = await getSavedTopics();
+                const topicsData = await getSavedTopics(query);
                 setTopics(topicsData)
             } catch (err) {
                 console.error(err);
             }
         })()
-    }, [stState.state])
+    }, [stState.state, query.sortby, query.order])
 
 
     const st = { savedTopics: stState.state, addSavedTopic: stState.addFunction, removeSavedTopic: stState.removeFunction };
