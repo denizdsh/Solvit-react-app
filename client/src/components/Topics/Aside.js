@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import './Aside.css'
 
@@ -17,7 +17,7 @@ export default function Aside() {
 
 
 
-    const changeActiveParams = () => {
+    const changeActiveParams = useCallback(() => {
         const querySortBy = searchParams.get('sortby') || 'date';
         const queryOrder = searchParams.get('order') || 'asc';
 
@@ -32,11 +32,11 @@ export default function Aside() {
 
         setActiveSort(sortBtn);
         setActiveOrder(orderBtn);
-    }
+    }, [searchParams, activeSort?.classList, activeOrder?.classList])
 
     useEffect(() => {
         changeActiveParams()
-    }, [searchParams])
+    }, [changeActiveParams])
 
 
     const changeParamsHandler = (e) => {

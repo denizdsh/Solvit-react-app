@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useNavigate } from "react-router";
 import { useAuth } from "../../hooks/useAuth";
 
-import Spinner from "../Spinner/Spinner"
+import Spinner from "../Common/Spinner/Spinner"
 
 export default function Logout() {
     const { logout } = useAuth();

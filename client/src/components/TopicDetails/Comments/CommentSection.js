@@ -20,7 +20,7 @@ export default function CommentSection({ id, isAuthenticated }) {
                 console.error(err);
             }
         })()
-    }, [])
+    }, [id])
 
     const redirectHandler = () => {
         if (!isAuthenticated) {

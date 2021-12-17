@@ -1,7 +1,6 @@
 import { isOwner } from '../../hoc/isAuth';
 import { useTopic } from '../../hooks/useTopic';
 import { editTopic } from '../../services/topic';
-import Spinner from '../Spinner/Spinner';
 
 import TopicForm from "../TopicForm/TopicForm"
 

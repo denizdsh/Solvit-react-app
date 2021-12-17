@@ -17,12 +17,13 @@ export const NotificationProvider = ({ children }) => {
     const showNotification = useCallback((message, severity = types.error) => {
         if (message === '_auth-warning') {
             message = (<>You have to be <Link to='/login'>logged in</Link> for this action</>)
+            severity = types.warning;
         }
         setNotification({ message, severity });
         setShow(true);
-    })
+    }, [])
 
-    const closeNotification = useCallback(() => setShow(false));
+    const closeNotification = useCallback(() => setShow(false), []);
 
     return (
         <NotificationContext.Provider value={{ notification, show, showNotification, closeNotification }}>

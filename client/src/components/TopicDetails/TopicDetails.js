@@ -13,7 +13,7 @@ import EditTopic from '../TopicActions/EditTopic';
 import DeleteTopic from '../TopicActions/DeleteTopic';
 import Button from '@mui/material/Button';
 import CommentSection from '../TopicDetails/Comments/CommentSection';
-import Spinner from '../Spinner/Spinner';
+import Spinner from '../Common/Spinner/Spinner';
 
 function getDate(dateData) {
     let [date, time] = dateData.split('T');
@@ -41,11 +41,11 @@ export default function TopicDetails() {
                     context.provideTopic(topicData);
                 }
             } catch (err) {
-                // navigate(-1, { replace: true });
+                navigate(-1, { replace: true });
                 console.error(err)
             }
         })();
-    }, [isOwner, id, navigate])
+    }, [isOwner, id, navigate, context])
 
 
     const fc = useTopicFunctionality(getFollowingCategories, followCategory, unfollowCategory, isAuthenticated);

@@ -8,7 +8,7 @@ import blue from '@mui/material/colors/blue';
 
 export default function CreateTopicLink() {
     const { user, isAuthenticated } = useAuth();
-    const { notification, showNotification, closeNotification } = useNotification();
+    const { showNotification } = useNotification();
     const navigate = useNavigate();
 
     const redirectToCreateHandler = () => {
@@ -16,7 +16,7 @@ export default function CreateTopicLink() {
     }
 
     const redirectToLogin = () => {
-        showNotification('_auth-warning', 'warning')
+        showNotification('_auth-warning')
     }
     return (
         isAuthenticated

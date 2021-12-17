@@ -15,7 +15,7 @@ import TopicDetails from './components/TopicDetails/TopicDetails';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Logout from './components/Auth/Logout';
-import Notification from './components/Common/Notification';
+import Notification from './components/Common/Notification/Notification';
 
 function App() {
   return (
