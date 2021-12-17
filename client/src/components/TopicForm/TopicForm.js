@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { isUser } from '../../hoc/isAuth';
 import modal from '../../hoc/modal';
+import { useNotification } from '../../hooks/useNotification';
 import { categories } from '../../services/config';
 
 import './TopicForm.css'
@@ -11,29 +12,35 @@ import TextField from '@mui/material/TextField'
 
 function TopicForm({ title, topicAction, topic }) {
     const navigate = useNavigate();
+    const { showNotification } = useNotification();
 
     const onSubmit = async (e) => {
         e.preventDefault();
 
         const form = new FormData(e.currentTarget);
         const [title, description, imageUrl, category] = Object.values(Object.fromEntries(form)).map(x => x.trim());
-        const urlRegexp = /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/ig;
-        let err = '';
 
+        const urlRegexp = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/;
+
+        let err = '';
         if (!title || !description || !category) {
-            err = 'All fields required';
+            err = 'All fields required.';
         }
+
         if (title.length > 200) {
-            err += '\nTitle must be less than 200 characters';
+            err += '\tTitle must be less than 200 characters.';
         }
+
         if (description.length > 1500) {
-            err += '\nDescription must be less than 1500 characters';
+            err += '\tDescription must be less than 1500 characters.';
         }
-        if (!categories.includes(category)) {
-            err += '\nCategory must be a valid category';
+
+        if (category && !categories.includes(category)) {
+            err += '\tCategory must be a valid category.';
         }
+
         if (imageUrl && !imageUrl.match(urlRegexp)) {
-            err += '\nImage must be a valid URL';
+            err += '\tImage must be a valid URL.';
         }
 
         if (!err) {
@@ -44,12 +51,9 @@ function TopicForm({ title, topicAction, topic }) {
                 const res = await topicAction(...params);
                 navigate(`/t/${res._id}`, { replace: true });
             } catch (err) {
-                alert(err.message);
+                showNotification(err.message, 'error');
             }
-        }
-        else alert(err);
-
-        //TODO custom error popup
+        } else showNotification(err, 'error');
     }
     const defaultCategory = categories.find(c => c.toLocaleLowerCase() === topic?.category) || false;
     return (

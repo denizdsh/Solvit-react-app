@@ -159,3 +159,9 @@
     bottom: 4vh;
     right: 5vw;
 }
+.required-asterisk{
+    font-size: 0.75rem;
+    position: relative;
+    bottom: 5px;
+    color: rgb(158, 50, 50);
+}

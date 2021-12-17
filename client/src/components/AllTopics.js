@@ -7,7 +7,7 @@ import Topics from './Topics/Topics';
 import TopicsHeadingUnderlined from './Topics/TopicsHeadingUnderlined';
 
 export default function AllTopics() {
-    const [topics, setTopics] = useState([]);
+    const [topics, setTopics] = useState();
     const [searchParams] = useSearchParams();
     const query = {sortby: searchParams.get('sortby'), order: searchParams.get('order')}
 

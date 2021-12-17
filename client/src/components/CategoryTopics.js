@@ -7,7 +7,7 @@ import Topics from './Topics/Topics';
 import TopicsHeadingUnderlined from './Topics/TopicsHeadingUnderlined';
 
 export default function CategoryTopics() {
-    const [topics, setTopics] = useState([]);
+    const [topics, setTopics] = useState();
     const { category } = useParams();
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();

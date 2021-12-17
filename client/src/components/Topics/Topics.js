@@ -10,6 +10,7 @@ import TopicCard from './TopicCard';
 import Aside from './Aside';
 import CreateTopicLink from './CreateTopicLink';
 import CreateTopic from '../TopicActions/CreateTopic';
+import Spinner from '../Common/Spinner/Spinner';
 
 export default function Topics({ topics, CustomHeading, showCreateTopicLink = true, showAside = true, message = 'No topics yet. Be the first one to post one!', fc, st }) {
     const { isAuthenticated, user } = useAuth();
@@ -32,13 +33,15 @@ export default function Topics({ topics, CustomHeading, showCreateTopicLink = tr
                     <Route path="create" element={<CreateTopic />} />
                 </Routes>}
             <section className="content">
-                {(showAside && topics.length > 0) && <Aside />}
+                {(showAside && topics?.length > 0) && <Aside />}
                 <section className="topics">
                     {CustomHeading ? CustomHeading : <></>}
                     {showCreateTopicLink && <CreateTopicLink />}
-                    {topics.length > 0
-                        ? topics.map(topic => <TopicCard topic={topic} key={topic._id} isAuthenticated={isAuthenticated} user={user} fc={fc} st={st} />)
-                        : <p className='no-posts-message'>{message}</p>}
+                    {topics
+                        ? topics.length > 0
+                            ? topics.map(topic => <TopicCard topic={topic} key={topic._id} isAuthenticated={isAuthenticated} user={user} fc={fc} st={st} />)
+                            : <p className='no-posts-message'>{message}</p>
+                        : <Spinner />}
                 </section>
             </section>
         </>

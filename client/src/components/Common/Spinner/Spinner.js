@@ -1,3 +1,4 @@
+import modal from '../../../hoc/modal';
 import './Spinner.css';
 
 function Spinner() {
@@ -12,4 +13,4 @@ function Spinner() {
     )
 }
 
-export default Spinner;
+export default modal(Spinner);

@@ -18,14 +18,14 @@ function generateJwt(user) {
 async function register(email, username, password, imageUrl) {
     const existingEmail = await User.findOne({ email });
     if (existingEmail) {
-        const err = new Error(`Account with email (${email}) already exists in database.`);
+        const err = new Error(`Account with email ${email} already exists`);
         err.status = 409;
         throw err;
     }
 
     const existingUsername = await User.findOne({ username });
     if (existingUsername) {
-        const err = new Error(`Account with username (${username}) already exists in database.`);
+        const err = new Error(`Account with username (${username}) already exists`);
         err.status = 409;
         throw err;
     }

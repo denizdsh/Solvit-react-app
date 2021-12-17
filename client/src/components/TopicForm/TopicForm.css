@@ -71,11 +71,11 @@
     padding-left: 8px;
 }
 .topic-form-submit{
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     height: fit-content;
     padding: 8px 16px;
     color: inherit;
-    background: #4799bd;
+    background: #1d88c2;
     outline: none;
     border: 2px solid #313846;
     border-radius: 20px;

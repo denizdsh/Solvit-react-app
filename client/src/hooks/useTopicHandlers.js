@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useNotification } from './useNotification';
 import { likeTopic, dislikeTopic } from '../services/topic';
 
 export const useTopicHandlers = (topic, fc, st, isAuthenticated = false, user) => {
@@ -7,6 +8,7 @@ export const useTopicHandlers = (topic, fc, st, isAuthenticated = false, user) =
     const [hasLiked, setHasLiked] = useState(false);
     const [hasSaved, setHasSaved] = useState(false);
     const navigate = useNavigate();
+    const { showNotification } = useNotification();
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -47,14 +49,14 @@ export const useTopicHandlers = (topic, fc, st, isAuthenticated = false, user) =
         if (isAuthenticated) {
             await (fc.addFollowingCategory || fc.addFunction)(topic.category);
         } else {
-            navigate('/login');
+            showNotification('_auth-warning');
         }
     }
     const unfollowCategoryHandler = async () => {
         if (isAuthenticated) {
             await (fc.removeFollowingCategory || fc.removeFunction)(topic.category);
         } else {
-            navigate('/login');
+            showNotification('_auth-warning');
         }
     }
 
@@ -64,7 +66,7 @@ export const useTopicHandlers = (topic, fc, st, isAuthenticated = false, user) =
             await likeTopic(topic._id);
             setHasLiked(topic.likes.includes(user._id))
         } else {
-            navigate('/login');
+            showNotification('_auth-warning');
         }
     }
 
@@ -72,7 +74,7 @@ export const useTopicHandlers = (topic, fc, st, isAuthenticated = false, user) =
         if (isAuthenticated) {
             console.log('dislike')
         } else {
-            navigate('/login');
+            showNotification('_auth-warning');
         }
     }
 
@@ -80,7 +82,7 @@ export const useTopicHandlers = (topic, fc, st, isAuthenticated = false, user) =
         if (isAuthenticated) {
             await (st.addSavedTopic || st.addFunction)(topic._id);
         } else {
-            navigate('/login');
+            showNotification('_auth-warning');
         }
     }
 
@@ -88,7 +90,7 @@ export const useTopicHandlers = (topic, fc, st, isAuthenticated = false, user) =
         if (isAuthenticated) {
             await (st.removeSavedTopic || st.removeFunction)(topic._id);
         } else {
-            navigate('/login');
+            showNotification('_auth-warning');
         }
     }
 

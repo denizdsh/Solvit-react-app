@@ -57,6 +57,10 @@ async function getTopicsByIds(ids, sortBy, order) {
 }
 
 async function getTopicsByAuthor(author, sortBy, order) {
+    const user = await User.findOne({username: author});
+    console.log(user)
+    if(!user) throw new Error(`${author} is currently harvesting potatoes and is not available.`);
+
     let topics = [];
     if (sortBy === 'popularity') {
         topics = await Topic.find({ author }).sort({ _likesCount: order, updatedAt: -1 }).lean();

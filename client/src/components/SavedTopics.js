@@ -10,7 +10,7 @@ import TopicsHeadingUnderlined from "./Topics/TopicsHeadingUnderlined";
 import Topics from "./Topics/Topics";
 
 function SavedTopics() {
-    const [topics, setTopics] = useState([]);
+    const [topics, setTopics] = useState();
     const stState = useTopicFunctionality(getSavedTopicsIds, saveTopic, unsaveTopic);
     const [searchParams] = useSearchParams();
     const query = {sortby: searchParams.get('sortby'), order: searchParams.get('order')}

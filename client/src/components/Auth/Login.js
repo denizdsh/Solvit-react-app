@@ -1,13 +1,15 @@
 import { useNavigate } from "react-router";
+
 import { useAuth } from "../../hooks/useAuth";
+import { useNotification } from '../../hooks/useNotification';
 import * as auth from '../../services/auth';
 
 import Auth from "./Auth"
 
 export default function Login() {
     const { login } = useAuth();
-
     const navigate = useNavigate();
+    const { showNotification } = useNotification();
 
     const loginHandler = async (e) => {
         e.preventDefault();
@@ -20,7 +22,9 @@ export default function Login() {
             login(userData);
 
             navigate('/', { replace: true });
-        } catch (err) { }
+        } catch (err) {
+            showNotification(err.message, 'warning')
+        }
     }
 
     return (

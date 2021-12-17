@@ -32,18 +32,18 @@ function Auth({ type, onSubmit }) {
             </div>
             <form method="POST" className="auth-form" onSubmit={onSubmit}>
                 <div>
-                    <label className="auth-form-label" htmlFor="email">Email</label>
+                    <label className="auth-form-label" htmlFor="email">Email <span className="required-asterisk">*</span></label>
                     <input className="auth-form-input" type="email" id="email" name="email" placeholder="john@doe.com" />
                 </div>
                 {isLogin ||
                     <div>
-                        <label className="auth-form-label" htmlFor="username">Username</label>
+                        <label className="auth-form-label" htmlFor="username">Username <span className="required-asterisk">*</span></label>
                         <input className="auth-form-input" type="username" id="username" name="username" placeholder="John Doe" />
                     </div>
                 }
                 <div>
                     <article className="auth-form-password-label-wrap">
-                        <label className="auth-form-label" htmlFor="password">Password</label>
+                        <label className="auth-form-label" htmlFor="password">Password <span className="required-asterisk">*</span></label>
                         <article className="auth-form-see-password" onClick={passwordTypeHandler}>
                             {passwordType === 'password'
                                 ? crossedEyeIcon
@@ -55,7 +55,7 @@ function Auth({ type, onSubmit }) {
                 {isLogin ||
                     <div>
                         <article className="auth-form-password-label-wrap">
-                            <label className="auth-form-label" htmlFor="repassword">Repeat password</label>
+                            <label className="auth-form-label" htmlFor="repassword">Repeat password <span className="required-asterisk">*</span></label>
                             <article className="auth-form-see-password" onClick={passwordTypeHandler}>
                                 {passwordType === 'password'
                                     ? crossedEyeIcon
@@ -70,7 +70,7 @@ function Auth({ type, onSubmit }) {
                         <label className="auth-form-label auth-form-imageUrl-label" htmlFor="imageUrl" onClick={() => setShowImageInput(oldState => !oldState)}>Avatar icon {caret}</label>
                         {showImageInput &&
                             <>
-                                <input className="auth-form-input" type='url' id="imageUrl" name="imageUrl" placeholder='URL - not requried' />
+                                <input className="auth-form-input" type='url' id="imageUrl" name="imageUrl" placeholder='www.image.com' />
                                 <a className="link-to-imgur" href="https://imgur.com/upload" target="_blank" rel="noreferrer">You can upload your image here...</a>
                             </>
                         }

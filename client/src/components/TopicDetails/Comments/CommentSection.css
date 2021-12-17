@@ -37,18 +37,27 @@
     outline: none;
 }
 
+.guest.comment-form-text {
+    min-height: 8vh;
+    max-height: 8vh;
+}
+
 .comment-form-btn {
-    background: #262A37;
+    background: #1d88c2;
     color: #D7DADC;
-    border: 2px solid #313846;
-    border-radius: 15px;
-    font-size: 1rem;
-    padding: 0.5vmin 1.25vmin;
+    border: 1px solid #313846;
+    border-radius: 19px;
+    font-size: 0.9rem;
+    padding: 0.6vmin 1.6vmin;
     margin-top: 7px;
 }
 
 .comment-form-btn:hover {
     cursor: pointer;
+}
+
+.comment-form-btn:active {
+    background: #16435c;
 }
 
 @media all and (min-width: 1921px) {
@@ -71,7 +80,9 @@
     .comments::before {
         width: 76vw;
     }
-}@media all and (max-width: 600px) {
+}
+
+@media all and (max-width: 600px) {
     .comment-form-text {
         max-width: 87vw;
         min-width: 87vw;
