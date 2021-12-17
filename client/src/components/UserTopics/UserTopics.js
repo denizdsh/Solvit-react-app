@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
+import { useNotification } from '../../hooks/useNotification';
 import { getTopicsByAuthor } from '../../services/topic';
 import Topics from '../Topics/Topics';
 import UserTopicsHeading from './UserTopicsHeading';
@@ -10,8 +11,9 @@ export default function UserTopics() {
     const { user } = useParams();
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
+    const { showNotification } = useNotification();
+
     const query = { sortby: searchParams.get('sortby'), order: searchParams.get('order') }
-    let error;
 
     useEffect(() => {
         (async () => {
@@ -19,12 +21,11 @@ export default function UserTopics() {
                 const topicsData = await getTopicsByAuthor(user, query);
                 setTopics(topicsData);
             } catch (err) {
-                console.error(err);
-                error = err.message;
-                navigate(-1, { replace: true });
+                navigate('/', { replace: true });
+                showNotification(`${user} is currently struggling to fix one of the many problems in his project, and therefore is unavailable`, 'error')
             }
         })();
-    }, [user, query.sortby, query.order])
+    }, [user, query.sortby, query.order, navigate, showNotification])
 
 
     return (

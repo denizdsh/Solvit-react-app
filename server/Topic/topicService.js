@@ -57,9 +57,8 @@ async function getTopicsByIds(ids, sortBy, order) {
 }
 
 async function getTopicsByAuthor(author, sortBy, order) {
-    const user = await User.findOne({username: author});
-    console.log(user)
-    if(!user) throw new Error(`${author} is currently harvesting potatoes and is not available.`);
+    const user = await User.findOne({ username: author });
+    if (!user) throw new Error(`${author} is currently harvesting potatoes and is not available.`);
 
     let topics = [];
     if (sortBy === 'popularity') {
@@ -95,11 +94,13 @@ async function getOwnerId(id) {
 }
 
 async function getComments(id) {
-    const topic = await Topic.findById(id).populate('comments');
+    const topic = await Topic.findById(id);
 
     if (!topic) throw new Error('No such topic in database.');
 
-    return topic.comments;
+    const comments = await Comment.find({ _id: { $in: topic.comments } }).sort({ updatedAt: -1 });
+
+    return comments;
 }
 
 async function postComment(id, body) {

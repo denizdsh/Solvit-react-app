@@ -2,6 +2,10 @@
     margin-top: 15px;
 }
 
+.comments a {
+    text-decoration: none;
+}
+
 .comments::before {
     content: "";
     height: 3px;
@@ -49,7 +53,7 @@
     border-radius: 19px;
     font-size: 0.9rem;
     padding: 0.6vmin 1.6vmin;
-    margin-top: 7px;
+    margin: 7px auto 14px auto;
 }
 
 .comment-form-btn:hover {

@@ -22,6 +22,7 @@ export default function Login() {
             login(userData);
 
             navigate('/', { replace: true });
+            showNotification(`Successfully logged in as ${userData.username}`, 'info')
         } catch (err) {
             showNotification(err.message, 'warning')
         }

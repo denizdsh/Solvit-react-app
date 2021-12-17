@@ -17,7 +17,7 @@ export default function Comment({ comment }) {
                 <span className="comment-info-avatar">
                     <Link to={`/u/${comment.author}`}>
                         <Avatar
-                            sx={{ bgcolor: blue[500], width: '2rem', height: '2rem', boxShadow: '0px 0px 7px -3px #86d6f9' }}
+                            sx={{ bgcolor: blue[500], width: '1.75rem', height: '1.75rem', boxShadow: '0px 0px 7px -3px #86d6f9' }}
                             src={comment.authorImageUrl}
                             alt={comment.author.toLocaleUpperCase()}>
                             {comment.author[0].toLocaleUpperCase()}

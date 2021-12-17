@@ -46,6 +46,7 @@ export default function Register() {
                 login(userData);
 
                 navigate('/', { replace: true });
+                showNotification(`Successfully registered as ${userData.username}`, 'success')
             } catch (err) {
                 showNotification(err.message, 'warning')
             }

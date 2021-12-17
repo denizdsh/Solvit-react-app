@@ -24,11 +24,12 @@ export default function modal(Component) {
             document.addEventListener('click', clickOutsideHandler)
 
             return () => document.removeEventListener('click', clickOutsideHandler)
-        })
+        }, [])
 
+        const isCommentsSpinnerModal = props.modalType === 'comments-spinner';
         return (
-            <section className="modal" >
-                <section ref={ref} style={{ width: 'fit-content', margin: 'auto' }}>
+            <section className={`modal${isCommentsSpinnerModal ? ' comments-spinner-modal' : ''}`} >
+                <section ref={ref}>
                     <Component {...props} />
                 </section>
             </section>
