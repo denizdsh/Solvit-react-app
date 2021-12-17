@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link, Routes, Route } from 'react-router-dom';
 
 import { useAuth } from '../../hooks/useAuth';
-import { useTopicContext } from '../../hooks/useTopicContext';
+import { useTopic } from '../../hooks/useTopic';
 import { useTopicFunctionality } from '../../hooks/useTopicFunctionality';
 import { useTopicHandlers } from '../../hooks/useTopicHandlers';
 import { getTopicById } from '../../services/topic';
@@ -27,7 +27,7 @@ export default function TopicDetails() {
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const context = useTopicContext();
+    const context = useTopic();
     const { isAuthenticated, user } = useAuth();
     const isOwner = topic._ownerId === user._id;
 
@@ -158,7 +158,6 @@ export default function TopicDetails() {
                         }
                     </ul>
                 </article>
-
                 <CommentSection id={topic._id} isAuthenticated={isAuthenticated} />
             </section>
             :

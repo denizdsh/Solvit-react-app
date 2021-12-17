@@ -1,19 +1,22 @@
-import './CreateTopicLink.css';
-import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { useNotification } from '../../hooks/useNotification';
+import { useAuth } from '../../hooks/useAuth';
+
+import './CreateTopicLink.css';
 import Avatar from '@mui/material/Avatar';
 import blue from '@mui/material/colors/blue';
 
 export default function CreateTopicLink() {
     const { user, isAuthenticated } = useAuth();
+    const { notification, showNotification, closeNotification } = useNotification();
     const navigate = useNavigate();
 
     const redirectToCreateHandler = () => {
         navigate('create');
     }
-    
+
     const redirectToLogin = () => {
-        navigate('/login');
+        showNotification('_auth-warning', 'warning')
     }
     return (
         isAuthenticated

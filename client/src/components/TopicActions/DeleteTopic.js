@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { useTopicContext } from '../../hooks/useTopicContext'
+import { useTopic } from '../../hooks/useTopic'
 import { isOwner } from '../../hoc/isAuth';
 import { deleteTopic } from '../../services/topic'
 
 function DeleteTopic() {
-    const { topic } = useTopicContext();
+    const { topic } = useTopic();
 
     useEffect(() => {
         (async () => {

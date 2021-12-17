@@ -1,0 +1,62 @@
+.css-1vooibu-MuiSvgIcon-root {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+}
+
+.MuiAlert-message.css-acap47-MuiAlert-message a {
+    color: rgb(151, 0, 151) !important;
+    text-decoration: none !important;
+}
+
+
+.warning .css-1vooibu-MuiSvgIcon-root {
+    color: #ffe8c5 !important;
+}
+
+.warning .MuiAlert-message.css-acap47-MuiAlert-message {
+    color: #ffe8c5 !important;
+}
+
+.css-1c32mdt-MuiPaper-root-MuiAlert-root {
+    background: #F68A1C !important;
+    align-items: center !important;
+}
+
+.error .css-1vooibu-MuiSvgIcon-root {
+    color: #D7DADC !important;
+}
+
+.error .MuiAlert-message.css-acap47-MuiAlert-message {
+    color: #D7DADC !important;
+}
+
+.css-145dpyk-MuiPaper-root-MuiAlert-root {
+    background: #D84646 !important;
+    align-items: center !important;
+}
+
+.success .css-1vooibu-MuiSvgIcon-root {
+    color: #D7DADC !important;
+}
+
+.success .MuiAlert-message.css-acap47-MuiAlert-message {
+    color: #D7DADC !important;
+}
+
+.css-13rvizp-MuiPaper-root-MuiAlert-root {
+    background: #4E9A51 !important;
+    align-items: center !important;
+}
+
+.info .css-1vooibu-MuiSvgIcon-root {
+    color: #D7DADC !important;
+}
+
+.info .MuiAlert-message.css-acap47-MuiAlert-message {
+    color: #D7DADC !important;
+}
+
+.css-7uysqn-MuiPaper-root-MuiAlert-root {
+    background: #1E95D6 !important;
+    align-items: center !important;
+}

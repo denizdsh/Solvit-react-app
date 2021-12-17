@@ -1,6 +1,6 @@
 import './Spinner.css';
 
-export default function Spinner() {
+function Spinner() {
     return (
         <div className="spinner">
             <div className="lds-facebook">
@@ -11,3 +11,5 @@ export default function Spinner() {
         </div>
     )
 }
+
+export default Spinner;
