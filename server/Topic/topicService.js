@@ -148,7 +148,7 @@ async function likeTopic(id, userId) {
     if (!user) throw new Error('You have to be logged in to perform this action.');
 
     topic.likes.push(userId);
-    topic._likesCount = topic.likes.lenght;
+    topic._likesCount = topic.likes.length;
 
     await topic.save();
 
@@ -165,7 +165,7 @@ async function dislikeTopic(id, userId) {
     if (!user) throw new Error('You have to be logged in to perform this action.');
 
     topic.likes.splice(topic.likes.indexOf(userId), 1);
-    topic._likesCount = topic.likes.lenght;
+    topic._likesCount = topic.likes.length;
 
     await topic.save();
     
