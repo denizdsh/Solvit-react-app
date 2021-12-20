@@ -5,9 +5,9 @@ const User = require('../User/UserModel');
 async function getAllTopics(sortBy, order) {
     let topics = [];
     if (sortBy === 'popularity') {
-        topics = await Topic.find({}).sort({ _likesCount: order, updatedAt: -1 }).lean();
+        topics = await Topic.find({}).sort({ _likesCount: order, createdAt: -1 }).lean();
     } else {
-        topics = await Topic.find({}).sort({ updatedAt: order }).lean();
+        topics = await Topic.find({}).sort({ createdAt: order }).lean();
     }
 
     topics.map(t => t.comments = t.comments.length);
@@ -18,9 +18,9 @@ async function getAllTopics(sortBy, order) {
 async function getTopicsByCategory(category, sortBy, order) {
     let topics = [];
     if (sortBy === 'popularity') {
-        topics = await Topic.find({ category }).sort({ _likesCount: order, updatedAt: -1 }).lean();
+        topics = await Topic.find({ category }).sort({ _likesCount: order, createdAt: -1 }).lean();
     } else {
-        topics = await Topic.find({ category }).sort({ updatedAt: order }).lean();
+        topics = await Topic.find({ category }).sort({ createdAt: order }).lean();
     }
 
     topics.map(t => t.comments = t.comments.length);
@@ -31,9 +31,9 @@ async function getTopicsByCategory(category, sortBy, order) {
 async function getTopicsByCategories(categories, sortBy, order) {
     let topics = [];
     if (sortBy === 'popularity') {
-        topics = await Topic.find({ category: { $in: categories } }).sort({ _likesCount: order, updatedAt: -1 }).lean();
+        topics = await Topic.find({ category: { $in: categories } }).sort({ _likesCount: order, createdAt: -1 }).lean();
     } else {
-        topics = await Topic.find({ category: { $in: categories } }).sort({ updatedAt: order }).lean();
+        topics = await Topic.find({ category: { $in: categories } }).sort({ createdAt: order }).lean();
     }
 
     topics.map(t => t.comments = t.comments.length);
@@ -44,9 +44,9 @@ async function getTopicsByCategories(categories, sortBy, order) {
 async function getTopicsByIds(ids, sortBy, order) {
     let topics = [];
     if (sortBy === 'popularity') {
-        topics = await Topic.find({ _id: { $in: ids } }).sort({ _likesCount: order, updatedAt: -1 }).lean();
+        topics = await Topic.find({ _id: { $in: ids } }).sort({ _likesCount: order, createdAt: -1 }).lean();
     } else {
-        topics = await Topic.find({ _id: { $in: ids } }).sort({ updatedAt: order }).lean();
+        topics = await Topic.find({ _id: { $in: ids } }).sort({ createdAt: order }).lean();
     }
 
     if (topics.length === 0) throw new Error('This user has not saved any topics.');
@@ -62,9 +62,9 @@ async function getTopicsByAuthor(author, sortBy, order) {
 
     let topics = [];
     if (sortBy === 'popularity') {
-        topics = await Topic.find({ author }).sort({ _likesCount: order, updatedAt: -1 }).lean();
+        topics = await Topic.find({ author }).sort({ _likesCount: order, createdAt: -1 }).lean();
     } else {
-        topics = await Topic.find({ author }).sort({ updatedAt: order }).lean();
+        topics = await Topic.find({ author }).sort({ createdAt: order }).lean();
     }
 
     if (!topics || topics.length === 0) throw new Error('This user has not posted any topics.');
@@ -98,7 +98,7 @@ async function getComments(id) {
 
     if (!topic) throw new Error('No such topic in database.');
 
-    const comments = await Comment.find({ _id: { $in: topic.comments } }).sort({ updatedAt: -1 });
+    const comments = await Comment.find({ _id: { $in: topic.comments } }).sort({ createdAt: -1 });
 
     return comments;
 }
@@ -149,7 +149,10 @@ async function likeTopic(id, userId) {
 
     topic.likes.push(userId);
     topic._likesCount = topic.likes.lenght;
+
     await topic.save();
+
+    return topic.likes;
 }
 
 async function dislikeTopic(id, userId) {
@@ -163,10 +166,11 @@ async function dislikeTopic(id, userId) {
 
     topic.likes.splice(topic.likes.indexOf(userId), 1);
     topic._likesCount = topic.likes.lenght;
+
     await topic.save();
+    
+    return topic.likes;
 }
-
-
 
 module.exports = {
     getAllTopics,

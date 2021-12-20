@@ -40,26 +40,27 @@ export default function TopicDetails() {
                 setTopic(topicData);
 
                 if (isOwner) {
-                    context.provideTopic(topicData);
+                    context?.provideTopic(topicData);
                 }
             } catch (err) {
+                console.log(context.topic)
+                if (context.topic._id) return
                 showNotification('Topic is not available', 'error');
                 navigate(-1, { replace: true });
             }
         })();
-    }, [isOwner, id, navigate, context])
+    }, [isOwner, id, navigate])
 
 
     const fc = useTopicFunctionality(getFollowingCategories, followCategory, unfollowCategory, isAuthenticated);
     const st = useTopicFunctionality(getSavedTopicsIds, saveTopic, unsaveTopic, isAuthenticated);
     const th = useTopicHandlers(topic, fc, st, isAuthenticated, user)
 
-    const date = topic?.updatedAt ? getDate(topic.updatedAt) : '';
+    const date = topic?.createdAt ? getDate(topic.createdAt) : '';
 
     return (
         topic._id
             ?
-
             <section className="topic details">
                 {
                     isOwner &&
@@ -116,7 +117,7 @@ export default function TopicDetails() {
                                     ? <i className="fas fa-heart details"></i>
                                     : <i className="far fa-heart details"></i>
                             }
-                            <span className="likes-count details">{topic.likes.length} Likes</span>
+                            <span className="likes-count details">{th.likes} Likes</span>
                         </li>
                         <li className="topic-functionality-list-item topic-functionality-list-item-follow details" onClick={th.hasSaved ? th.unsaveTopicHandler : th.saveTopicHandler}>
                             {
@@ -149,8 +150,8 @@ export default function TopicDetails() {
                         }
                         {
                             isOwner &&
-                            <li className="topic-functionality-list-item topic-functionality-list-item-delete  details" onClick={() => console.log('delete')}>
-                                <Link to='delete' className='owner-functionality-button button-delete'>
+                            <li className="topic-functionality-list-item topic-functionality-list-item-delete  details">
+                                <Link to='delete' className='owner-functionality-button button-delete' >
                                     <span className="delete-btn">
                                         Delete
                                     </span>
@@ -163,6 +164,6 @@ export default function TopicDetails() {
                 <CommentSection id={topic._id} isAuthenticated={isAuthenticated} />
             </section>
             :
-            <Spinner />
+            <Spinner modalType='spinner' />
     )
 }

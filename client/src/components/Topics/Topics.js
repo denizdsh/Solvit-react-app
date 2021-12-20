@@ -41,7 +41,7 @@ export default function Topics({ topics, CustomHeading, showCreateTopicLink = tr
                         ? topics.length > 0
                             ? topics.map(topic => <TopicCard topic={topic} key={topic._id} isAuthenticated={isAuthenticated} user={user} fc={fc} st={st} />)
                             : <p className='no-posts-message'>{message}</p>
-                        : <Spinner />}
+                        : <Spinner modalType='spinner' />}
                 </section>
             </section>
         </>

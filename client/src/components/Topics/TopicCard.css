@@ -161,12 +161,16 @@
     color: red;
 }
 
-.topic-functionality-list-item-likes:hover>.far.fa-heart {
-    color: red;
-}
-
 .topic-functionality .fas.fa-bookmark {
     color: rgb(255, 208, 0);
+}
+
+.topic-functionality-list-item:hover>span {
+    color: #D7DADC;
+}
+
+.topic-functionality-list-item-likes:hover>.far.fa-heart {
+    color: red;
 }
 
 .topic-functionality-list-item-follow:hover>.far.fa-bookmark {

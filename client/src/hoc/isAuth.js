@@ -6,7 +6,7 @@ export const isOwner = (Component) => {
         const { isAuthenticated, user } = useAuth();
 
         return (!isAuthenticated && props._ownerId !== user._id)
-            ? <Navigate to="/all" />
+            ? <Navigate to="/" />
             : <Component {...props} />
     }
     return WrapperComponent
@@ -17,7 +17,7 @@ export const isUser = (Component) => {
         const { isAuthenticated } = useAuth();
 
         return !isAuthenticated
-            ? <Navigate to="/all" />
+            ? <Navigate to="/" />
             : <Component {...props} />
     }
     return WrapperComponent

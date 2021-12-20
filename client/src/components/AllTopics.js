@@ -12,7 +12,6 @@ export default function AllTopics() {
     const query = {sortby: searchParams.get('sortby'), order: searchParams.get('order')}
 
     useEffect(() => {
-        console.log('rerender');
         (async () => {
             const topicsData = await getAllTopics(query);
             setTopics(topicsData);

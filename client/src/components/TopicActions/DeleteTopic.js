@@ -1,28 +1,16 @@
-import { useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-import { useTopic } from '../../hooks/useTopic'
 import { isOwner } from '../../hoc/isAuth';
-import { deleteTopic } from '../../services/topic'
+import { useTopic } from '../../hooks/useTopic'
+
+import DialogComponent from '../Common/Dialog/Dialog';
 
 function DeleteTopic() {
-    const { topic } = useTopic();
-
-    useEffect(() => {
-        (async () => {
-            try {
-                await deleteTopic(topic._id, topic._ownerId);
-            } catch (err) {
-                console.log(err);
-                return (
-                    <Navigate to={-1} replace />
-                )
-            }
-        })();
-    }, [topic._id, topic._ownerId])
+    const navigate = useNavigate();
+    const { topic, deleteTopicHandler } = useTopic();
 
     return (
-        <Navigate to="/" replace />
+        <DialogComponent onAgree={() => deleteTopicHandler(topic) & navigate('/', { replace: true })} onCancel={() => navigate(-1, { replace: true })} title='Delete confirmation' text={`Are you sure you want to delete topic: ${topic.title}`} />
     )
 }
 

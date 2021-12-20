@@ -10,7 +10,7 @@ function getDate(dateData) {
     return `${date} ${time}`;
 }
 export default function Comment({ comment }) {
-    const date = getDate(comment.updatedAt);
+    const date = getDate(comment.createdAt);
     return (
         <article className="comment">
             <article className="comment-info">

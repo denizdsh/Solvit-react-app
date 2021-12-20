@@ -50,6 +50,8 @@ function TopicForm({ title, topicAction, topic }) {
                 const params = title === 'Create Topic' ? [body] : [body, topic?._id];
                 const res = await topicAction(...params);
                 navigate(`/t/${res._id}`, { replace: true });
+
+                showNotification(title === 'Create Topic' ? `Successfully created topic: ${res.title}` : `Successfully edited topic: ${res.title}`, 'success');
             } catch (err) {
                 showNotification(err.message, 'error');
             }

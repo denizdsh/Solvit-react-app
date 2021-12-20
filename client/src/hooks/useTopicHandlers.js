@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useNotification } from './useNotification';
 import { likeTopic, dislikeTopic } from '../services/topic';
 
@@ -7,7 +6,7 @@ export const useTopicHandlers = (topic, fc, st, isAuthenticated = false, user) =
     const [hasFollowed, setHasFollowed] = useState(false);
     const [hasLiked, setHasLiked] = useState(false);
     const [hasSaved, setHasSaved] = useState(false);
-    const navigate = useNavigate();
+    const [likes, setLikes] = useState(0);
     const { showNotification } = useNotification();
 
     useEffect(() => {
@@ -28,8 +27,9 @@ export const useTopicHandlers = (topic, fc, st, isAuthenticated = false, user) =
             }
 
             let hl = topic?.likes?.includes(user._id);
-
+            let l = topic?._likesCount;
             setHasLiked(hl);
+            setLikes(l);
         })()
     }, [topic, isAuthenticated, user])
 
@@ -65,8 +65,9 @@ export const useTopicHandlers = (topic, fc, st, isAuthenticated = false, user) =
     const likeTopicHandler = async () => {
         if (isAuthenticated) {
             console.log('like');
-            await likeTopic(topic._id);
-            setHasLiked(topic.likes.includes(user._id))
+            const likesData = await likeTopic(topic._id);
+            setLikes(likesData.length);
+            setHasLiked(likesData.includes(user._id));
         } else {
             showNotification('_auth-warning');
         }
@@ -75,6 +76,9 @@ export const useTopicHandlers = (topic, fc, st, isAuthenticated = false, user) =
     const dislikeTopicHandler = async () => {
         if (isAuthenticated) {
             console.log('dislike')
+            const likesData = await dislikeTopic(topic._id);
+            setLikes(likesData.length);
+            setHasLiked(likesData.includes(user._id));
         } else {
             showNotification('_auth-warning');
         }
@@ -83,7 +87,7 @@ export const useTopicHandlers = (topic, fc, st, isAuthenticated = false, user) =
     const saveTopicHandler = async () => {
         if (isAuthenticated) {
             await (st.addSavedTopic || st.addFunction)(topic._id);
-            showNotification(`Saved post : ${topic.title}`, 'info');
+            showNotification(`Saved post: ${topic.title}`, 'info');
         } else {
             showNotification('_auth-warning');
         }
@@ -92,7 +96,7 @@ export const useTopicHandlers = (topic, fc, st, isAuthenticated = false, user) =
     const unsaveTopicHandler = async () => {
         if (isAuthenticated) {
             await (st.removeSavedTopic || st.removeFunction)(topic._id);
-            showNotification(`Unsaved post : ${topic.title}`, 'info');
+            showNotification(`Unsaved post: ${topic.title}`, 'info');
         } else {
             showNotification('_auth-warning');
         }
@@ -103,6 +107,7 @@ export const useTopicHandlers = (topic, fc, st, isAuthenticated = false, user) =
         hasFollowed,
         hasLiked,
         hasSaved,
+        likes,
         followCategoryHandler,
         unfollowCategoryHandler,
         likeTopicHandler,

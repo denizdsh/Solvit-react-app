@@ -1,4 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 import { useTopicHandlers } from '../../hooks/useTopicHandlers'
 
@@ -13,10 +14,10 @@ function getDate(dateData) {
 }
 
 export default function TopicCard({ topic, isAuthenticated, user, fc, st }) {
-    const th = useTopicHandlers(topic, fc, st, isAuthenticated, user)
+    const th = useTopicHandlers(topic, fc, st, isAuthenticated, user);
     const navigate = useNavigate();
 
-    const date = getDate(topic.updatedAt);
+    const date = getDate(topic.createdAt);
 
     return (
         <section className="topic active-hover" >
@@ -69,11 +70,11 @@ export default function TopicCard({ topic, isAuthenticated, user, fc, st }) {
                             ? <i className="fas fa-heart"></i>
                             : <i className="far fa-heart"></i>
                         }
-                        <span className="likes-count">{topic.likes.length} Likes</span>
+                        <span className="likes-count">{th.likes} Likes</span>
                     </li>
                     <li className="topic-functionality-list-item topic-functionality-list-item-comments" onClick={() => navigate(`/t/${topic._id}`)}>
                         <i className="fas fa-comments"></i>
-                        {topic.comments} Comments
+                        <span className="comments-count">{topic.comments} Comments</span>
                     </li>
                     <li className="topic-functionality-list-item topic-functionality-list-item-follow" onClick={th.hasSaved ? th.unsaveTopicHandler : th.saveTopicHandler}>
                         <span className="save-topic-text">

@@ -5,7 +5,6 @@ const url = `${port}/topics`;
 
 export async function createTopic(body) {
     try {
-        console.log(body)
         return await api.post(url, body)
     } catch (err) {
         throw err;

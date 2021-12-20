@@ -18,13 +18,11 @@ export default function CommentSection({ id, isAuthenticated }) {
         } catch (err) {
             showNotification(err, 'error');
         }
-    }, [id])
+    }, [id, showNotification])
 
     useEffect(() => {
-        console.log('effect');
         getCommentsData();
     }, [getCommentsData])
-
 
     const notificationHandler = () => {
         if (!isAuthenticated) {
@@ -43,7 +41,7 @@ export default function CommentSection({ id, isAuthenticated }) {
 
             try {
                 e.currentTarget.reset();
-                const comment = await postComment(id, content);
+                await postComment(id, content);
                 showNotification('Successfully commented', 'success');
                 getCommentsData()
             } catch (err) {
@@ -66,7 +64,7 @@ export default function CommentSection({ id, isAuthenticated }) {
 
             {comments
                 ? comments.map(comment => <Comment comment={comment} key={comment._id} />)
-                : <Spinner modalType='comments-spinner' />}
+                : <Spinner modalType='comments-spinner spinner' />}
         </section >
     )
 }

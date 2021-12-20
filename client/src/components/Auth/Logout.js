@@ -12,6 +12,6 @@ export default function Logout() {
         navigate('/all', { replace: true })
     })
     return (
-        <Spinner />
+        <Spinner modalType='spinner'/>
     )
 }
