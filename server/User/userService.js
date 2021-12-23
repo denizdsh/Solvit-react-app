@@ -74,6 +74,39 @@ async function login(email, password) {
         accessToken: generateJwt(user)
     }
 }
+
+async function editProfile(username, imageUrl, id, password) {
+    const user = await User.findById(id);
+
+    if (!user) {
+        const err = new Error('Invalid user or incorrect password');
+        err.status = 401;
+        throw err;
+    }
+    const match = await bcrypt.compare(password, user.hashedPassword);
+
+    if (!match) {
+        const err = new Error('Invalid user or incorrect password');
+        err.status = 401;
+        throw err;
+    }
+
+    if (username) user.username = username;
+    if (imageUrl) user.imageUrl = imageUrl;
+
+    await user.save();
+
+    return {
+        username: user.username,
+        imageUrl: user.imageUrl,
+    }
+}
+
+async function getSavedTopics(userId) {
+    const user = await User.findById(userId);
+    return user ? Array.from(user.savedTopics) || [] : [];
+}
+
 async function getSavedTopics(userId) {
     const user = await User.findById(userId);
     return user ? Array.from(user.savedTopics) || [] : [];
@@ -154,6 +187,7 @@ async function unsaveTopic(userId, topicId) {
 module.exports = {
     register,
     login,
+    editProfile,
     getSavedTopics,
     getImageByUsername,
     getFollowingCategories,

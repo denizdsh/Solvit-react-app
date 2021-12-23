@@ -4,6 +4,10 @@ import * as api from './api';
 const userUrl = `${port}/u`;
 const userActionUrl = `${port}/user-action`;
 
+export const editProfile = async (body, password) => {
+    return await api.post(`${port}/edit-profile`, { ...body, password });
+}
+
 export const getFollowingCategories = async () => {
     return await api.get(`${userUrl}/me/following-categories`);
 }

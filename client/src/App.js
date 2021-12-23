@@ -16,6 +16,7 @@ import TopicDetails from './components/TopicDetails/TopicDetails';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Logout from './components/Auth/Logout';
+import EditProfile from './components/EditProfile'
 import Notification from './components/Common/Notification/Notification';
 
 
@@ -49,6 +50,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/edit-profile" element={<EditProfile />} />
           </Routes>
           <Notification />
         </main>

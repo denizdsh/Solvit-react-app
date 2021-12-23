@@ -37,6 +37,21 @@ router.post('/login', isGuest(), async (req, res) => {
         res.status(err.status || 400).json({ message: err.message });
     }
 })
+
+router.post('/edit-profile', isUser(), async (req, res) => {
+    const userId = req.user?._id;
+    const username = req.body.username.trim();
+    const imageUrl = req.body.imageUrl.trim();
+    const password = req.body.password.trim();
+
+    try {
+        const response = await service.editProfile(username, imageUrl, userId, password);
+        res.json(response);
+    } catch (err) {
+        res.status(err.status || 400).json({ message: err.message });
+    }
+
+})
 router.get('/u/me/saved-topics', isUser(), async (req, res) => {
     const userId = req.user?._id;
     const savedTopics = await service.getSavedTopics(userId);

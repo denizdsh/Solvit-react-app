@@ -40,7 +40,7 @@ export default function DialogComponent({ onAgree, onCancel, title, text, show =
                 onClose={handleClose}
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle>{title}</DialogTitle>
+                <DialogTitle >{title}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                         {text}

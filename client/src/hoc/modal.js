@@ -42,9 +42,11 @@ export default function modal(Component) {
                     {
                         isSpinnerModal ?
                             <Component {...props} />
-                            : showDialog
-                                ? <DialogComponent title='Cancel confirmation' text='Are you sure you want to cancel this action?' agreeText='Continue' cancelText='Cancel' onAgree={hideHandler} onCancel={() => navigate(redirect)} />
-                                : <Component {...props} />
+                            : <>
+                                {showDialog
+                                    && <DialogComponent title='Cancel confirmation' text='Are you sure you want to cancel this action?' agreeText='Continue' cancelText='Cancel' onAgree={hideHandler} onCancel={() => navigate(redirect)} />}
+                                <Component {...props} />
+                            </>
                     }
                 </section>
             </section>

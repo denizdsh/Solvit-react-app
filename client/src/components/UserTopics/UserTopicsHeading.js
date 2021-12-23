@@ -10,6 +10,7 @@ export default function UserTopicsHeading({ user }) {
     useEffect(() => {
         (async () => {
             const imageUrl = await getUserImageByUsername(user);
+            console.log(imageUrl)
             setImage(imageUrl);
         })()
     }, [user])
