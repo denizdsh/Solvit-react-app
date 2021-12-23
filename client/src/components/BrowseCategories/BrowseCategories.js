@@ -4,7 +4,7 @@ import './BrowseCategories.css';
 import Grow from '@mui/material/Grow';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNotification } from '../../hooks/useNotification';
 
 export default function BrowseCategories({ fc }) {
@@ -110,6 +110,8 @@ export default function BrowseCategories({ fc }) {
 
     function Component(title, img, imgStyles) {
         const [hasFollowed, setHasFollowed] = useState(fc.categories.includes(title.toLocaleLowerCase()));
+
+        useEffect(() => { setHasFollowed(fc.categories.includes(title.toLocaleLowerCase())) }, [fc.categories])
 
         const followHandler = async () => {
             await fc.addFollowingCategory(title === 'C#' ? 'csharp' : title === 'Quality Assurance' ? 'qa' : title.toLocaleLowerCase());
