@@ -59,7 +59,6 @@
 
 .dropdown-content-link:hover {
     background: rgb(12, 125, 177);
-    font-weight: 700;
 }
 
 .dropdown:hover>.dropdown-content, .inner-dropdown-btn:hover+.inner-dropdown-content, .inner-dropdown-content:hover {

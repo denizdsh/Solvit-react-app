@@ -12,7 +12,6 @@ aside {
     right: 25vw;
     top: 0px;
     width: 10vw;
-    padding: 10px 20px;
 }
 
 .sort-options::before {
@@ -81,7 +80,7 @@ aside {
     }
 
     .sort-options::before {
-        width: calc(16vw - 20px);
+        width: calc(12vw - 20px);
     }
 }
 
@@ -116,7 +115,7 @@ aside {
     }
 
     .sort-options::before {
-        width: calc(100% - 40px);
+        width: calc(90% - 40px);
     }
 }
 
@@ -126,11 +125,11 @@ aside {
     }
 }
 
-.no-posts-message{
+.no-posts-message {
     font-size: 1.5rem;
     text-align: center;
 }
 
-.save-topic-text{
+.save-topic-text {
     margin-right: 10px;
 }

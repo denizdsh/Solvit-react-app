@@ -1,0 +1,21 @@
+.aside-categories {
+    width: 90%;
+    margin: 5px auto 15px auto;
+}
+
+.aside-categories-btn {
+    width: 100%;
+    outline: none;
+    cursor: pointer;
+    font-size: 0.88rem;
+    padding: 9px 16px;
+    color: #86D6F9;
+    background: #262a37;
+    border: 2px solid #313846;
+    border-radius: 20px;
+}
+
+.aside-categories-btn:active{
+    color: lightblue;
+    background: #313846;
+}

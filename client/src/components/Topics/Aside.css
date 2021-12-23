@@ -1,10 +1,14 @@
+.aside {
+    border: 2px solid #313846;
+    border-radius: 20px;
+    color: gray;
+    padding: 10px 20px;
+}
+
 aside {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border: 2px solid #313846;
-    border-radius: 20px;
-    color: gray;
     overflow: hidden;
 }
 
@@ -13,6 +17,7 @@ aside {
     height: 2px;
     background: #313846;
     position: absolute;
+    padding-right: 20px;
 }
 
 .sort-options {
@@ -33,6 +38,8 @@ aside p {
     flex-wrap: wrap;
     align-items: center;
     margin-top: 10px;
+    width: 100%;
+    overflow: hidden;
 }
 
 .sort-by-btn:hover, .sort-order-btn:hover {
@@ -47,7 +54,7 @@ aside p {
     margin-right: 5px;
 }
 
-.aside-sort .fas {
+.aside .fas {
     font-size: 1rem;
     color: gray;
 }

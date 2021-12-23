@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router';
-// import { useSearchParams } from 'react-router-dom';
 
 import { useAuth } from '../../hooks/useAuth';
 import { useTopicFunctionality } from '../../hooks/useTopicFunctionality';
+import { useCategories } from '../../hooks/useCategories';
 import { getFollowingCategories, followCategory, unfollowCategory, getSavedTopicsIds, saveTopic, unsaveTopic } from '../../services/user';
 
 import './Topics.css';
@@ -11,12 +11,15 @@ import Aside from './Aside';
 import CreateTopicLink from './CreateTopicLink';
 import CreateTopic from '../TopicActions/CreateTopic';
 import Spinner from '../Common/Spinner/Spinner';
+import BrowseCategoriesAside from '../BrowseCategories/BrowseCategoriesAside';
 
-export default function Topics({ topics, CustomHeading, showCreateTopicLink = true, showAside = true, message = 'No topics yet. Be the first one to post one!', fc, st }) {
+export default function Topics({ topics, CustomHeading, showCreateTopicLink = true, showAside = true, showBrowseCategories = false, message = 'No topics yet. Be the first one to post one!', fc, st }) {
     const { isAuthenticated, user } = useAuth();
 
     const fcState = useTopicFunctionality(getFollowingCategories, followCategory, unfollowCategory, isAuthenticated);
     const stState = useTopicFunctionality(getSavedTopicsIds, saveTopic, unsaveTopic, isAuthenticated);
+
+    const { show } = useCategories();
 
     if (!fc) {
         fc = { categories: fcState.state, addFollowingCategory: fcState.addFunction, removeFollowingCategory: fcState.removeFunction };
@@ -26,6 +29,14 @@ export default function Topics({ topics, CustomHeading, showCreateTopicLink = tr
         st = { savedTopics: stState.state, addSavedTopic: stState.addFunction, removeSavedTopic: stState.removeFunction };
     }
 
+    if (typeof message === 'string') {
+        message = (
+            <p className='no-posts-message'>
+                {message}
+            </p>
+        )
+    }
+
     return (
         <>
             {showCreateTopicLink &&
@@ -33,16 +44,22 @@ export default function Topics({ topics, CustomHeading, showCreateTopicLink = tr
                     <Route path="create" element={<CreateTopic />} />
                 </Routes>}
             <section className="content">
-                {(showAside && topics?.length > 0) && <Aside />}
-                <section className="topics">
-                    {CustomHeading ? CustomHeading : <></>}
-                    {showCreateTopicLink && <CreateTopicLink />}
-                    {topics
-                        ? topics.length > 0
-                            ? topics.map(topic => <TopicCard topic={topic} key={topic._id} isAuthenticated={isAuthenticated} user={user} fc={fc} st={st} />)
-                            : <p className='no-posts-message'>{message}</p>
-                        : <Spinner modalType='spinner' />}
-                </section>
+                {(topics && topics.length === 0)
+                    ? show || message
+                    : <>
+                        <aside>
+                            {showBrowseCategories && <BrowseCategoriesAside />}
+                            {(showAside && topics?.length > 0) && <Aside />}
+                        </aside>
+                        <section className="topics">
+                            {CustomHeading ? CustomHeading : <></>}
+                            {showCreateTopicLink && <CreateTopicLink />}
+                            {topics
+                                ? topics.map(topic => <TopicCard topic={topic} key={topic._id} isAuthenticated={isAuthenticated} user={user} fc={fc} st={st} />)
+                                : <Spinner modalType='spinner' />}
+                        </section>
+                    </>
+                }
             </section>
         </>
     )

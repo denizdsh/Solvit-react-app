@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router';
 import { AuthProvider } from './contexts/AuthContext';
 import { NotificationProvider } from './contexts/NotificationContext';
 import { TopicProvider } from './contexts/TopicContext'
+import { BrowseCategoriesProvider } from './contexts/BrowseCategoriesContext';
 
 import Header from './components/Header/Header';
 import FollowedTopics from './components/FollowedTopics';
@@ -17,6 +18,7 @@ import Register from './components/Auth/Register';
 import Logout from './components/Auth/Logout';
 import Notification from './components/Common/Notification/Notification';
 
+
 function App() {
   return (
     <AuthProvider>
@@ -26,7 +28,13 @@ function App() {
         </header>
         <main>
           <Routes>
-            <Route path="/*" element={<FollowedTopics />} />
+            <Route path="/*" element={
+              <BrowseCategoriesProvider>
+                <Routes>
+                  <Route path='/*' element={<FollowedTopics />} />
+                </Routes>
+              </BrowseCategoriesProvider>
+            } />
             <Route path="/all/*" element={<AllTopics />} />
             <Route path="/c/:category/*" element={<CategoryTopics />} />
             <Route path="/u/:user" element={<UserTopics />} />

@@ -21,6 +21,7 @@ function SavedTopics() {
                 const topicsData = await getSavedTopics(query);
                 setTopics(topicsData)
             } catch (err) {
+                setTopics([]);
                 console.error(err);
             }
         })()
@@ -31,7 +32,7 @@ function SavedTopics() {
 
     const props = { showCreateTopicLink: false, CustomHeading: <TopicsHeadingUnderlined title={'Saved topics'} />, message: 'No saved topics yet. You can save topics and check them later.', st }
     return (
-        <Topics topics={topics} {...props} />
+        <Topics topics={topics} {...props} message="You haven't saved any topics yet" />
     )
 }
 

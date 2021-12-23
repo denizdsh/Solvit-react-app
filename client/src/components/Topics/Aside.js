@@ -56,7 +56,7 @@ export default function Aside() {
     }
 
     return (
-        <aside className="aside-sort">
+        <section className='aside'>
             <p>Sort by</p>
             <article className="sort-options">
                 <article className="sort-by">
@@ -77,6 +77,6 @@ export default function Aside() {
                     </span>
                 </article>
             </article>
-        </aside>
+        </section>
     )
 }

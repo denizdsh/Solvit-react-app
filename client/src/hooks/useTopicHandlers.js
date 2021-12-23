@@ -86,7 +86,7 @@ export const useTopicHandlers = (topic, fc, st, isAuthenticated = false, user) =
 
     const saveTopicHandler = async () => {
         if (isAuthenticated) {
-            await (st.addSavedTopic || st.addFunction)(topic._id);
+            await (st.addSavedTopic || st.addFunction || null)(topic._id);
             showNotification(`Saved post: ${topic.title}`, 'info');
         } else {
             showNotification('_auth-warning');
@@ -95,7 +95,7 @@ export const useTopicHandlers = (topic, fc, st, isAuthenticated = false, user) =
 
     const unsaveTopicHandler = async () => {
         if (isAuthenticated) {
-            await (st.removeSavedTopic || st.removeFunction)(topic._id);
+            await (st.removeSavedTopic || st.removeFunction || null)(topic._id);
             showNotification(`Unsaved post: ${topic.title}`, 'info');
         } else {
             showNotification('_auth-warning');
