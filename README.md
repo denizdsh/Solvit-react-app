@@ -11,16 +11,16 @@
 - Can log in or sign up
 #### Users:
 - Can create posts
-- Can edit his posts
-- Can delete his posts
+- Can edit their posts
+- Can delete their posts
 - Can like posts
 - Can comment under posts
 - Can save posts
 - Can follow categories from posts
 - Can follow categories from the browse categories menu
-- Can view posts he has saved
-- Can view posts in categories he has followed
-- Can edit his username and avatar icon
+- Can view posts they've saved
+- Can view posts in categories they've followed
+- Can edit their username and avatar icon
 - Can logout
 #### Other:
 - Authentication data persisting in local storage
