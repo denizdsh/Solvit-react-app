@@ -19,9 +19,11 @@
     border-radius: 20px;
     overflow: hidden;
 }
-.user-menu-links a:hover{
+
+.user-menu-links a:hover {
     background: none;
 }
+
 .user-menu-info, .user-menu-links {
     width: 100%;
     display: flex;
@@ -49,8 +51,9 @@
 
 @media all and (max-width: 750px) {
     .user-menu {
-        width: 99vw;
-        right: 0px;
+        margin: auto;
+        width: 96vw;
+        right: 1.2vw;
         top: 150px
     }
 }

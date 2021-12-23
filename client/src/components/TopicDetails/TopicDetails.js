@@ -49,7 +49,7 @@ export default function TopicDetails() {
                 navigate(-1, { replace: true });
             }
         })();
-    }, [isOwner, id, navigate])
+    }, [isOwner, id, navigate, context, showNotification])
 
 
     const fc = useTopicFunctionality(getFollowingCategories, followCategory, unfollowCategory, isAuthenticated);

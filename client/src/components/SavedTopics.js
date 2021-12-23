@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 
 import { isUser } from "../hoc/isAuth";
 import { useTopicFunctionality } from "../hooks/useTopicFunctionality";
+import { useNotification } from "../hooks/useNotification";
 import { getSavedTopics } from "../services/topic";
 import { getSavedTopicsIds, saveTopic, unsaveTopic } from "../services/user";
 
@@ -11,9 +12,10 @@ import Topics from "./Topics/Topics";
 
 function SavedTopics() {
     const [topics, setTopics] = useState();
-    const stState = useTopicFunctionality(getSavedTopicsIds, saveTopic, unsaveTopic);
     const [searchParams] = useSearchParams();
-    const query = {sortby: searchParams.get('sortby'), order: searchParams.get('order')}
+    const stState = useTopicFunctionality(getSavedTopicsIds, saveTopic, unsaveTopic);
+    const { showNotification } = useNotification();
+    const query = { sortby: searchParams.get('sortby'), order: searchParams.get('order') }
 
     useEffect(() => {
         (async () => {
@@ -23,6 +25,7 @@ function SavedTopics() {
             } catch (err) {
                 setTopics([]);
                 console.error(err);
+                showNotification(err.message, 'warning');
             }
         })()
     }, [stState.state, query.sortby, query.order])

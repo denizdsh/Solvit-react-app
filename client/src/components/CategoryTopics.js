@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 
+import { useNotification } from '../hooks/useNotification';
 import { getTopicsByCategory } from '../services/topic';
 import { categories } from '../services/config';
 import Topics from './Topics/Topics';
@@ -11,12 +12,14 @@ export default function CategoryTopics() {
     const { category } = useParams();
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    const query = {sortby: searchParams.get('sortby'), order: searchParams.get('order')}
+    const { showNotification } = useNotification();
+    const query = { sortby: searchParams.get('sortby'), order: searchParams.get('order') }
 
 
     useEffect(() => {
         if (!categories.map(x => x.toLocaleLowerCase()).includes(category) && category !== 'csharp') {
             navigate('/all', { replace: true });
+            showNotification('No such category.');
         }
 
         (async () => {
@@ -25,6 +28,7 @@ export default function CategoryTopics() {
                 setTopics(topicsData);
             } catch (err) {
                 navigate('/all', { replace: true });
+                showNotification(err.message);
             }
         })();
 

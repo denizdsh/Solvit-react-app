@@ -5,9 +5,11 @@ import Grow from '@mui/material/Grow';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
+import { useNotification } from '../../hooks/useNotification';
 
 export default function BrowseCategories({ fc }) {
     const { show } = useCategories();
+    const { showNotification } = useNotification();
     const categories = [
         {
             title: 'JavaScript',
@@ -110,12 +112,14 @@ export default function BrowseCategories({ fc }) {
         const [hasFollowed, setHasFollowed] = useState(fc.categories.includes(title.toLocaleLowerCase()));
 
         const followHandler = async () => {
-            await fc.addFollowingCategory(title === 'C#' ? 'csharp' : title.toLocaleLowerCase());
+            await fc.addFollowingCategory(title === 'C#' ? 'csharp' : title === 'Quality Assurance' ? 'qa' : title.toLocaleLowerCase());
             setHasFollowed(true);
+            showNotification(`Followed c/${title}`, 'info')
         }
         const unfollowHandler = async () => {
-            await fc.removeFollowingCategory(title === 'C#' ? 'csharp' : title.toLocaleLowerCase());
+            await fc.removeFollowingCategory(title === 'C#' ? 'csharp' : title === 'Quality Assurance' ? 'qa' : title.toLocaleLowerCase());
             setHasFollowed(false);
+            showNotification(`Unfollowed c/${title}`, 'info')
         }
         return (
             <article className="category-card" key={title}>

@@ -19,7 +19,7 @@ export default function Topics({ topics, CustomHeading, showCreateTopicLink = tr
     const fcState = useTopicFunctionality(getFollowingCategories, followCategory, unfollowCategory, isAuthenticated);
     const stState = useTopicFunctionality(getSavedTopicsIds, saveTopic, unsaveTopic, isAuthenticated);
 
-    const { show } = useCategories();
+    const { show, toggleShow } = useCategories();
 
     if (!fc) {
         fc = { categories: fcState.state, addFollowingCategory: fcState.addFunction, removeFollowingCategory: fcState.removeFunction };

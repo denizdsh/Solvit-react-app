@@ -32,13 +32,13 @@ function App() {
               <BrowseCategoriesProvider>
                 <Routes>
                   <Route path='/*' element={<FollowedTopics />} />
+                  <Route path="/all/*" element={<AllTopics />} />
+                  <Route path="/c/:category/*" element={<CategoryTopics />} />
+                  <Route path="/u/:user" element={<UserTopics />} />
+                  <Route path="/saved" element={<SavedTopics />} />
                 </Routes>
               </BrowseCategoriesProvider>
             } />
-            <Route path="/all/*" element={<AllTopics />} />
-            <Route path="/c/:category/*" element={<CategoryTopics />} />
-            <Route path="/u/:user" element={<UserTopics />} />
-            <Route path="/saved" element={<SavedTopics />} />
             <Route path="/t/*" element={
               <TopicProvider>
                 <Routes>
