@@ -6,8 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "heroku"
+  ],
+  "engines": {
+    "node": "16.x"
+  },
+  "author": "denizdsh",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",

@@ -13,7 +13,9 @@ export default function Notification() {
 
     const TransitionRight = useCallback((props) => {
         return <Slide {...props} className={notification.severity} direction="right">
-            <Alert severity={notification.severity} onClose={closeNotification}>{notification.message}</Alert>
+            <div className={notification.severity}>
+                <Alert severity={notification.severity} onClose={closeNotification} >{notification.message}</Alert>
+            </div>
         </Slide>;
     }, [notification, closeNotification])
 

@@ -1,9 +1,9 @@
-.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+.MuiPaper-root.MuiDialog-paper {
     background: #262B36 !important;
     color: #D7DADC !important;
     border-radius: 20px !important;
 }
 
-.css-qfso29-MuiTypography-root-MuiDialogContentText-root {
+.MuiDialogContentText-root.MuiTypography-root {
     color: #D7DADC !important;
 }

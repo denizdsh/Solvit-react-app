@@ -15,7 +15,7 @@ function FollowedTopics() {
     const [topics, setTopics] = useState();
     const [searchParams] = useSearchParams();
     const fcState = useTopicFunctionality(getFollowingCategories, followCategory, unfollowCategory);
-    const { show } = useCategories();
+    const { show, showCategories, hideCategories } = useCategories();
     const { showNotification } = useNotification();
     const query = { sortby: searchParams.get('sortby'), order: searchParams.get('order') }
 
@@ -23,6 +23,11 @@ function FollowedTopics() {
         (async () => {
             try {
                 const topicsData = await getFollowedTopics(query);
+
+                if (topicsData.length === 0) {
+                    showCategories();
+                }
+
                 setTopics(topicsData);
             } catch (err) {
                 setTopics([]);
@@ -30,15 +35,23 @@ function FollowedTopics() {
                 showNotification(err.message, 'warning')
             }
         })();
+
+
     }, [fcState.state, query.sortby, query.order])
 
-    const fc = { categories: fcState.state, addFollowingCategory: fcState.addFunction, removeFollowingCategory: fcState.removeFunction };
+    useEffect(() => {
+        return () => {
+            hideCategories();
+        }
+    }, [])
 
-    const props = { showCreateTopicLink: topics?.length > 0, message: "You haven't followed any categories yet. Would you like to go follow some first?", fc };
+    const fc = { categories: fcState.state, addFollowingCategory: fcState.addFunction, removeFollowingCategory: fcState.removeFunction };
+    
+    const props = { showCreateTopicLink: topics?.length > 0, message: "You haven't followed any categories yet.", fc };
     return (
         <>
             {show && <BrowseCategories fc={fc} />}
-            <Topics topics={topics} {...props} showBrowseCategories={true} message={<BrowseCategories fc={fc} />} />
+            <Topics topics={topics} {...props} showBrowseCategories={true} />
         </>
     )
 }

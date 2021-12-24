@@ -29,14 +29,6 @@ export default function Topics({ topics, CustomHeading, showCreateTopicLink = tr
         st = { savedTopics: stState.state, addSavedTopic: stState.addFunction, removeSavedTopic: stState.removeFunction };
     }
 
-    if (typeof message === 'string') {
-        message = (
-            <p className='no-posts-message'>
-                {message}
-            </p>
-        )
-    }
-
     return (
         <>
             {showCreateTopicLink &&
@@ -44,22 +36,19 @@ export default function Topics({ topics, CustomHeading, showCreateTopicLink = tr
                     <Route path="create" element={<CreateTopic />} />
                 </Routes>}
             <section className="content">
-                {(topics && topics.length === 0)
-                    ? show || message
-                    : <>
-                        <aside>
-                            {showBrowseCategories && <BrowseCategoriesAside />}
-                            {(showAside && topics?.length > 0) && <Aside />}
-                        </aside>
-                        <section className="topics">
-                            {CustomHeading ? CustomHeading : <></>}
-                            {showCreateTopicLink && <CreateTopicLink />}
-                            {topics
-                                ? topics.map(topic => <TopicCard topic={topic} key={topic._id} isAuthenticated={isAuthenticated} user={user} fc={fc} st={st} />)
-                                : <Spinner modalType='spinner' />}
-                        </section>
-                    </>
-                }
+                <aside>
+                    {showBrowseCategories && <BrowseCategoriesAside />}
+                    {(showAside && topics?.length > 0) && <Aside />}
+                </aside>
+                <section className="topics">
+                    {CustomHeading ? CustomHeading : <></>}
+                    {showCreateTopicLink && <CreateTopicLink />}
+                    {topics
+                        ? topics.length > 0
+                            ? topics.map(topic => <TopicCard topic={topic} key={topic._id} isAuthenticated={isAuthenticated} user={user} fc={fc} st={st} />)
+                            : <p className='no-posts-message'>{message}</p>
+                        : <Spinner modalType='spinner' />}
+                </section>
             </section>
         </>
     )

@@ -25,7 +25,7 @@ function SavedTopics() {
             } catch (err) {
                 setTopics([]);
                 console.error(err);
-                showNotification(err.message, 'warning');
+                showNotification('You haven\t saved any topics yet.', 'warning');
             }
         })()
     }, [stState.state, query.sortby, query.order])

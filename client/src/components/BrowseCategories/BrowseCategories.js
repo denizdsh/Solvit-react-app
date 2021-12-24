@@ -111,7 +111,11 @@ export default function BrowseCategories({ fc }) {
     function Component(title, img, imgStyles) {
         const [hasFollowed, setHasFollowed] = useState(fc.categories.includes(title.toLocaleLowerCase()));
 
-        useEffect(() => { setHasFollowed(fc.categories.includes(title.toLocaleLowerCase())) }, [fc.categories])
+        useEffect(() => {
+            setHasFollowed(fc.categories.includes(title.toLocaleLowerCase()))
+            if (title === 'Quality Assurance' && fc.categories.includes('qa')) setHasFollowed(true);
+            if (title === 'C#' && fc.categories.includes('csharp')) setHasFollowed(true);
+        }, [fc.categories])
 
         const followHandler = async () => {
             await fc.addFollowingCategory(title === 'C#' ? 'csharp' : title === 'Quality Assurance' ? 'qa' : title.toLocaleLowerCase());
@@ -152,7 +156,7 @@ export default function BrowseCategories({ fc }) {
 
     return (
         <Grow
-            in={show || true}
+            in={show}
             style={{ transformOrigin: '0 0 0' }}
             {...(show ? { timeout: 1000 } : {})}
         >

@@ -9,8 +9,16 @@ export function BrowseCategoriesProvider({ children }) {
         setShow(oldState => !oldState);
     }
 
+    const showCategories = () => {
+        setShow(true);
+    }
+
+    const hideCategories = () => {
+        setShow(false);
+    }
+
     return (
-        <BrowseCategoriesContext.Provider value={{ show, toggleShow }}>
+        <BrowseCategoriesContext.Provider value={{ show, toggleShow, showCategories, hideCategories }}>
             {children}
         </BrowseCategoriesContext.Provider>
     )

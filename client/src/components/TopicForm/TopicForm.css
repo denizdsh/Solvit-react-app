@@ -7,7 +7,7 @@
     border-radius: 15px;
 }
 
-.topic-form-title{
+.topic-form-title {
     font-size: 1.8rem;
     padding-left: 8px;
     margin: 0px;
@@ -65,12 +65,14 @@
     max-width: 100%;
     min-height: 15vh;
 }
-.link-to-imgur{
+
+.link-to-imgur {
     font-size: 0.9rem;
     color: rgb(117, 171, 189);
     padding-left: 8px;
 }
-.topic-form-submit{
+
+.topic-form-submit {
     font-size: 1.05rem;
     height: fit-content;
     padding: 8px 16px;
@@ -80,11 +82,12 @@
     border: 2px solid #313846;
     border-radius: 20px;
 }
-.topic-form-submit:hover{
+
+.topic-form-submit:hover {
     cursor: pointer;
 }
 
-.topic-form-submit:active{
+.topic-form-submit:active {
     background: #4b8299;
 }
 
@@ -100,6 +103,6 @@
     border-color: #313846 !important;
 }
 
-.css-154xyx0-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+.Mui-focused .MuiOutlinedInput-notchedOutline {
     border-color: #86D6F9 !important;
 }

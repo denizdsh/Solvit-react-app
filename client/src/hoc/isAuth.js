@@ -17,7 +17,7 @@ export const isUser = (Component) => {
         const { isAuthenticated } = useAuth();
 
         return !isAuthenticated
-            ? <Navigate to="/" />
+            ? <Navigate to="/all" />
             : <Component {...props} />
     }
     return WrapperComponent
