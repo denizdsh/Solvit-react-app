@@ -22,14 +22,15 @@ export const useTopicHandlers = (topic, fc, st, isAuthenticated = false, user) =
 
     useEffect(() => {
         (async () => {
+            let l = topic?._likesCount;
+            setLikes(l);
+
             if (!isAuthenticated) {
                 return;
             }
 
             let hl = topic?.likes?.includes(user._id);
-            let l = topic?._likesCount;
             setHasLiked(hl);
-            setLikes(l);
         })()
     }, [topic, isAuthenticated, user])
 
