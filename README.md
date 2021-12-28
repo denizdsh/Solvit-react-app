@@ -1,6 +1,6 @@
-# Solvit-fullstack-app 
-### Project used for React course exam at SoftUni 
-#### Will be deployed on firebase soon
+# Solvit - a forum for developers 
+### React project used for React course exam at SoftUni 
+#### Deployed on firebase: https://solvit-react-app.web.app
 
 ### Functionality:
 #### Guests:
