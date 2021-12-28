@@ -52,8 +52,8 @@
 @media all and (max-width: 750px) {
     .user-menu {
         margin: auto;
-        width: 96vw;
-        right: 1.2vw;
-        top: 150px
+        width: 98vw;
+        right: 0.5vw;
+        top: 11%
     }
 }
