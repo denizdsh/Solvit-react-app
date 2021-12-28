@@ -22,12 +22,12 @@ export function AuthProvider({ children }) {
         setUser(initialUserData);
     }
 
-    const updateImage = (imageUrl) => {
-        setUser({ ...user, imageUrl });
+    const updateUser = (username, imageUrl) => {
+        setUser({ ...user, username, imageUrl });
     }
 
     return (
-        <AuthContext.Provider value={{ user, login, logout, isAuthenticated: Boolean(user.accessToken), updateImage }}>
+        <AuthContext.Provider value={{ user, login, logout, isAuthenticated: Boolean(user.accessToken), updateUser }}>
             {children}
         </AuthContext.Provider>
     )

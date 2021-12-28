@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { isUser } from '../hoc/isAuth';
 import { useAuth } from '../hooks/useAuth';
 import { useNotification } from '../hooks/useNotification';
-import { editProfile, getUserImageByUsername } from '../services/user'
+import { editProfile } from '../services/user'
 
 function EditProfile() {
     const [passwordType, setPasswordType] = useState('password');
     const navigate = useNavigate();
-    const { user, updateImage } = useAuth();
+    const { user, updateUser } = useAuth();
     const { showNotification } = useNotification();
 
     const passwordTypeHandler = () => {
@@ -29,9 +29,9 @@ function EditProfile() {
                 throw new Error({ message: 'Image must be a valid URL' })
             }
 
-            await editProfile({ username, imageUrl }, password);
+            const data = await editProfile({ username, imageUrl }, password);
 
-            if (imageUrl) updateImage(imageUrl)
+            updateUser(data.username, data.imageUrl);
 
             navigate('/', { replace: true });
             showNotification(`Successfully edited profile`, 'success')
