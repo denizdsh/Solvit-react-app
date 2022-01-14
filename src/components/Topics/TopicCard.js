@@ -1,16 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 
 import { useTopicHandlers } from '../../hooks/useTopicHandlers'
+import { getDate } from '../../services/util';
 
 import './TopicCard.css';
 import Button from '@mui/material/Button';
-
-function getDate(dateData) {
-    let [date, time] = dateData.split('T');
-    time = time.split('.')[0];
-
-    return `${date} ${time}`;
-}
 
 export default function TopicCard({ topic, isAuthenticated, user, fc, st }) {
     const th = useTopicHandlers(topic, fc, st, isAuthenticated, user);
@@ -31,7 +25,7 @@ export default function TopicCard({ topic, isAuthenticated, user, fc, st }) {
                     </article>
                     <article className="topic-info-creation">
                         <span className="topic-info-creation-posted-by">
-                            Posted by <Link className="topic-info-creation-posted-by-username" to={`/u/${topic.author}`}>u/{topic.author}</Link>
+                            by <Link className="topic-info-creation-posted-by-username" to={`/u/${topic.author}`}>u/{topic.author}</Link>
                         </span>
                         <span className="topic-info-creation-date">{date}</span>
                     </article>

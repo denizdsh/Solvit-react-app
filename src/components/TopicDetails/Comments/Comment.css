@@ -1,6 +1,6 @@
 .comment {
     padding: 10px;
-    margin-bottom: 35px;
+    margin-bottom: 30px;
     border-left: 2px solid #313846;
 }
 
@@ -34,7 +34,7 @@
 .comment-content-text{
     font-weight: 400;
     font-size: 0.9rem;
-    padding-left: calc(1.75rem + 10px);
+    padding-left: calc(1.75rem + 13px);
     margin-top: 0;
-    margin-bottom: 15px;
+    margin-bottom: 0;
 }

@@ -8,6 +8,7 @@ import { useTopicFunctionality } from '../../hooks/useTopicFunctionality';
 import { useTopicHandlers } from '../../hooks/useTopicHandlers';
 import { getTopicById } from '../../services/topic';
 import { getFollowingCategories, followCategory, unfollowCategory, getSavedTopicsIds, saveTopic, unsaveTopic } from '../../services/user';
+import { getDate } from '../../services/util';
 
 import './TopicDetails.css';
 import Button from '@mui/material/Button';
@@ -15,13 +16,6 @@ import EditTopic from '../TopicActions/EditTopic';
 import DeleteTopic from '../TopicActions/DeleteTopic';
 import CommentSection from '../TopicDetails/Comments/CommentSection';
 import Spinner from '../Common/Spinner/Spinner';
-
-function getDate(dateData) {
-    let [date, time] = dateData.split('T');
-    time = time.split('.')[0];
-
-    return `${date} ${time}`;
-}
 
 export default function TopicDetails() {
     const [topic, setTopic] = useState({});
@@ -80,7 +74,7 @@ export default function TopicDetails() {
                         </article>
                         <article className="topic-info-creation details">
                             <span className="topic-info-creation-posted-by details">
-                                Posted by <Link className="topic-info-creation-posted-by-username" to={`/u/${topic.author}`}>u/{topic.author}</Link>
+                                by <Link className="topic-info-creation-posted-by-username" to={`/u/${topic.author}`}>u/{topic.author}</Link>
                             </span>
                             <span className="topic-info-creation-date details">{date}</span>
                         </article>
