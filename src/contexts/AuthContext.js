@@ -22,12 +22,8 @@ export function AuthProvider({ children }) {
         setUser(initialUserData);
     }
 
-    const updateUser = (username, imageUrl) => {
-        setUser({ ...user, username, imageUrl });
-    }
-
     return (
-        <AuthContext.Provider value={{ user, login, logout, isAuthenticated: Boolean(user.accessToken), updateUser }}>
+        <AuthContext.Provider value={{ user, login, logout, isAuthenticated: Boolean(user.accessToken) }}>
             {children}
         </AuthContext.Provider>
     )

@@ -4,11 +4,12 @@ import { isUser } from '../hoc/isAuth';
 import { useAuth } from '../hooks/useAuth';
 import { useNotification } from '../hooks/useNotification';
 import { editProfile } from '../services/user'
+import * as auth from '../services/auth';
 
 function EditProfile() {
     const [passwordType, setPasswordType] = useState('password');
     const navigate = useNavigate();
-    const { user, updateUser } = useAuth();
+    const { user, logout, login } = useAuth();
     const { showNotification } = useNotification();
 
     const passwordTypeHandler = () => {
@@ -31,7 +32,10 @@ function EditProfile() {
 
             const data = await editProfile({ username, imageUrl }, password);
 
-            updateUser(data.username, data.imageUrl);
+            const email = user.email;
+            logout();
+            const userData = await auth.login(email, password);
+            login(userData);
 
             navigate('/', { replace: true });
             showNotification(`Successfully edited profile`, 'success')

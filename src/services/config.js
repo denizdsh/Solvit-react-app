@@ -1,4 +1,5 @@
 export const port = 'https://solvit.herokuapp.com';
+// export const port = 'http://localhost:5000';
 export const categories = [
     'JavaScript',
     'Java',

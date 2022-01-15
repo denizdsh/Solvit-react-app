@@ -47,7 +47,7 @@ function FollowedTopics() {
 
     const fc = { categories: fcState.state, addFollowingCategory: fcState.addFunction, removeFollowingCategory: fcState.removeFunction };
     
-    const props = { showCreateTopicLink: topics?.length > 0, message: "You haven't followed any categories yet.", fc };
+    const props = { showCreateTopicLink: topics?.length > 0, message: fc.categories.length === 0 ? 'You haven\'t followed any categories yet.' : 'No posts in followed categories.', fc };
     return (
         <>
             {show && <BrowseCategories fc={fc} />}

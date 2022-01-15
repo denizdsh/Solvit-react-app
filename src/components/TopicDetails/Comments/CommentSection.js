@@ -16,7 +16,7 @@ export default function CommentSection({ id, isAuthenticated }) {
             const commentsData = await getComments(id);
             setComments(commentsData);
         } catch (err) {
-            showNotification(err, 'error');
+            showNotification(err.message, 'error');
         }
     }, [id, showNotification])
 
@@ -40,12 +40,16 @@ export default function CommentSection({ id, isAuthenticated }) {
             const { content } = Object.fromEntries(form);
 
             try {
+                if (!content.trim()) {
+                    throw new Error('Cannot post an empty comment.');
+                }
+
                 e.currentTarget.reset();
                 await postComment(id, content);
                 showNotification('Successfully commented', 'success');
                 getCommentsData()
             } catch (err) {
-                showNotification(err, 'error');
+                showNotification(err.message, 'error');
             }
         }
     }

@@ -18,15 +18,15 @@ export const useTopicFunctionality = (getRequest, addRequest, removeRequest, isA
 
 
     const addFunction = async (value) => {
-        setState([...state, value]);
-
         await addRequest(value);
+        
+        setState([...state, value]);
     }
 
     const removeFunction = async (value) => {
-        setState(state.filter(x => x !== value));
-
         await removeRequest(value);
+        
+        setState(state.filter(x => x !== value));
     }
 
     return { state, addFunction, removeFunction };
