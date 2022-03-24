@@ -1,88 +1,102 @@
 import './Header.css'
-import { useState } from 'react';
+import { useState, useEffect, useCallback, createElement } from 'react';
 import { useAuth } from '../../hooks/useAuth';
-import { Link } from 'react-router-dom';
-
-
+import { Link, useLocation } from 'react-router-dom';
 import UserMenu from './UserMenu';
 
 export default function Header() {
+    const [isCategoryMenuActive, setIsCategoryMenuActive] = useState(false);
     const { user } = useAuth();
-    const [active, setActive] = useState({ classList: { remove: function () { }, add: function () { } } });
+    const { pathname } = useLocation();
 
-    const activeHandler = (e) => {
-        active.classList.remove('active');
-        e.currentTarget.classList.add('active');
-        setActive(e.currentTarget);
+    const activeLink = useCallback((currentPath) => {
+        if (pathname.includes(currentPath)) return ' active';
+
+        return '';
+    }, [pathname])
+
+    //Categories dropdown menu functionality
+    useEffect(() => {
+        if (!isCategoryMenuActive) return;
+
+        const clickOutsideHandler = (e) => {
+            if (!e.target.classList.contains('dropdown-content')) setIsCategoryMenuActive(false);
+        }
+
+        document.addEventListener('click', clickOutsideHandler)
+
+        return () => document.removeEventListener('click', clickOutsideHandler)
+    }, [isCategoryMenuActive])
+
+    const toggleCategoryMenu = () => {
+        setIsCategoryMenuActive(value => !value);
     }
 
     const userNav = (
         <>
-            <li className="nav-list-item" >
-                <Link to="/saved" onClick={activeHandler}>Saved topics</Link>
+            <li className="nav-list-item main-nav-link">
+                <Link to="/saved" className={activeLink('saved')}>Saved Topics</Link>
             </li>
-
             <UserMenu />
         </>
     )
     const guestNav = (
         <>
-            <li className="nav-list-item" >
-                <Link to="/login" className="auth-btn login-btn" onClick={activeHandler}>Log In</Link>
+            <li className="nav-list-item main-nav-link" >
+                <Link to="/login" className={"auth-btn login-btn" + activeLink('login')}>Log In</Link>
             </li>
-            <li className="nav-list-item" >
-                <Link to="/register" className="auth-btn register-btn" onClick={activeHandler}>Sign Up</Link>
+            <li className="nav-list-item main-nav-link" >
+                <Link to="/register" className={"auth-btn register-btn" + activeLink('register')}>Sign Up</Link>
             </li>
         </>
     )
-
     return (
         <nav className="nav">
             <article className="nav-logo">
-                <Link to="/" onClick={activeHandler}>
+                <Link to="/">
                     <img src="/logo.png" alt="solvit" className="nav-logo-image" />
                 </Link>
             </article>
 
             <ul className="nav-list">
-                <li className="nav-list-item" >
-                    <Link to="/all" onClick={activeHandler}>All</Link>
+                <li className="nav-list-item main-nav-link" >
+                    <Link to="/all" className={'link-to-all' + activeLink('all')}>All</Link>
                 </li>
                 <li className="nav-list-item dropdown" >
-                    <button className="dropdown-btn ">
+                    <button className={`dropdown-btn${isCategoryMenuActive ? ' active-dropdown-menu' : ''}${activeLink('c')}`} onClick={toggleCategoryMenu}>
                         Categories <i className="fa fa-caret-down"></i>
                     </button>
                     <article className="dropdown-content">
-                        <Link to="/c/javascript" className="dropdown-content-link" >JavaScript</Link>
-                        <Link to="/c/java" className="dropdown-content-link" >Java</Link>
-                        <Link to="/c/csharp" className="dropdown-content-link" >C#</Link>
-                        <Link to="/c/python" className="dropdown-content-link" >Python</Link>
-                        <Link to="/c/c++" className="dropdown-content-link" >C++</Link>
-                        <Link to="/c/php" className="dropdown-content-link" >PHP</Link>
-                        <Link to="/c/devops" className="dropdown-content-link" >DevOps</Link>
-                        <Link to="/c/qa" className="dropdown-content-link" >QA</Link>
+                        <Link to="/c/javascript" className={"dropdown-content-link" + activeLink('javascript')} >JavaScript</Link>
+                        <Link to="/c/java" className={"dropdown-content-link" + activeLink('java')} >Java</Link>
+                        <Link to="/c/csharp" className={"dropdown-content-link" + activeLink('csharp')} >C#</Link>
+                        <Link to="/c/python" className={"dropdown-content-link" + activeLink('python')} >Python</Link>
+                        <Link to="/c/c++" className={"dropdown-content-link" + activeLink('c++')} >C++</Link>
+                        <Link to="/c/php" className={"dropdown-content-link" + activeLink('php')} >PHP</Link>
+                        <Link to="/c/devops" className={"dropdown-content-link" + activeLink('devops')} >DevOps</Link>
+                        <Link to="/c/qa" className={"dropdown-content-link" + activeLink('qa')} >QA</Link>
 
                         <Link to="/c/front-end" className="dropdown-content-link inner-dropdown-btn">
                             Front-end <i className="fa fa-caret-down"></i>
                         </Link>
                         <article className="inner-dropdown-content">
-                            <Link to="/c/react" className="dropdown-content-link" >React</Link>
-                            <Link to="/c/jquery" className="dropdown-content-link" >jQuery</Link>
-                            <Link to="/c/angular" className="dropdown-content-link" >Angular</Link>
-                            <Link to="/c/vue.js" className="dropdown-content-link" >Vue.js</Link>
+                            <Link to="/c/react" className={"dropdown-content-link" + activeLink('react')} >React</Link>
+                            <Link to="/c/jquery" className={"dropdown-content-link" + activeLink('jquery')} >jQuery</Link>
+                            <Link to="/c/angular" className={"dropdown-content-link" + activeLink('angular')} >Angular</Link>
+                            <Link to="/c/vue.js" className={"dropdown-content-link" + activeLink('vue.js')} >Vue.js</Link>
                         </article>
 
                         <Link to="/c/back-end" className="dropdown-content-link inner-dropdown-btn">
                             Back-end <i className="fa fa-caret-down"></i>
                         </Link>
                         <article className="inner-dropdown-content">
-                            <Link to="/c/node.js" className="dropdown-content-link">Node.js</Link>
-                            <Link to="/c/spring" className="dropdown-content-link">Spring</Link>
-                            <Link to="/c/asp.net" className="dropdown-content-link">ASP.NET</Link>
-                            <Link to="/c/django" className="dropdown-content-link">Django</Link>
+                            <Link to="/c/node.js" className={"dropdown-content-link" + activeLink('node.js')}>Node.js</Link>
+                            <Link to="/c/spring" className={"dropdown-content-link" + activeLink('spring')}>Spring</Link>
+                            <Link to="/c/asp.net" className={"dropdown-content-link" + activeLink('asp.net')}>ASP.NET</Link>
+                            <Link to="/c/django" className={"dropdown-content-link" + activeLink('django')}>Django</Link>
                         </article>
 
-                        <Link to="/c/other" className="dropdown-content-link" >Other</Link>
+                        <Link to="/c/other" className={"dropdown-content-link" + activeLink('other')} >Other</Link>
                     </article>
                 </li>
 
@@ -90,6 +104,6 @@ export default function Header() {
                     ? userNav
                     : guestNav}
             </ul>
-        </nav>
+        </nav >
     );
 }

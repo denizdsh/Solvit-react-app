@@ -45,7 +45,7 @@ export default function UserMenu() {
 
             <Grow
                 in={isOpen}
-                style={{ transformOrigin: '0 0 0' }}
+                style={{ transformOrigin: 'right 0 0' }}
                 {...(isOpen ? { timeout: 600 } : {})}
             >
                 <article className="user-menu">

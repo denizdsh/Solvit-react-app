@@ -19,7 +19,6 @@ import Logout from './components/Auth/Logout';
 import EditProfile from './components/EditProfile'
 import Notification from './components/Common/Notification/Notification';
 
-
 function App() {
   return (
     <AuthProvider>
