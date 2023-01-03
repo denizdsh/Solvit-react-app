@@ -1,5 +1,7 @@
-export const port = 'https://solvit.herokuapp.com';
-// export const port = 'http://localhost:5000';
+export const API_URL = process.env.NODE_ENV === 'development'
+    ? process.env.REACT_APP_LOCAL_API_URL
+    : process.env.REACT_APP_REMOTE_API_URL
+
 export const categories = [
     'JavaScript',
     'Java',

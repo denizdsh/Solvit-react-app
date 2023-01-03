@@ -1,7 +1,7 @@
-import { port } from './config';
+import { API_URL } from './config';
 import * as api from './api';
 
-const url = `${port}/topics`;
+const url = `${API_URL}/topics`;
 
 export async function createTopic(body) {
     try {

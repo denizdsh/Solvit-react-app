@@ -1,11 +1,11 @@
-import { port } from './config';
+import { API_URL } from './config';
 import * as api from './api';
 
-const userUrl = `${port}/u`;
-const userActionUrl = `${port}/user-action`;
+const userUrl = `${API_URL}/u`;
+const userActionUrl = `${API_URL}/user-action`;
 
 export const editProfile = async (body, password) => {
-    return await api.post(`${port}/edit-profile`, { ...body, password });
+    return await api.post(`${API_URL}/edit-profile`, { ...body, password });
 }
 
 export const getFollowingCategories = async () => {
