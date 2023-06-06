@@ -1,5 +1,5 @@
 import './Header.css'
-import { useState, useEffect, useCallback, createElement } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { Link, useLocation } from 'react-router-dom';
 import UserMenu from './UserMenu';

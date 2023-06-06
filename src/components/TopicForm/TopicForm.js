@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { isUser } from '../../hoc/isAuth';
@@ -82,31 +81,13 @@ function TopicForm({ title, topicAction, topic }) {
                     </article>
 
                     <section>
-                        {
-                            defaultCategory &&
-                            <Autocomplete className="topic-form-category-autocomplete"
-                                disablePortal
-                                id="topic-category"
-                                options={categories}
-                                defaultValue={defaultCategory}
-                                sx={{ width: '30%', '&:hover': { outline: '0px', border: '0px', boxShadow: '0px 0px 0px 0px' }, '&.Mui-focused': { outline: '0px', border: '0px', boxShadow: '0px 0px 0px 0px' }, '&.Mui-active': { outline: '0px', border: '0px', boxShadow: '0px 0px 0px 0px' } }}
-                                renderInput={(params) => <TextField {...params} label="Category" name="category" />}
-                            />
-
-
-                        }
-                        {
-                            !defaultCategory &&
-                            <Autocomplete className="topic-form-category-autocomplete"
-                                disablePortal
-                                id="topic-category"
-                                options={categories}
-                                sx={{ width: '30%', '&:hover': { outline: '0px', border: '0px', boxShadow: '0px 0px 0px 0px' }, '&.Mui-focused': { outline: '0px', border: '0px', boxShadow: '0px 0px 0px 0px' }, '&.Mui-active': { outline: '0px', border: '0px', boxShadow: '0px 0px 0px 0px' } }}
-                                renderInput={(params) => <TextField {...params} label="Category" name="category" />}
-                            />
-                        }
-
-
+                        <Autocomplete className="topic-form-category-autocomplete"
+                            id="topic-category"
+                            options={categories}
+                            defaultValue={defaultCategory || null}
+                            sx={{ width: '40%' }}
+                            renderInput={(params) => <TextField {...params} label="Category" name="category" />}
+                        />
                         <input type="submit" defaultValue="Post" className="topic-form-submit" />
                     </section>
                 </form>
